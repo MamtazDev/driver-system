@@ -61,7 +61,8 @@ const carList = () => {
                                     <div className="flex justify-between items-center mt-[14px]">
 
                                         <p className="text-black">Company: Ferrari</p>
-                                        <p className="text-black">Driver name: Nicolos</p></div>
+                                        <Link href="/dashboard/driverDetails"><p className="text-black">Driver name: Nicolos</p></Link>
+                                        </div>
 
                                 }
 
