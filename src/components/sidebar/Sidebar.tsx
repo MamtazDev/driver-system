@@ -31,6 +31,8 @@ const Sidebar: React.FC = () => {
     setDropDownManager(dropDownManager)
   };
 
+  
+  
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
       <label className="sidebar-toggle" htmlFor="check">
@@ -73,8 +75,14 @@ const Sidebar: React.FC = () => {
                         onClick={() => setActiveLink("/dashboard/managerProfile")}
                       />
                     </li>
-
-
+                    <li className="">
+                      <MenuBtn
+                        link="/dashboard/carList"
+                        text="Car Lists"
+                        isActive={activeLink === "/dashboard/carList"}
+                        onClick={() => setActiveLink("/dashboard/carList")}
+                      />
+                    </li>
                   </ul>
                 )}
               </div>

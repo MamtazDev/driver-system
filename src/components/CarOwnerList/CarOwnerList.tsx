@@ -12,7 +12,7 @@ const CarOwnerList = () => {
     return (
         <div> <div className="driver_list_wrapper w-full">
             <div className="container mx-auto">
-                <h2 className="text-xl  py-5" >Car Owner list</h2>
+                <h2 className="text-xl  py-5">Car Owner list</h2>
                 <div className="shadow-card">
                     <div className="relative overflow-x-auto">
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">

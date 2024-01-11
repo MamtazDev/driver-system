@@ -13,6 +13,13 @@ const carList = () => {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
+    const [selectedValue, setSelectedValue] = useState("")
+
+    const handleSelectChange = (event: any) => {
+        setSelectedValue(event.target.value);
+    };
+    console.log(selectedValue)
+
 
     return (
         <>
@@ -29,19 +36,35 @@ const carList = () => {
                                 </div> */}
                                 {/* <p>Available Now</p> */}
 
-                                <select name="" id="">
-                                    <option value="Available" selected>Available</option>
-                                    <option value="Assigned">Assigned</option>
+                                <select name="status" onChange={handleSelectChange}>
+                                    {/* <option value="select">select</option> */}
+                                    <option value="Available">Available</option>
+                                    <option value="Authorized">Authorized</option>
                                 </select>
+                                {/* <p>Selected value: {selectedValue}</p> */}
+
                             </div>
                             <Image src={car} alt="" />
                             <div className="card_body">
                                 <p>FORD FOCUS</p>
                                 <div className='flex justify-between items-center  car_title'>
-                                    <h5 >1.5 EcoBlue MT Titenium X</h5>
+                                    <h5 className="pb-[20px]">1.5 EcoBlue MT Titenium X</h5>
                                     <p>$24.59 <span>/hour</span></p>
                                 </div>
-                                <Link href="/dashboard/authorizationRequest"><button>Authorized Now</button></Link>
+                                {
+                                    selectedValue === 'Available' &&
+                                    <Link href="/dashboard/authorizationRequest"><button>Authorized Now</button></Link>
+                                }
+
+                                {
+                                    selectedValue === 'Authorized' &&
+                                    <div className="flex justify-between items-center mt-[14px]">
+
+                                        <p className="text-black">Company: Ferrari</p>
+                                        <p className="text-black">Driver name: Nicolos</p></div>
+
+                                }
+
                             </div>
                         </div>
                     </div>

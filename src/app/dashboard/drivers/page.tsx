@@ -31,6 +31,7 @@ const Drivers = () => {
                       Phone Number
                     </th>
                     <th>License</th>
+                    <th>Assigned To</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -59,6 +60,121 @@ const Drivers = () => {
                         <button className="flex gap-2 items-center  "> <FaFilePdf className="text-[14px] h-[10px]" />pdf</button>
                       </div>
                     </td>
+                    <td className=" py-4">Ferrari (Model-10)</td>
+
+                    <td className="">
+                      <div className="flex gap-2 items-center">
+                        <Link href="/dashboard/editDriverProfile"><button>
+                          <CiEdit className="text-[24px]" />
+                        </button></Link>
+
+                        <button>
+                          <MdDelete className="text-[24px]" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="bg-grey-400 border-b border-dashed  dark:border-gray-700">
+                    <td
+                      scope="row"
+                      className=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      <div className="flex items-center gap-[8px]">
+                        <Image
+                          className="w-[40px] h-[40px]  rounded-full "
+                          src={driver1}
+                          alt="driver1"
+                        />
+                        <Link href="/dashboard/driverDetails" >  <p className="fw-bold ">
+
+                          Nicolos</p></Link>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4"></td>
+                    <td className="px-6 py-4">nicolos@gmail.com</td>
+                    <td className="px-6 py-4">01856416846</td>
+                    <td>
+                      <div className="border  w-fit  p-2 rounded-lg ">
+                        <button className="flex gap-2 items-center  "> <FaFilePdf className="text-[14px] h-[10px]" />pdf</button>
+                      </div>
+                    </td>
+                    <td className=" py-4">Ferrari (Model-10)</td>
+
+                    <td className="">
+                      <div className="flex gap-2 items-center">
+                        <Link href="/dashboard/editDriverProfile"><button>
+                          <CiEdit className="text-[24px]" />
+                        </button></Link>
+
+                        <button>
+                          <MdDelete className="text-[24px]" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="bg-grey-400 border-b border-dashed  dark:border-gray-700">
+                    <td
+                      scope="row"
+                      className=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      <div className="flex items-center gap-[8px]">
+                        <Image
+                          className="w-[40px] h-[40px]  rounded-full "
+                          src={driver1}
+                          alt="driver1"
+                        />
+                        <Link href="/dashboard/driverDetails" >  <p className="fw-bold ">
+
+                          Nicolos</p></Link>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4"></td>
+                    <td className="px-6 py-4">nicolos@gmail.com</td>
+                    <td className="px-6 py-4">01856416846</td>
+                    <td>
+                      <div className="border  w-fit  p-2 rounded-lg ">
+                        <button className="flex gap-2 items-center  "> <FaFilePdf className="text-[14px] h-[10px]" />pdf</button>
+                      </div>
+                    </td>
+                    <td className=" py-4">Not Assigned</td>
+
+                    <td className="">
+                      <div className="flex gap-2 items-center">
+                        <Link href="/dashboard/editDriverProfile"><button>
+                          <CiEdit className="text-[24px]" />
+                        </button></Link>
+
+                        <button>
+                          <MdDelete className="text-[24px]" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="bg-grey-400 border-b border-dashed  dark:border-gray-700">
+                    <td
+                      scope="row"
+                      className=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      <div className="flex items-center gap-[8px]">
+                        <Image
+                          className="w-[40px] h-[40px]  rounded-full "
+                          src={driver1}
+                          alt="driver1"
+                        />
+                        <Link href="/dashboard/driverDetails" >  <p className="fw-bold ">
+
+                          Nicolos</p></Link>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4"></td>
+                    <td className="px-6 py-4">nicolos@gmail.com</td>
+                    <td className="px-6 py-4">01856416846</td>
+                    <td>
+                      <div className="border  w-fit  p-2 rounded-lg ">
+                        <button className="flex gap-2 items-center  "> <FaFilePdf className="text-[14px] h-[10px]" />pdf</button>
+                      </div>
+                    </td>
+                    <td className=" py-4">Not Assigned</td>
 
                     <td className="">
                       <div className="flex gap-2 items-center">
