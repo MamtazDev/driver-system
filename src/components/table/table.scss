@@ -1,0 +1,156 @@
+@import '../../app/globals.scss';
+
+.table-component {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    box-shadow: $shadow;
+    padding: 32px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        margin-top: 100px;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(163, 163, 163, 0.3);
+        border-radius: 4px;
+    }
+
+    .table-header {
+        display: flex;
+        justify-content: space-between;
+
+        h4 {
+            color: $black;
+        }
+
+        .filter {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: $gray01;
+            font-weight: 500;
+
+            &:hover {
+                filter: opacity(0.8);
+            }
+
+            img {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+
+    .table-container {
+        @media screen and (max-width: 768px) {
+            width: 100%;
+            overflow-x: scroll;
+
+            &::-webkit-scrollbar {
+                width: 4px;
+                height: 4px;
+            }
+            
+            &::-webkit-scrollbar-track {
+                margin-top: 30px;
+                border-radius: 4px;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background: rgba(163, 163, 163, 0.3);
+                border-radius: 4px;
+            }
+
+            thead {
+                position: sticky;
+                top: 0;
+                background-color: #fff;
+            }
+        }
+
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;     
+
+        @media screen and (max-width: 768px) {
+            width: 700px;
+        }
+
+        thead {
+            tr {
+                th {
+                    padding-bottom: 12px;
+                    font-size: 14px;
+                    line-height: 16px;
+                    font-weight: 300;
+                    text-align: start;
+                    color: $gray02;
+                    border-bottom:1px solid rgba(163, 163, 163, 0.25);
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                td {
+                    padding: 12px 0;
+
+                    .carNo {
+                        padding: 4px 12px;
+                        border-radius: 4px;
+                        background-color: #9999991A;
+                    }
+
+                    &.driver {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 12px;
+                        color: $black;
+                    }
+
+                    .status {
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+                    }
+
+                    &.details {
+                        text-align: end;
+
+                        button {
+                            border: none;
+                            padding: 4px 16px;
+                            border-radius: 4px;
+                            background-color: $primary;
+                            color: #fff;
+                            font-style: 1rem;
+                            line-height: 150%;
+
+                            &:hover {
+                                filter: opacity(0.8);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .p4 {
+                color: $gray02;
+            }
+        }
+    }
+    
+}

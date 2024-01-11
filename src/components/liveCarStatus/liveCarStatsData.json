@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "carNo": 6465,
+    "driver": "Alex Noman",
+    "status": "Completed",
+    "earning": 35.44,
+    "profilePic": "AN.svg"
+  },
+  {
+    "id": 2,
+    "carNo": 5665,
+    "driver": "Razib Rahman",
+    "status": "Pending",
+    "earning": 0.00,
+    "profilePic": "RR.svg"
+  },
+  {
+    "id": 3,
+    "carNo": 1755,
+    "driver": "Luke Norton",
+    "status": "In Route",
+    "earning": 23.50,
+    "profilePic": "LN.svg"
+  },
+  {
+    "id": 4,
+    "carNo": 6465,
+    "driver": "Alex Noman",
+    "status": "Completed",
+    "earning": 35.44,
+    "profilePic": "AN.svg"
+  },
+  {
+    "id": 5,
+    "carNo": 5665,
+    "driver": "Razib Rahman",
+    "status": "Pending",
+    "earning": 0.00,
+    "profilePic": "RR.svg"
+  },
+  {
+    "id": 6,
+    "carNo": 1755,
+    "driver": "Luke Norton",
+    "status": "In Route",
+    "earning": 23.50,
+    "profilePic": "LN.svg"
+  },
+  {
+    "id": 7,
+    "carNo": 6465,
+    "driver": "Alex Noman",
+    "status": "Completed",
+    "earning": 35.44,
+    "profilePic": "AN.svg"
+  },
+  {
+    "id": 8,
+    "carNo": 5665,
+    "driver": "Razib Rahman",
+    "status": "Pending",
+    "earning": 0.00,
+    "profilePic": "RR.svg"
+  },
+  {
+    "id": 9,
+    "carNo": 1755,
+    "driver": "Luke Norton",
+    "status": "In Route",
+    "earning": 23.50,
+    "profilePic": "LN.svg"
+  },
+  {
+    "id": 10,
+    "carNo": 6465,
+    "driver": "Alex Noman",
+    "status": "Completed",
+    "earning": 35.44,
+    "profilePic": "AN.svg"
+  },
+  {
+    "id": 11,
+    "carNo": 5665,
+    "driver": "Razib Rahman",
+    "status": "Pending",
+    "earning": 0.00,
+    "profilePic": "RR.svg"
+  },
+  {
+    "id": 12,
+    "carNo": 1755,
+    "driver": "Luke Norton",
+    "status": "In Route",
+    "earning": 23.50,
+    "profilePic": "LN.svg"
+  },
+  {
+    "id": 13,
+    "carNo": 6465,
+    "driver": "Alex Noman",
+    "status": "Completed",
+    "earning": 35.44,
+    "profilePic": "AN.svg"
+  },
+  {
+    "id": 14,
+    "carNo": 5665,
+    "driver": "Razib Rahman",
+    "status": "Pending",
+    "earning": 0.00,
+    "profilePic": "RR.svg"
+  },
+  {
+    "id": 15,
+    "carNo": 1755,
+    "driver": "Luke Norton",
+    "status": "In Route",
+    "earning": 23.50,
+    "profilePic": "LN.svg"
+  }
+]
