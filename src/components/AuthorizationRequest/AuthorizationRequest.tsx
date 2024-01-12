@@ -117,11 +117,17 @@ const AuthorizationRequest = () => {
 
                             <div className='col-span-6'>
                                 <label htmlFor="">Authorization State</label>
-                                <input
+                                {/* <input
                                     type="number"
                                     className=''
                                     placeholder='Enter email'
-                                />
+                                /> */}
+                                 <select id="countries" className="w-[50%] border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                                <option selected>Choose</option>
+                                                <option value="Authorized">Request</option>
+                                                <option value="reject">Practice</option>
+                                                <option value="exam">Authorized</option>
+                                            </select>
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Phone Number</label>

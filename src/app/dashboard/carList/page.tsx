@@ -63,7 +63,6 @@ const carList = () => {
                                         <p className="text-black">Company: Ferrari</p>
                                         <Link href="/dashboard/driverDetails"><p className="text-black">Driver name: Nicolos</p></Link>
                                         </div>
-
                                 }
 
                             </div>

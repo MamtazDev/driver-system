@@ -17,9 +17,7 @@ export default function DashboardLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </Head>
+
       <body>
         <Sidebar />
         <div className="w-full">
@@ -29,6 +27,7 @@ export default function DashboardLayout({
 
           <div className="mt-[100px]">{children}</div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
       </body>
     </html>
   );

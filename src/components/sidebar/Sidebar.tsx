@@ -8,6 +8,7 @@ import Logout from "../../../public/assets/Logout.svg";
 import Settings from "../../../public/assets/Settings.svg";
 import MenuBtn from "../menuBtn/MenuBtn";
 import "./sidebar.scss";
+import Link from "next/link";
 
 const Sidebar: React.FC = () => {
   const [activeLink, setActiveLink] = useState("/");
@@ -19,7 +20,7 @@ const Sidebar: React.FC = () => {
   const toggleSidebar = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsOpen(!isOpen);
   };
-  
+
   const toggleDropDown = () => {
     setDropDown(dropDown);
   };
@@ -31,8 +32,8 @@ const Sidebar: React.FC = () => {
     setDropDownManager(dropDownManager)
   };
 
-  
-  
+
+
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
       <label className="sidebar-toggle" htmlFor="check">
@@ -44,9 +45,7 @@ const Sidebar: React.FC = () => {
         </div>
       </label>
       <div className="upper">
-        {/* <Image src={Logo} alt="Logo" /> */}
         <h2 className="text-white text-center">Car Authorization System</h2>
-
         <div className="sidebar-nav">
           <div className="sidebar-buttons">
             <MenuBtn
@@ -76,12 +75,7 @@ const Sidebar: React.FC = () => {
                       />
                     </li>
                     <li className="">
-                      <MenuBtn
-                        link="/dashboard/carList"
-                        text="Car Lists"
-                        isActive={activeLink === "/dashboard/carList"}
-                        onClick={() => setActiveLink("/dashboard/carList")}
-                      />
+
                     </li>
                   </ul>
                 )}
@@ -98,14 +92,7 @@ const Sidebar: React.FC = () => {
               <div className="dropdown_list">
                 {dropDownCars && (
                   <ul style={{ marginLeft: "30px" }}>
-                    {/* <li className="">
-                      <MenuBtn
-                        link="/dashboard/profile"
-                        text="Profile"
-                        isActive={activeLink === "/dashboard/profile"}
-                        onClick={() => setActiveLink("/dashboard/profile")}
-                      />
-                    </li> */}
+
                     <li className="">
                       <MenuBtn
                         link="/dashboard/drivers"
@@ -154,14 +141,7 @@ const Sidebar: React.FC = () => {
                       />
                     </li>
 
-                    <li className="">
-                      <MenuBtn
-                        link="/dashboard/carList"
-                        text="Car Lists"
-                        isActive={activeLink === "/dashboard/carList"}
-                        onClick={() => setActiveLink("/dashboard/carList")}
-                      />
-                    </li>
+
                     <li className="">
                       <MenuBtn
                         link="/dashboard/requestedList"
@@ -175,6 +155,12 @@ const Sidebar: React.FC = () => {
                 )}
               </div>
             </div>
+            <MenuBtn icon={Car}
+              link="/dashboard/carList"
+              text="Car Lists"
+              isActive={activeLink === "/dashboard/carList"}
+              onClick={() => setActiveLink("/dashboard/carList")}
+            />
             <MenuBtn
               icon={Bell}
               link="/dashboard/notification"
@@ -190,40 +176,13 @@ const Sidebar: React.FC = () => {
               onClick={() => setActiveLink("/settings")}
             />
           </div>
-          {/* <div className="divider"></div> */}
-          {/* <div>
-            <p>Report</p>
-            <div className="sidebar-buttons">
-              <MenuBtn
-                icon={Payment}
-                link="/payment"
-                text="Payment"
-                isActive={activeLink === "/payment"}
-                onClick={() => setActiveLink("/payment")}
-              />
-              <MenuBtn
-                icon={Transaction}
-                link="/transaction"
-                text="Transaction"
-                isActive={activeLink === "/transaction"}
-                onClick={() => setActiveLink("/transaction")}
-              />
-              <MenuBtn
-                icon={Report}
-                link="/car-report"
-                text="Car Report"
-                isActive={activeLink === "/car-report"}
-                onClick={() => setActiveLink("/car-report")}
-              />
-            </div>
-          </div> */}
         </div>
       </div>
       <div className="logout">
-        <button>
+        <Link href="/login"><button>
           <Image className="logout-icon" src={Logout} alt="Logo" />
           Logout
-        </button>
+        </button></Link>
       </div>
     </div>
   );
