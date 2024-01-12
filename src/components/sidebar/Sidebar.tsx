@@ -87,7 +87,7 @@ const Sidebar: React.FC = () => {
                         link="/dashboard/carOwnerList"
                         text="Car Owners List"
                         isActive={activeLink === "/dashboard/carOwnerList"}
-                        onClick={(e: MouseEvent) => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           setActiveLink("/dashboard/carOwnerList");
                         }}
@@ -98,8 +98,7 @@ const Sidebar: React.FC = () => {
                         link="/dashboard/addNewCar"
                         text="Add New Car"
                         isActive={activeLink === "/dashboard/addNewCar"}
-                        // onClick={() => setActiveLink("/dashboard/addNewCar")}
-                        onClick={(e: MouseEvent) => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           setActiveLink("/dashboard/addNewCar");
                         }}
@@ -111,8 +110,7 @@ const Sidebar: React.FC = () => {
                         link="/dashboard/requestedList"
                         text="Requested Lists"
                         isActive={activeLink === "/dashboard/requestedList"}
-                        // onClick={() => setActiveLink("/dashboard/requestedList")}
-                        onClick={(e: MouseEvent) => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           setActiveLink("/dashboard/requestedList");
                         }}
@@ -141,7 +139,7 @@ const Sidebar: React.FC = () => {
                         link="/dashboard/managerProfile"
                         text="Manager Profile"
                         isActive={activeLink === "/dashboard/managerProfile"}
-                        onClick={(e: MouseEvent) => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           setActiveLink("/dashboard/managerProfile");
                         }}
@@ -169,7 +167,7 @@ const Sidebar: React.FC = () => {
                         text="Drivers"
                         isActive={activeLink === "/dashboard/drivers"}
                         // onClick={() => setActiveLink("/dashboard/drivers")}
-                        onClick={(e: MouseEvent) => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           setActiveLink("/dashboard/drivers");
                         }}
@@ -180,7 +178,7 @@ const Sidebar: React.FC = () => {
                         link="/dashboard/addDriver"
                         text="Add Driver"
                         isActive={activeLink === "/dashboard/addDriver"}
-                        onClick={(e: MouseEvent) => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           setActiveLink("/dashboard/addDriver");
                         }}

@@ -8,7 +8,7 @@ interface MenuBtnProps {
   link?: string;
   text: string;
   isActive: boolean;
-  onClick?: (e: MouseEvent) => any|undefined;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
 const MenuBtn: React.FC<MenuBtnProps> = ({ icon, link, text, isActive, onClick }) => {
