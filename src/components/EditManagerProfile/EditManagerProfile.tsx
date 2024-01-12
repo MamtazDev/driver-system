@@ -5,6 +5,7 @@ import profile from "../../../public/assets/profile.png";
 
 import { ChangeEvent, useRef, useState } from "react";
 import BreadCrumb from "../BreadCrumb/BreadCrumb";
+import { FiCamera } from "react-icons/fi";
 
 const EditManagerProfile = () => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -31,7 +32,7 @@ const EditManagerProfile = () => {
             <div className="w-full">
 
                 <div className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
-                    <BreadCrumb title1="manager" title2="edit manager profile" />
+                    {/* <BreadCrumb title1="manager" title2="edit manager profile" /> */}
 
                     <input
                         type="file"
@@ -48,6 +49,11 @@ const EditManagerProfile = () => {
                             onClick={handleImageClick}
                             style={{ borderRadius: "50%" }}
                         />
+                        {
+                            !selectedImage && <div onClick={handleImageClick} className="absolute right-[22px] bottom-[28px] ">
+                                <FiCamera />
+                            </div>
+                        }
                     </div>
                     <div className="grid grid-cols-12 gap-4">
                         <div className="add_driver col-span-6">

@@ -129,10 +129,17 @@ h6 {
   font-weight: 600 !important;
   text-transform: uppercase;
   text-shadow: 0 2px 8px rgba(0, 0, 0, .08);
-  background: #7155E1;
+  background: #1E1B4B;
   color: #fff;
   border: none;
+  margin-top: 20px;
   border-radius: 8px;
+
+
+  &:hover {
+    background-color: #4f4d78;
+  }
+
 
 }
 

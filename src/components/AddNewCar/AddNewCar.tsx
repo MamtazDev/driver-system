@@ -10,16 +10,16 @@ const AddNewCar = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleImageClick = () => {
-      fileInputRef.current?.click();
+    fileInputRef.current?.click();
   };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-      const selectedFile = event.target.files?.[0];
+    const selectedFile = event.target.files?.[0];
 
-      if (selectedFile) {
-          const imageUrl = URL.createObjectURL(selectedFile);
-          setSelectedImage(imageUrl);
-      }
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setSelectedImage(imageUrl);
+    }
   };
 
 
@@ -41,12 +41,12 @@ const AddNewCar = () => {
                   id="fileInput"
                   className=''
                 /> */}
-                <div className='border h-[150px] rounded-[5px]'>
-                  <div className='absolute right-[35%] top-[45%] text-center my-auto '>
-                    <a href="" className='underline text-[#7155E1]'  onClick={handleImageClick}>   <p className='text-[14px]'>Brows photo</p></a>
+                <div className='border h-[150px] rounded-[5px] cursor-pointer' >
+                  <div className='absolute right-[35%] top-[45%] text-center my-auto ' >
+                    <div className='underline text-[#7155E1] cursor-pointer ' onClick={handleImageClick}>   <p className='text-[14px]'>Brows photo</p></div>
                     <p>Supports: *.png, *.jpg and *.jpeg</p>
                   </div>
-                 
+
                   <div className="m-auto mb-[20px] left-[2%] top-[32%]" style={{ position: 'absolute', width: '100px', height: '100px' }}>
                     <Image
                       src={selectedImage || profile}

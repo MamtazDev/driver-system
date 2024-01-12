@@ -3,6 +3,7 @@
 import Image from "next/image";
 import profile from "../../../../public/assets/profile.png";
 import { ChangeEvent, useRef, useState } from "react";
+import { FiCamera } from "react-icons/fi";
 
 const addDriver = () => {
 
@@ -64,6 +65,11 @@ const addDriver = () => {
             onClick={handleImageClick}
             style={{ borderRadius: "50%" }}
           />
+          {
+            !selectedImage && <div onClick={handleImageClick} className="absolute right-[22px] bottom-[28px] ">
+              <FiCamera />
+            </div>
+          }
         </div>
         <div className="grid grid-cols-12 gap-4">
           <div className="add_driver col-span-6">

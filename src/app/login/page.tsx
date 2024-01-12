@@ -76,13 +76,13 @@ const Login = () => {
               </label>
 
               <Link
-                href="/forget-password"
+                href="/forgetPass"
                 className="text-primary font-semibold text-sm"
               >
                 I forgot my password
               </Link>
             </div>
-            <Link href="/verify-email">
+            <Link href="/verifyEmail">
               <PrimaryBtn>Login</PrimaryBtn>
             </Link>
           </form>

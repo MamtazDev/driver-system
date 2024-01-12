@@ -4,26 +4,27 @@ import Image from "next/image";
 import profile from "../../../public/assets/profile.png";
 
 import { ChangeEvent, useRef, useState } from "react";
+import { FiCamera } from "react-icons/fi";
 
 const EditDriverProfile = () => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const handleImageClick = () => {
-    // Trigger the hidden file input when the image is clicked
-    fileInputRef.current?.click();
-  };
+    const handleImageClick = () => {
+        // Trigger the hidden file input when the image is clicked
+        fileInputRef.current?.click();
+    };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    // Access the file input value using useRef
-    const selectedFile = event.target.files?.[0];
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        // Access the file input value using useRef
+        const selectedFile = event.target.files?.[0];
 
-    if (selectedFile) {
-      // Display the selected image
-      const imageUrl = URL.createObjectURL(selectedFile);
-      setSelectedImage(imageUrl);
-    }
-  };
+        if (selectedFile) {
+            // Display the selected image
+            const imageUrl = URL.createObjectURL(selectedFile);
+            setSelectedImage(imageUrl);
+        }
+    };
 
     return (
         <>
@@ -39,13 +40,18 @@ const EditDriverProfile = () => {
                     />
                     <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
                         <Image
-                            src={selectedImage ||profile } // Use a placeholder or default image URL
+                            src={selectedImage || profile} // Use a placeholder or default image URL
                             alt="Selected"
                             layout="fill"
                             objectFit="cover"
                             onClick={handleImageClick}
-                            style={{borderRadius:"50%"}}
+                            style={{ borderRadius: "50%" }}
                         />
+                        {
+                            !selectedImage && <div onClick={handleImageClick} className="absolute right-[22px] bottom-[28px] ">
+                                <FiCamera />
+                            </div>
+                        }
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="add_driver">

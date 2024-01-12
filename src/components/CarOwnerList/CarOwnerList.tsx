@@ -1,5 +1,5 @@
 "use client";
-import car from "../../../public/assets/car.jpg";
+import profile from "../../../public/assets/dashHeader.jpg";
 import Image from "next/image";
 import { FaFilePdf } from "react-icons/fa6";
 
@@ -21,14 +21,13 @@ const CarOwnerList = () => {
                                     <th scope="col" className="px-6 py-[15px]">
                                         Profile
                                     </th>
-                                    <th scope="col" className="px-6 py-[15px]"></th>
                                     <th scope="col" className="px-6 py-[15px]">
                                         Email
                                     </th>
                                     <th scope="col" className="px-6 py-[15px]">
                                         Phone Number
                                     </th>
-                                    <th>License</th>
+                                    <th>Car </th>
                                     <th>STATUS</th>
                                 </tr>
                             </thead>
@@ -41,73 +40,23 @@ const CarOwnerList = () => {
                                         <div className="flex items-center gap-[8px]">
                                             <Image
                                                 className="w-[40px] h-[40px]  rounded-full "
-                                                src={car}
+                                                src={profile}
                                                 alt="driver1"
                                             />
                                             <Link href="/dashboard/carList" >  <p className="fw-bold ">
 
-                                            Tonni</p></Link>
+                                                Nicolos</p></Link>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4"></td>
                                     <td className="px-6 py-4">nicolos@gmail.com</td>
                                     <td className="px-6 py-4">01856416846</td>
                                     <td>
-                                        <div className="border  w-fit  p-2 rounded-lg ">
-                                            <button className="flex gap-2 items-center  "> <FaFilePdf className="text-[14px] h-[10px]" />pdf</button>
-                                        </div>
+                                        ferrary
                                     </td>
-
                                     <td className="">
-                                        <div className="flex gap-2 items-center">
-                                            <button>
-                                                <CiEdit className="text-[24px]" />
-                                            </button>
-                                            <button>
-
-                                                <MdDelete className="text-[24px]" />
-                                            </button>
-                                        </div>
+                                        Available
                                     </td>
                                 </tr>
-                                <tr className="bg-grey-400 border-b border-dashed  dark:border-gray-700">
-                                    <td
-                                        scope="row"
-                                        className=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                    >
-                                        <div className="flex items-center gap-[8px]">
-                                            <Image
-                                                className="w-[40px] h-[40px]  rounded-full "
-                                                src={car}
-                                                alt="driver1"
-                                            />
-                                            <Link href="/dashboard/carList" >  <p className="fw-bold ">
-
-                                            Tonni</p></Link>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4"></td>
-                                    <td className="px-6 py-4">nicolos@gmail.com</td>
-                                    <td className="px-6 py-4">01856416846</td>
-                                    <td>
-                                        <div className="border  w-fit  p-2 rounded-lg ">
-                                            <button className="flex gap-2 items-center  "> <FaFilePdf className="text-[14px] h-[10px]" />pdf</button>
-                                        </div>
-                                    </td>
-
-                                    <td className="">
-                                        <div className="flex gap-2 items-center">
-                                            <button>
-                                                <CiEdit className="text-[24px]" />
-                                            </button>
-                                            <button>
-
-                                                <MdDelete className="text-[24px]" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
                             </tbody>
                         </table>
                     </div>
