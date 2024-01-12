@@ -27,7 +27,7 @@ const Stats = () => {
         <h5>Tue, 14 Nov, 2022, 11.30 AM </h5>
       </div>
       <div className="card_wrapper">
-        
+
         <Card
           title="Income"
           price={9460.0}
@@ -47,6 +47,19 @@ const Stats = () => {
         />
       </div>
     </div>
+    // <div className="container">
+    //   <div className="grid grid-cols-12">
+    //     <div className="col-span-4">
+    //       <div className="">
+
+    //       </div>
+
+    //     </div>
+
+
+
+    //   </div>
+    // </div>
   );
 };
 
