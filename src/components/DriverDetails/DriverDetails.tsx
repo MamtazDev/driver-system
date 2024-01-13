@@ -14,7 +14,7 @@ const DriverDetails = () => {
             <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">Already Assigned </button>
           </div>
         </div>
-        <div className="bg-[#fff] absolute me-[50px] z-40 w-[81%]  ">
+        <div className="bg-[#fff] absolute me-[50px] z-40 w-[79%]  ">
           <div className="flex border pb-5 ">
             <Image className="w-[180px] mt-[-60px] rounded-[14px] ms-[35px]" src={profile} alt="" />
             <div className="px-5 py-5 fw-bold">
