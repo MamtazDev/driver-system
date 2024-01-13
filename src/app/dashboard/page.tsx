@@ -12,7 +12,6 @@ export default function Home() {
       </Head>
     <div className="dashboard">
       <Stats />
-      {/* <LiveCarStatus /> */}
     </div>
     </>
   )

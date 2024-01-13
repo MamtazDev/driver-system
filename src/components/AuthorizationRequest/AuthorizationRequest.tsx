@@ -9,9 +9,7 @@ const AuthorizationRequest = () => {
 
         if (file && file.type === 'application/pdf') {
             setSelectedFile(file);
-            // Add additional logic if needed
         } else {
-            // Handle invalid file type
             alert('Please select a PDF file.');
             if (fileInputRef.current) {
                 fileInputRef.current.value = '';
@@ -28,7 +26,7 @@ const AuthorizationRequest = () => {
                         <div className=" add_driver grid grid-cols-12  gap-5 ">
 
                             <div className='col-span-6'>
-                                <label htmlFor="">Car</label>
+                                <label htmlFor="">Truck</label>
                                 <input
                                     type="text"
                                     className=''
@@ -41,7 +39,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     type="text"
                                     className=''
-                                    placeholder='Enter car model'
+                                    placeholder='Enter Truck model'
                                 />
                             </div>
 
@@ -83,7 +81,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     type="number"
                                     className=''
-                                    placeholder='Enter email'
+                                    placeholder='Enter Number'
                                 />
                             </div>
                             <div className='col-span-6'>
@@ -97,7 +95,7 @@ const AuthorizationRequest = () => {
                                             ref={fileInputRef}
                                             onChange={handleFileChange}
                                             style={{ display: 'none' }}
-                                            accept=".pdf" // Specify accepted file types (PDF in this case)
+                                            accept=".pdf" 
                                             id="fileInput"
                                         />
                                         <input
@@ -106,7 +104,7 @@ const AuthorizationRequest = () => {
                                             id="customFileInput"
                                             name="customFileInput"
                                             placeholder="Select a PDF file"
-                                             onClick={() => fileInputRef?.current?.click()}
+                                            onClick={() => fileInputRef?.current?.click()}
                                             value={selectedFile ? selectedFile.name : ''}
                                             readOnly
                                         />
@@ -117,17 +115,13 @@ const AuthorizationRequest = () => {
 
                             <div className='col-span-6'>
                                 <label htmlFor="">Authorization State</label>
-                                {/* <input
-                                    type="number"
-                                    className=''
-                                    placeholder='Enter email'
-                                /> */}
-                                 <select id="countries" className="w-[50%] border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                                                <option selected>Choose</option>
-                                                <option value="Authorized">Request</option>
-                                                <option value="reject">Practice</option>
-                                                <option value="exam">Authorized</option>
-                                            </select>
+
+                                <select id="countries" className="w-[50%] border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                    <option selected>Choose</option>
+                                    <option value="Authorized">Request</option>
+                                    <option value="reject">Practice</option>
+                                    <option value="exam">Authorized</option>
+                                </select>
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Phone Number</label>

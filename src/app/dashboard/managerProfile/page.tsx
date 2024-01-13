@@ -7,9 +7,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import Link from "next/link";
 
 const managerProfile = () => {
-
-
-
+  
   return (
     <div className="p-[50px]">
       <div className="driver_details_wrapper">

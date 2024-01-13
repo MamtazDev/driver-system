@@ -27,20 +27,12 @@ const AddNewCar = () => {
     <>
       <div className='container m-auto'>
         <div className="shadow-card p-[30px]  w-[100%] lg:w-[60%] m-auto">
-          <h1 className='text-center mb-[20px]'>Add a new car</h1>
+          <h1 className='text-center mb-[20px]'>Add a new Truck</h1>
           <form action="">
             <div className=" add_driver grid grid-cols-12  gap-5 ">
               <div className='col-span-12 relative'>
-                <label htmlFor="">Select Car Photo</label>
-                {/* <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  style={{ display: 'none' }}
-                  accept="image/*"
-                  id="fileInput"
-                  className=''
-                /> */}
+                <label htmlFor="">Select Truck Photo</label>
+                
                 <div className='border h-[150px] rounded-[5px] cursor-pointer' >
                   <div className='absolute right-[35%] top-[45%] text-center my-auto ' >
                     <div className='underline text-[#7155E1] cursor-pointer ' onClick={handleImageClick}>   <p className='text-[14px]'>Brows photo</p></div>
@@ -118,7 +110,7 @@ const AddNewCar = () => {
               </div>
             </div>
             <div className="text-center mt-[15px]">
-              <button className="common_button">Add a new car</button>
+              <button className="common_button">Add a new Truck</button>
             </div>
           </form>
         </div>

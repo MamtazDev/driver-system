@@ -4,7 +4,7 @@ import TopBar from "@/components/TopBar/TopBar";
 
 export const metadata = {
   title: {
-    template: "%s | Car Authorization System",
+    template: "%s | Truck Authorization System",
     default: "Admin",
   },
 };
