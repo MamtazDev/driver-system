@@ -124,7 +124,7 @@ const Sidebar: React.FC = () => {
 
               <div className="relative ">
                 <MenuBtn
-                  icon={user}
+                  icon={Car}
                   text="Manager"
                   isActive={activeLink === "/manager"}
                   onClick={() => setActiveLink("/manager")}
@@ -178,7 +178,7 @@ const Sidebar: React.FC = () => {
             <div className="drivers_dropdown" onClick={toggleDropDownCars}>
               <div className="relative ">
                 <MenuBtn
-                  icon={drivers}
+                  icon={Car}
                   text="Drivers"
                   isActive={activeLink === "/driver"}
                   onClick={() => setActiveLink("/driver")}
