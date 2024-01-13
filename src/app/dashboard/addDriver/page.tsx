@@ -1,9 +1,10 @@
-'use client'
 import AddDriver from '@/components/AddDriver/AddDriver'
 import React from 'react'
 
-export const addDriver = () => {
+const addDriver = () => {
   return (
-    <div><AddDriver/></div>
+    <div><AddDriver /></div>
   )
 }
+
+export default addDriver
