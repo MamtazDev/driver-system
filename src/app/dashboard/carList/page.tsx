@@ -32,7 +32,7 @@ const carList = () => {
                             <div className="card_body">
                                 <p>FORD FOCUS</p>
                                 <div className='flex justify-between items-center  car_title'>
-                                    <h5 className="pb-[20px]">1.5 EcoBlue MT Titenium X</h5>
+                                    <h5 className="">1.5 EcoBlue MT Titenium X</h5>
                                     <p>$24.59 <span>/hour</span></p>
                                 </div>
                                 {
@@ -64,7 +64,7 @@ const carList = () => {
                             <div className="card_body">
                                 <p>FORD FOCUS</p>
                                 <div className='flex justify-between items-center  car_title'>
-                                    <h5 className="pb-[20px]">1.5 EcoBlue MT Titenium X</h5>
+                                    <h5 className="">1.5 EcoBlue MT Titenium X</h5>
                                     <p>$24.59 <span>/hour</span></p>
                                 </div>
                                 {
@@ -96,7 +96,7 @@ const carList = () => {
                             <div className="card_body">
                                 <p>FORD FOCUS</p>
                                 <div className='flex justify-between items-center  car_title'>
-                                    <h5 className="pb-[20px]">1.5 EcoBlue MT Titenium X</h5>
+                                    <h5 className="">1.5 EcoBlue MT Titenium X</h5>
                                     <p>$24.59 <span>/hour</span></p>
                                 </div>
                                 {
@@ -128,7 +128,7 @@ const carList = () => {
                             <div className="card_body">
                                 <p>FORD FOCUS</p>
                                 <div className='flex justify-between items-center  car_title'>
-                                    <h5 className="pb-[20px]">1.5 EcoBlue MT Titenium X</h5>
+                                    <h5 className="">1.5 EcoBlue MT Titenium X</h5>
                                     <p>$24.59 <span>/hour</span></p>
                                 </div>
                                 {

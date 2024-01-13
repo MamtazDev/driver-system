@@ -5,6 +5,7 @@ import Image from "next/image";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 
+
 const DriverDetails = () => {
   return (
     <>
@@ -73,7 +74,7 @@ const DriverDetails = () => {
                       <strong className="text-heading">Florida, United States</strong>
                     </td>
                   </tr>
-                
+
                   <tr>
                     <td>
                       <span className="text-[#9499A1]">Company</span>
@@ -101,47 +102,47 @@ const DriverDetails = () => {
         <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
           <h2>Assigned to </h2>
           <div className="table-responsive text-nowrap">
-              <table className="table qd-table align-middle mb-0 w-full">
-                <tbody>
-                  <tr className="border-b border-dashed w-full ">
-                    <td>
-                      <span className="text-[#9499A1]">Company</span>
-                    </td>
-                    <td>
-                      <strong className="text-heading">Nicolos pvt</strong>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-dashed w-full " >
-                    <td>
-                      <span className="text-[#9499A1]">License Plate</span>
-                    </td>
-                    <td>
-                      <div className="flex items-center justify-start">
-                        <strong className="text-heading me3">+1-202-555-0116</strong>
-                      </div>
-                    </td>
-                  </tr>
-                
-                  <tr className="border-b border-dashed w-full ">
-                    <td>
-                      <span className="text-[#9499A1]">Location</span>
-                    </td>
-                    <td>
-                      <strong className="text-heading">Florida, United States</strong>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-dashed w-full ">
-                    <td>
-                      <span className="text-[#9499A1]">VIN Number</span>
-                    </td>
-                    <td>
-                      <strong><a href="#" className="">325654789465</a></strong>
-                    </td>
-                  </tr>
-                 
-                </tbody>
-              </table>
-            </div>
+            <table className="table qd-table align-middle mb-0 w-full">
+              <tbody>
+                <tr className="border-b border-dashed w-full ">
+                  <td>
+                    <span className="text-[#9499A1]">Company</span>
+                  </td>
+                  <td>
+                    <strong className="text-heading">Nicolos pvt</strong>
+                  </td>
+                </tr>
+                <tr className="border-b border-dashed w-full " >
+                  <td>
+                    <span className="text-[#9499A1]">License Plate</span>
+                  </td>
+                  <td>
+                    <div className="flex items-center justify-start">
+                      <strong className="text-heading me3">+1-202-555-0116</strong>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr className="border-b border-dashed w-full ">
+                  <td>
+                    <span className="text-[#9499A1]">Location</span>
+                  </td>
+                  <td>
+                    <strong className="text-heading">Florida, United States</strong>
+                  </td>
+                </tr>
+                <tr className="border-b border-dashed w-full ">
+                  <td>
+                    <span className="text-[#9499A1]">VIN Number</span>
+                  </td>
+                  <td>
+                    <strong><a href="#" className="">325654789465</a></strong>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>

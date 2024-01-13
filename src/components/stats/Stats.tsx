@@ -1,23 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import "./stats.scss";
 
 const Stats = () => {
-  const [isStatsOpen, setIsStatsOpen] = useState(false);
 
-  const toggleStats = () => {
-    setIsStatsOpen(!isStatsOpen);
-  };
   const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000); // Update every 1000 milliseconds (1 second)
-
-    // Cleanup the interval when the component unmounts
+      setCurrentDate(new Date())
+    }, 1000);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -28,10 +21,9 @@ const Stats = () => {
     year: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-    second: 'numeric',
-    hour12: true,
+    // second: 'numeric',
+    // hour12: true,
   });
-
 
   return (
 
@@ -43,7 +35,6 @@ const Stats = () => {
 
       <div className="grid grid-cols-12 gap-5">
         <div className="col-span-3  w-full ">
-
           <div className="col-xxl-3 col-md-6 mb5">
             <div className="bg-[#7155E1] rounded-[5px] pt2 pb-5 text-center">
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total Truck</h6>
@@ -54,7 +45,6 @@ const Stats = () => {
           </div>
         </div>
         <div className="col-span-3  w-full ">
-
           <div className="col-xxl-3 col-md-6 mb5">
             <div className="bg-[#0EA4E7] rounded-[5px] pt2 pb-5 text-center">
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total drivers
