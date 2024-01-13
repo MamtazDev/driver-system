@@ -4,7 +4,6 @@ import profile from "../../../../public/assets/detailsprofile.jpg";
 import Image from "next/image";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
-import BreadCrumb from "@/components/BreadCrumb/BreadCrumb";
 import Link from "next/link";
 
 const managerProfile = () => {
@@ -13,7 +12,6 @@ const managerProfile = () => {
 
   return (
     <div className="p-[50px]">
-      <BreadCrumb title1="manager" title2="manager Profile" />
       <div className="driver_details_wrapper">
         <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-40 flex items-center justify-end mt-[50px]">
           <Link href="/dashboard/editManagerProfile">

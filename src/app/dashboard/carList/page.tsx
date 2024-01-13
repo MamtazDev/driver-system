@@ -22,6 +22,7 @@ const carList = () => {
                         <div className="card">
                             <div className='card_header flex items-center  justify-end gap-2'>
                                 <select name="status" onChange={handleSelectChange}>
+                                    <option value="Choose">Choose</option>
                                     <option value="Available">Available</option>
                                     <option value="Authorized">Authorized</option>
                                 </select>
