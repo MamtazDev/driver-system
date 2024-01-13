@@ -1,18 +1,47 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './RequestedList.scss'
-import driver1 from "../../../public/assets/driver.jpg";
-import Image from "next/image";
 import { FaFilePdf } from "react-icons/fa6";
+import Modal from 'react-modal';
+import { IoMdClose } from "react-icons/io";
 
-import Link from "next/link";
 
-import { CiEdit } from "react-icons/ci";
-import { MdDelete } from "react-icons/md";
-import { Dropdown } from 'flowbite-react';
-
+const customStyles = {
+    content: {
+        width: "600px",
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+    },
+};
 
 const RequestedList = () => {
+
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+
+    const [selectedValue, setSelectedValue] = useState("")
+
+    const handleSelectChange = (event: any) => {
+        setSelectedValue(event.target.value);
+    };
+
+    useEffect(() => {
+        if (selectedValue === 'In practice') {
+            setIsOpen(true);
+        }
+    }, [selectedValue]);
     return (
         <div>
             <div className="driver_list_wrapper w-full">
@@ -27,7 +56,6 @@ const RequestedList = () => {
                                         <th scope="col" className="px-6 py-[15px]">
                                             Car
                                         </th>
-                                        {/* <th scope="col" className="px-6 py-[15px]"></th> */}
                                         <th scope="col" className="px-6 py-[15px]">
                                             Name
                                         </th>
@@ -61,24 +89,44 @@ const RequestedList = () => {
                                         </td>
 
                                         <td className="w-[130px]">
-
-                                            <select id="countries" className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                                                <option selected>Choose</option>
-                                                <option value="Authorized">Request</option>
-                                                <option value="reject">Practice</option>
-                                                <option value="exam">Authorized</option>
+                                            <select
+                                                className="w-[50%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                                                onChange={handleSelectChange}
+                                            >
+                                                <option value="choose">Choose</option>
+                                                <option value="requested">Requested</option>
+                                                <option value="Request approved">Request approved</option>
+                                                <option value="In practice">In practice</option>
+                                                <option value="Exam requested">Exam requested</option>
+                                                <option value="Authorized">Authorized</option>
                                             </select>
 
                                         </td>
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal">
 
+                <div className='text-right mb-[10px]'>
+                    <button onClick={closeModal}><IoMdClose /></button>
+                </div>
+
+                <div className="flex  flex-col">
+                    <label htmlFor="" className='mb-[8px] fw-[900]'>Hours Of Practice</label>
+                    <input className='rounded-[8px] bg-[#F8FAFC] mt-[10px]' type="number" placeholder='Hours of Practice' />
+                    <div className="text-center">
+                        <button className='common_button'>Save</button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }
