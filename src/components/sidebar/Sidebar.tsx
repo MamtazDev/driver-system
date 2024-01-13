@@ -9,7 +9,7 @@ import Settings from "../../../public/assets/Settings.svg";
 import MenuBtn from "../menuBtn/MenuBtn";
 import "./sidebar.scss";
 import Link from "next/link";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const Sidebar: React.FC = () => {
   const [activeLink, setActiveLink] = useState("/");
@@ -62,7 +62,7 @@ const Sidebar: React.FC = () => {
 
             <div className="drivers_dropdown" onClick={toggleDropDown}>
 
-              <div className="">
+              <div className="relative ">
                 <MenuBtn
                   icon={Car}
                   text="Owners"
@@ -70,12 +70,17 @@ const Sidebar: React.FC = () => {
                   onClick={() => setActiveLink("/Owners")}
                 />
 
-                {/* {
+                {
                   dropDown ?
-                    <div className="text-white">
+                    <div className="absolute top-[18px] right-[18px]  text-white">
+                      <IoIosArrowUp />
+                    </div> :
+
+                    <div className="absolute top-[18px] right-[18px]  text-white">
                       <IoIosArrowDown />
-                    </div> : ""
-                } */}
+
+                    </div>
+                }
 
 
               </div>
@@ -123,12 +128,30 @@ const Sidebar: React.FC = () => {
             </div>
 
             <div className="drivers_dropdown" onClick={toggleDropDownManager}>
-              <MenuBtn
-                icon={Car}
-                text="Manager"
-                isActive={activeLink === "/manager"}
-                onClick={() => setActiveLink("/manager")}
-              />
+
+
+              <div className="relative ">
+                <MenuBtn
+                  icon={Car}
+                  text="Manager"
+                  isActive={activeLink === "/manager"}
+                  onClick={() => setActiveLink("/manager")}
+                />
+
+                {
+                  dropDownManager ?
+                    <div className="absolute top-[18px] right-[18px]  text-white">
+                      <IoIosArrowUp />
+                    </div> :
+
+                    <div className="absolute top-[18px] right-[18px]  text-white">
+                      <IoIosArrowDown />
+
+                    </div>
+                }
+
+
+              </div>
 
               <div className="dropdown_list">
 
@@ -150,12 +173,27 @@ const Sidebar: React.FC = () => {
               </div>
             </div>
             <div className="drivers_dropdown" onClick={toggleDropDownCars}>
-              <MenuBtn
-                icon={Car}
-                text="Drivers"
-                isActive={activeLink === "/driver"}
-                onClick={() => setActiveLink("/driver")}
-              />
+              <div className="relative ">
+                <MenuBtn
+                  icon={Car}
+                  text="Drivers"
+                  isActive={activeLink === "/driver"}
+                  onClick={() => setActiveLink("/driver")}
+                />
+                {
+                  dropDownCars ?
+                    <div className="absolute top-[18px] right-[18px]  text-white">
+                      <IoIosArrowUp />
+                    </div> :
+
+                    <div className="absolute top-[18px] right-[18px]  text-white">
+                      <IoIosArrowDown />
+
+                    </div>
+                }
+
+
+              </div>
 
               <div className="dropdown_list">
                 {dropDownCars && (
