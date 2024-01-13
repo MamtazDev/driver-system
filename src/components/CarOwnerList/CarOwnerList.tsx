@@ -1,12 +1,7 @@
 "use client";
 import profile from "../../../public/assets/dashHeader.jpg";
 import Image from "next/image";
-import { FaFilePdf } from "react-icons/fa6";
-
 import Link from "next/link";
-
-import { CiEdit } from "react-icons/ci";
-import { MdDelete } from "react-icons/md";
 
 const CarOwnerList = () => {
     return (

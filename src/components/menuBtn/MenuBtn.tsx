@@ -1,8 +1,6 @@
-import React, { MouseEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import './menuBtn.scss';
-import { IoIosArrowDown } from "react-icons/io";
 
 interface MenuBtnProps {
   icon?: string | undefined;

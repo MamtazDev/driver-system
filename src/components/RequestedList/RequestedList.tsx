@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './RequestedList.scss'
 import { FaFilePdf } from "react-icons/fa6";
 import Modal from 'react-modal';
@@ -21,10 +21,6 @@ const customStyles = {
 const RequestedList = () => {
 
     const [modalIsOpen, setIsOpen] = useState(false);
-
-    function openModal() {
-        setIsOpen(true);
-    }
 
     function closeModal() {
         setIsOpen(false);

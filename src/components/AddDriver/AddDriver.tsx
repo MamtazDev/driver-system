@@ -23,8 +23,6 @@ const AddDriver = () => {
     }
   };
 
-
-
   // img upload
   const imageFileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -46,10 +44,7 @@ const AddDriver = () => {
   return (
 
     <div className="w-full">
-
       <div className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
-
-        {/* <Image className="mx-auto" src={profile} alt="profile" />*/}
         <input
           type="file"
           ref={imageFileInputRef}
@@ -58,7 +53,7 @@ const AddDriver = () => {
         />
         <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
           <Image
-            src={selectedImage || profile} // Use a placeholder or default image URL
+            src={selectedImage || profile} 
             alt="Selected"
             layout="fill"
             objectFit="cover"
@@ -160,7 +155,7 @@ const AddDriver = () => {
                 ref={fileInputRef}
                 onChange={handleFileChange}
                 style={{ display: 'none' }}
-                accept=".pdf" // Specify accepted file types (PDF in this case)
+                accept=".pdf" 
                 id="fileInput"
               />
               <input

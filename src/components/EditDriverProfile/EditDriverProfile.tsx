@@ -1,8 +1,6 @@
 'use client'
-
 import Image from "next/image";
 import profile from "../../../public/assets/profile.png";
-
 import { ChangeEvent, useRef, useState } from "react";
 import { FiCamera } from "react-icons/fi";
 
@@ -11,16 +9,12 @@ const EditDriverProfile = () => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const handleImageClick = () => {
-        // Trigger the hidden file input when the image is clicked
         fileInputRef.current?.click();
     };
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        // Access the file input value using useRef
         const selectedFile = event.target.files?.[0];
-
         if (selectedFile) {
-            // Display the selected image
             const imageUrl = URL.createObjectURL(selectedFile);
             setSelectedImage(imageUrl);
         }

@@ -1,10 +1,8 @@
-import React from "react";
 import "./DriverDetails.scss";
 import profile from "../../../public/assets/detailsprofile.jpg";
 import Image from "next/image";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
-
 
 const DriverDetails = () => {
   return (

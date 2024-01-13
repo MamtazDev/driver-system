@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import React from 'react'
 interface BreadCrumbProps {
   title1: string;
   title2: string;

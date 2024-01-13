@@ -2,7 +2,6 @@ import React from 'react'
 import './Topbar.scss'
 import Image from 'next/image'
 import profile from '../../../public/assets/dashHeader.jpg';
-import { IoMdNotificationsOutline } from "react-icons/io";
 
 const TopBar = () => {
   return (

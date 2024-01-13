@@ -1,4 +1,3 @@
-import React from "react";
 import "../../../components/DriverDetails/DriverDetails.scss";
 import profile from "../../../../public/assets/detailsprofile.jpg";
 import Image from "next/image";

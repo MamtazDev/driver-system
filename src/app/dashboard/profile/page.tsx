@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import profilepic from "../../../../public/assets/profile.png";
 

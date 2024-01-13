@@ -4,6 +4,7 @@
 import Image from 'next/image';
 import React, { ChangeEvent, useRef, useState } from 'react'
 import profile from "../../../public/assets/selectImage.png";
+
 const AddNewCar = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
