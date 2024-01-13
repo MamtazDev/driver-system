@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
         </div>
       </label>
       <div className="upper">
-        <h2 className="text-white text-center">Car Authorization System</h2>
+        <h2 className="text-white text-center">Admin</h2>
         <div className="sidebar-nav">
           <div className="sidebar-buttons">
             <MenuBtn
@@ -85,7 +85,7 @@ const Sidebar: React.FC = () => {
                     <li className="">
                       <MenuBtn
                         link="/dashboard/carOwnerList"
-                        text="Car Owners List"
+                        text="Truck Owners List"
                         isActive={activeLink === "/dashboard/carOwnerList"}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -96,7 +96,7 @@ const Sidebar: React.FC = () => {
                     <li className="">
                       <MenuBtn
                         link="/dashboard/addNewCar"
-                        text="Add New Car"
+                        text="Add New Truck"
                         isActive={activeLink === "/dashboard/addNewCar"}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -191,7 +191,7 @@ const Sidebar: React.FC = () => {
 
             <MenuBtn icon={Car}
               link="/dashboard/carList"
-              text="Car Lists"
+              text="Truck Lists"
               isActive={activeLink === "/dashboard/carList"}
               onClick={() => setActiveLink("/dashboard/carList")}
             />

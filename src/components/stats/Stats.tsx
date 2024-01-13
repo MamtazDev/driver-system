@@ -1,10 +1,7 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
-import ArrowDown from "../../../public/assets/ArrowDown.svg";
-import ArrowUp from "../../../public/assets/ArrowUp.svg";
-import Toggle from "../../../public/assets/Chevron.svg";
-import Card from "../card/Card";
+
+import { useEffect, useState } from "react";
+
 import "./stats.scss";
 
 const Stats = () => {
@@ -13,53 +10,87 @@ const Stats = () => {
   const toggleStats = () => {
     setIsStatsOpen(!isStatsOpen);
   };
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000); // Update every 1000 milliseconds (1 second)
+
+    // Cleanup the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const formattedDate = currentDate.toLocaleString('en-US', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: true,
+  });
+
 
   return (
-    <div className={`stats ${isStatsOpen ? "open" : ""}`}>
-      <Image
-        src={Toggle}
-        className={`stats-toggle ${isStatsOpen ? "rotate" : ""}`}
-        alt="Toggle"
-        onClick={toggleStats}
-      />
-      <div className="heading">
-        <h2>Todays Statistics</h2>
-        <h5>Tue, 14 Nov, 2022, 11.30 AM </h5>
+
+    <div className="container ">
+      <div className="my-[20px]">
+        <h1>Todays Statistics</h1>
+        <p>{formattedDate}</p>
       </div>
-      <div className="card_wrapper">
 
-        <Card
-          title="Income"
-          price={9460.0}
-          trend={1.5}
-          icon={ArrowDown}
-          yesterdayPrice={9940}
-          expenses={25658.0}
-        />
+      <div className="grid grid-cols-12 gap-5">
+        <div className="col-span-3  w-full ">
 
-        <Card
-          title="Expenses"
-          price={5660.0}
-          trend={2.5}
-          icon={ArrowUp}
-          yesterdayPrice={5240}
-          expenses={22658.0}
-        />
+          <div className="col-xxl-3 col-md-6 mb5">
+            <div className="bg-[#7155E1] rounded-[5px] pt2 pb-5 text-center">
+              <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total Truck</h6>
+            </div>
+            <div className="status_Card rounded-[5px]  text-center">
+              <h1 className="mb1">130</h1>
+            </div>
+          </div>
+        </div>
+        <div className="col-span-3  w-full ">
+
+          <div className="col-xxl-3 col-md-6 mb5">
+            <div className="bg-[#0EA4E7] rounded-[5px] pt2 pb-5 text-center">
+              <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total drivers
+              </h6>
+            </div>
+            <div className="status_Card rounded-[5px]  text-center">
+              <h1 className="mb1">68</h1>
+            </div>
+          </div>
+        </div>
+        <div className="col-span-3  w-full ">
+
+          <div className="col-xxl-3 col-md-6 mb5">
+            <div className="bg-[#11B780] rounded-[5px] pt2 pb-5 text-center">
+              <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total drivers in practice
+              </h6>
+            </div>
+            <div className="status_Card rounded-[5px]  text-center">
+              <h1 className="mb1">25</h1>
+            </div>
+          </div>
+        </div>
+        <div className="col-span-3  w-full ">
+
+          <div className="col-xxl-3 col-md-6 mb-5">
+            <div className="bg-[#6B747C] rounded-[5px] pb-5 text-center">
+              <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total requests
+              </h6>
+            </div>
+            <div className="status_Card rounded-[5px]  text-center">
+              <h1 className="mb1">10</h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    // <div className="container">
-    //   <div className="grid grid-cols-12">
-    //     <div className="col-span-4">
-    //       <div className="">
-
-    //       </div>
-
-    //     </div>
-
-
-
-    //   </div>
-    // </div>
   );
 };
 
