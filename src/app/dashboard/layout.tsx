@@ -19,7 +19,7 @@ export default function DashboardLayout({
 
       <body>
         <Sidebar />
-        <div className="ms-[296px] w-full">
+        <div className="lg:ms-[296px] ms-[50px] w-full">
           <div className="w-full">
             <TopBar />
           </div>

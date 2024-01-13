@@ -6,6 +6,8 @@ import Car from "../../../public/assets/Car.svg";
 import Dashboard from "../../../public/assets/Dashboard.svg";
 import Logout from "../../../public/assets/Logout.svg";
 import Settings from "../../../public/assets/Settings.svg";
+import user from "../../../public/assets/userProfile.png";
+import drivers from "../../../public/assets/workers.png";
 import MenuBtn from "../menuBtn/MenuBtn";
 import "./sidebar.scss";
 import Link from "next/link";
@@ -87,17 +89,7 @@ const Sidebar: React.FC = () => {
               <div className="dropdown_list">
                 {dropDown && (
                   <ul className="list-disc text-[#fff]" style={{ marginLeft: "50px" }}>
-                    <li className="">
-                      <MenuBtn
-                        link="/dashboard/carOwnerList"
-                        text="Truck Owners List"
-                        isActive={activeLink === "/dashboard/carOwnerList"}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActiveLink("/dashboard/carOwnerList");
-                        }}
-                      />
-                    </li>
+                   
                     <li className="">
                       <MenuBtn
                         link="/dashboard/addNewCar"
@@ -132,7 +124,7 @@ const Sidebar: React.FC = () => {
 
               <div className="relative ">
                 <MenuBtn
-                  icon={Car}
+                  icon={user}
                   text="Manager"
                   isActive={activeLink === "/manager"}
                   onClick={() => setActiveLink("/manager")}
@@ -168,6 +160,17 @@ const Sidebar: React.FC = () => {
                         }}
                       />
                     </li>
+                    <li className="">
+                      <MenuBtn
+                        link="/dashboard/carOwnerList"
+                        text="Truck Owners List"
+                        isActive={activeLink === "/dashboard/carOwnerList"}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveLink("/dashboard/carOwnerList");
+                        }}
+                      />
+                    </li>
                   </ul>
                 )}
               </div>
@@ -175,7 +178,7 @@ const Sidebar: React.FC = () => {
             <div className="drivers_dropdown" onClick={toggleDropDownCars}>
               <div className="relative ">
                 <MenuBtn
-                  icon={Car}
+                  icon={drivers}
                   text="Drivers"
                   isActive={activeLink === "/driver"}
                   onClick={() => setActiveLink("/driver")}
@@ -204,7 +207,6 @@ const Sidebar: React.FC = () => {
                         link="/dashboard/drivers"
                         text="Drivers"
                         isActive={activeLink === "/dashboard/drivers"}
-                        // onClick={() => setActiveLink("/dashboard/drivers")}
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveLink("/dashboard/drivers");

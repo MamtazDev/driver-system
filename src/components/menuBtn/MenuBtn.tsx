@@ -24,7 +24,7 @@ const MenuBtn: React.FC<MenuBtnProps> = ({ icon, link, text, isActive, onClick }
         {icon && <Image src={icon} alt="Icon" />}
         {text}
       </Link>
-      {/* <IoIosArrowDown /> */}
+
     </>
   );
 };

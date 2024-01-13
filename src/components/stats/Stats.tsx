@@ -21,8 +21,7 @@ const Stats = () => {
     year: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-    // second: 'numeric',
-    // hour12: true,
+
   });
 
   return (
@@ -34,7 +33,7 @@ const Stats = () => {
       </div>
 
       <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-3  w-full ">
+        <div className="lg:col-span-3  col-span-12 w-full ">
           <div className="col-xxl-3 col-md-6 mb5">
             <div className="bg-[#7155E1] rounded-[5px] pt2 pb-5 text-center">
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total Truck</h6>
@@ -44,7 +43,7 @@ const Stats = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-3  w-full ">
+        <div className="lg:col-span-3 col-span-12  w-full ">
           <div className="col-xxl-3 col-md-6 mb5">
             <div className="bg-[#0EA4E7] rounded-[5px] pt2 pb-5 text-center">
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total drivers
@@ -55,7 +54,7 @@ const Stats = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-3  w-full ">
+        <div className="lg:col-span-3 col-span-12  w-full ">
 
           <div className="col-xxl-3 col-md-6 mb5">
             <div className="bg-[#11B780] rounded-[5px] pt2 pb-5 text-center">
@@ -67,7 +66,7 @@ const Stats = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-3  w-full ">
+        <div className="lg:col-span-3 col-span-12  w-full ">
 
           <div className="col-xxl-3 col-md-6 mb-5">
             <div className="bg-[#6B747C] rounded-[5px] pb-5 text-center">
