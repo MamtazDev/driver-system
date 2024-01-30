@@ -21,6 +21,7 @@ const AuthorizationRequest = () => {
         <>
             <div className='container m-auto'>
                 <div className="shadow-card p-[30px]  w-[70%] m-auto">
+                    <button>select</button>
                     <h1 className='text-center mb-[20px]'>Request For Authorization</h1>
                     <form action="">
                         <div className=" add_driver grid grid-cols-12  gap-5 ">
@@ -29,7 +30,6 @@ const AuthorizationRequest = () => {
                                 <label htmlFor="">Truck</label>
                                 <input
                                     type="text"
-                                    className=''
                                     placeholder='Enter company name'
                                 />
                             </div>
@@ -38,7 +38,6 @@ const AuthorizationRequest = () => {
                                 <label htmlFor="">Model</label>
                                 <input
                                     type="text"
-                                    className=''
                                     placeholder='Enter Truck model'
                                 />
                             </div>
@@ -47,7 +46,6 @@ const AuthorizationRequest = () => {
                                 <label htmlFor="">License Plate </label>
                                 <input
                                     type="text"
-                                    className=''
                                     placeholder='Enter license plate number'
                                 />
                             </div>
@@ -56,23 +54,28 @@ const AuthorizationRequest = () => {
                                 <label htmlFor="">VIN Number </label>
                                 <input
                                     type="number"
-                                    className=''
                                     placeholder='Enter VIN Number'
                                 />
                             </div>
                             <div className='col-span-6'>
-                                <label htmlFor="">Driver Name </label>
-                                <input
-                                    type="text"
-                                    className=''
-                                    placeholder='Enter driver name'
-                                />
+                                <label htmlFor="">Select Driver </label>
+                                <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                    <option selected>Choose</option>
+                                    <option value="Authorized">Nicolos</option>
+                                    <option value="reject"> John weak</option>
+                                    <option value="exam">Shah Rukh </option>
+                                    <option value="Authorized">Nicolos</option>
+                                    <option value="reject"> John weak</option>
+                                    <option value="exam">Shah Rukh </option>
+                                    <option value="Authorized">Nicolos</option>
+                                    <option value="reject"> John weak</option>
+                                    <option value="exam">Shah Rukh </option>
+                                </select>
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Driver Email</label>
                                 <input
                                     type="email"
-                                    className=''
                                     placeholder='Enter email'
                                 />
                             </div>
@@ -80,7 +83,6 @@ const AuthorizationRequest = () => {
                                 <label htmlFor="">Phone Number</label>
                                 <input
                                     type="number"
-                                    className=''
                                     placeholder='Enter Number'
                                 />
                             </div>
@@ -95,7 +97,7 @@ const AuthorizationRequest = () => {
                                             ref={fileInputRef}
                                             onChange={handleFileChange}
                                             style={{ display: 'none' }}
-                                            accept=".pdf" 
+                                            accept=".pdf"
                                             id="fileInput"
                                         />
                                         <input
@@ -112,25 +114,38 @@ const AuthorizationRequest = () => {
                                     </div>
                                 </div>
                             </div>
-
+                            <div className='col-span-6'>
+                                <label htmlFor="">Phone Number</label>
+                                <input
+                                    type="number"
+                                    value="018253659656"
+                                />
+                            </div>
+                            <div className='col-span-6'>
+                                <label htmlFor="">Address</label>
+                                <input
+                                    type="text"
+                                    value="mirpur-1 dhaka-1216"
+                                />
+                            </div>
+                            <div className='col-span-6'>
+                                <label htmlFor="">License Expiration Date</label>
+                                <input
+                                    type="text"
+                                    value="1/30/24"
+                                />
+                            </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Authorization State</label>
 
-                                <select id="countries" className="w-[50%] border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                     <option selected>Choose</option>
                                     <option value="Authorized">Request</option>
                                     <option value="reject">Practice</option>
                                     <option value="exam">Authorized</option>
                                 </select>
                             </div>
-                            <div className='col-span-6'>
-                                <label htmlFor="">Phone Number</label>
-                                <input
-                                    type="number"
-                                    className=''
-                                    placeholder='Enter email'
-                                />
-                            </div>
+
 
 
                         </div>

@@ -216,7 +216,21 @@ h6 {
 }
 
 // login page
+
+.auth_layout{
+  max-width: 800px;
+  width: 100%;
+}
+
 .auth_layout input {
+  border-radius: var(--border-radius-full, 9999px);
+  border: 1px solid var(--slate-200, #E2E8F0);
+  background: var(--slate-50, #F8FAFC);
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 10px;
+}
+.auth_layout select {
   border-radius: var(--border-radius-full, 9999px);
   border: 1px solid var(--slate-200, #E2E8F0);
   background: var(--slate-50, #F8FAFC);

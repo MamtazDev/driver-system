@@ -23,9 +23,8 @@ const EditDriverProfile = () => {
     return (
         <>
             <div className="w-full">
-
+                
                 <div className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
-
                     <input
                         type="file"
                         ref={fileInputRef}
@@ -47,6 +46,7 @@ const EditDriverProfile = () => {
                             </div>
                         }
                     </div>
+
                     <div className="grid grid-cols-2 gap-4">
                         <div className="add_driver">
                             <div className="mb-3">

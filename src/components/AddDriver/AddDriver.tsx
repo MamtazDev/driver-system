@@ -41,6 +41,7 @@ const AddDriver = () => {
 
   const numRows: number = 5;
   const numCols: number = 10;
+
   return (
 
     <div className="w-full">
@@ -74,7 +75,7 @@ const AddDriver = () => {
               </label>
               <input
                 type="email"
-                className="border border-[] w-full "
+                className="border  w-full "
                 id=""
                 placeholder="Enter your first name"
               />
@@ -87,7 +88,7 @@ const AddDriver = () => {
               </label>
               <input
                 type="text"
-                className="border border-[] w-full "
+                className="border  w-full "
                 id=""
                 placeholder="Enter your last name"
               />
@@ -100,7 +101,7 @@ const AddDriver = () => {
               </label>
               <input
                 type="email"
-                className="border border-[] w-full "
+                className="border  w-full "
                 id=""
                 placeholder="Enter your email"
               />
@@ -113,7 +114,7 @@ const AddDriver = () => {
               </label>
               <input
                 type="password"
-                className="border border-[] w-full "
+                className="border  w-full "
                 id=""
                 placeholder="Enter your password"
               />
@@ -126,7 +127,7 @@ const AddDriver = () => {
               </label>
               <input
                 type="text"
-                className="border border-[] w-full "
+                className="border  w-full "
                 id=""
                 placeholder="Enter your address"
               />
@@ -139,7 +140,7 @@ const AddDriver = () => {
               </label>
               <input
                 type="number"
-                className="border border-[] w-full "
+                className="border  w-full "
                 id=""
                 placeholder="Enter your city"
               />
@@ -178,7 +179,7 @@ const AddDriver = () => {
               </label>
               <input
                 type="date"
-                className="border border-[] w-full "
+                className="border  w-full "
                 id=""
                 placeholder="Enter your city"
               />

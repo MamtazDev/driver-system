@@ -17,30 +17,27 @@ const Login = () => {
   const handleCheckboxChange = () => {
     setChecked(!isChecked);
   };
-  
+
 
   return (
     <div className="w-full mt-[100px] mx-auto">
-      <div className="grid grid-cols-2 w-full items-center   my-auto">
+      <div className=" grid grid-cols-2 w-full items-center   my-auto">
         <div className="">
-          <Image  src={login}  alt="login" />
+          <Image src={login} alt="login" />
         </div>
-        <div className="shadow-card pt-10 px-[30px] pb-5 lg:pb-28 lg:pt-p_153  mx-auto">
-          <AuthTitle>Login to Your Account</AuthTitle>
-          <SocialBtn />
-          <Divider />
-          <form className=" auth_layout ">
-
+        <div className="auth_layout shadow-card pt-10 px-[30px] pb-5 lg:pb-28 lg:pt-p_153  mx-auto">
+          <AuthTitle className="text-center">Login</AuthTitle>
+          <form className=" mt-[24px] ">
             <div className="mb-5">
               <label htmlFor="email">
-                Email <span>(Required)</span>{" "}
+                Email 
               </label>
               <input type="email" id="email" />
             </div>
 
             <div className="mb-6">
               <label htmlFor="password">
-                Password <span>(Required)</span>{" "}
+                Password 
               </label>
               <div className="relative">
                 <input
@@ -54,7 +51,7 @@ const Login = () => {
                   alt=""
                 />
               </div>
-              
+
             </div>
 
             <div className="flex justify-between items-center gap-1 lg:gap-3 mb-5 lg:mb-10">
@@ -66,9 +63,8 @@ const Login = () => {
                   onChange={handleCheckboxChange}
                 />
                 <span
-                  className={`${
-                    isChecked && "bg-slate-200"
-                  } border  border-slate-200 rounded-sm h-[18px] w-[18px] flex items-center justify-center`}
+                  className={`${isChecked && "bg-slate-200"
+                    } border  border-slate-200 rounded-sm h-[18px] w-[18px] flex items-center justify-center`}
                 >
                   {isChecked ? "✔" : ""}
                 </span>
