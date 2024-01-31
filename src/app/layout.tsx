@@ -6,8 +6,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      
-      <body>{children}</body>
+      {/* <Provider store={store}> */}
+        <body>{children}</body>
+      {/* </Provider> */}
     </html>
   )
 }

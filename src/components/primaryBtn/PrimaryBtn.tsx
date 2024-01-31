@@ -1,8 +1,9 @@
-const PrimaryBtn = ({ children, ...props }:any) => {
+const PrimaryBtn = ({ children, ...props }: any) => {
   return (
     <button
+      type="submit"
       {...props}
-      className="bg-black py-3 px-8 rounded-3xl text-white text-base font-bold w-full transition duration-600 ease-in-out hover:bg-primary-dark ">
+      className="w-full px-8 py-3 text-base font-bold text-white transition ease-in-out bg-black rounded-3xl duration-600 hover:bg-primary-dark ">
       {children}
     </button>
   );
