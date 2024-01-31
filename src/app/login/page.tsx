@@ -38,6 +38,7 @@ const Login = () => {
     try {
       const response = await instance.post('/login', formData);
       console.log(response.data);
+      localStorage.setItem('user', JSON.stringify(response.data))
       router.push('/dashboard')
     } catch (error) {
       console.error("Login failed:", error.message);

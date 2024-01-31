@@ -1,3 +1,4 @@
+import { UserProvider } from "./hooks/contexts"
 
 export default function RootLayout({
   children,
@@ -6,9 +7,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <Provider store={store}> */}
+      <UserProvider>
         <body>{children}</body>
-      {/* </Provider> */}
+      </UserProvider>
     </html>
   )
 }

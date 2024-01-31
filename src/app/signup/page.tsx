@@ -36,6 +36,16 @@ const signUp = () => {
     try {
       const response = await instance.post("signup", userData);
       console.log(response.data);
+      setUserData(
+        {
+          fullName: "",
+          role: "",
+          email: "",
+          password: "",
+          address: "",
+          phoneNumber: "",
+        }
+      )
     } catch (error) {
       console.error("Registration failed:", error.message);
     }
@@ -130,9 +140,7 @@ const signUp = () => {
                 />
               </div>
             </div>
-            {/* <Link href="/verifyEmail"> */}
             <PrimaryBtn>Create Account</PrimaryBtn>
-            {/* </Link> */}
           </form>
         </div>
       </div>
