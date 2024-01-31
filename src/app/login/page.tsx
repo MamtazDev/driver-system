@@ -14,13 +14,15 @@ const Login = () => {
   const router = useRouter()
 
   const [isChecked, setChecked] = useState(false);
+  
   const [passwordShow, setPasswordShow] = useState(false);
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -32,15 +34,15 @@ const Login = () => {
     setChecked(!isChecked);
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
     try {
-      const response = await instance.post('/login', formData);
+      const response = await instance.post('/api/user/login', formData);
       console.log(response.data);
       localStorage.setItem('user', JSON.stringify(response.data))
       router.push('/dashboard')
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login failed:", error.message);
     }
   };

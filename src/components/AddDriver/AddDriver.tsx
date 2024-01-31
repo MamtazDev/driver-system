@@ -13,6 +13,7 @@ const AddDriver = () => {
   const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
 
+  
 
   return (
 

@@ -10,9 +10,9 @@ import instance from "../../hooks/Instance";
 
 
 const signUp = () => {
-  
+
   const [passwordShow, setPasswordShow] = useState(false);
-  
+
   const [userData, setUserData] = useState({
     fullName: "",
     role: "Owner",
@@ -22,7 +22,7 @@ const signUp = () => {
     phoneNumber: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
       ...prevData,
@@ -30,11 +30,11 @@ const signUp = () => {
     }));
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(userData);
     try {
-      const response = await instance.post("signup", userData);
+      const response = await instance.post("/api/user/signup", userData);
       console.log(response.data);
       setUserData(
         {
@@ -46,7 +46,7 @@ const signUp = () => {
           phoneNumber: "",
         }
       )
-    } catch (error) {
+    } catch (error: any) {
       console.error("Registration failed:", error.message);
     }
   };

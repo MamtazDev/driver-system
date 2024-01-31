@@ -4,17 +4,58 @@
 import Image from 'next/image';
 import profile from "../../../public/assets/selectImage.png";
 import { useImageUpload } from '@/hooks/fileUpload';
+import { useState } from 'react';
+import instance from '@/hooks/Instance';
 
 const AddNewCar = () => {
 
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
+
+
+  const handleFormSubmit = async (e) => {
+
+    e.preventDefault();
+  
+    const form = e.target;
+    const image = imageFileInputRef.current.files[0];
+    const company = form.company.value;
+    const brand = form.brand.value;
+    const model = form.model.value;
+    const licensePlate = form.licensePlate.value;
+    const vinNumber = form.vinNumber.value;
+    const year = form.year.value;
+  
+    const formDataObj = new FormData();
+    formDataObj.append('image', image);
+    formDataObj.append('company', company);
+    formDataObj.append('brand', brand);
+    formDataObj.append('model', model);
+    formDataObj.append('licensePlate', licensePlate);
+    formDataObj.append('vinNumber', vinNumber);
+    formDataObj.append('year', year);
+  
+    console.log(formDataObj);
+  
+    try {
+      const response = await instance.post('/api/truck/addNewTrucks', formDataObj, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error submitting form:', error.message);
+    }
+  };
+  
 
   return (
     <>
       <div className='container m-auto'>
         <div className="shadow-card p-[30px]  w-[100%] lg:w-[60%] m-auto">
           <h1 className='text-center mb-[20px]'>Add a new Truck</h1>
-          <form action="">
+          <form onSubmit={handleFormSubmit}>
             <div className="grid grid-cols-12 gap-5 add_driver">
               <div className='relative col-span-12'>
                 <label htmlFor="">Select Truck Photo</label>
@@ -38,6 +79,7 @@ const AddNewCar = () => {
                     type="file"
                     ref={imageFileInputRef}
                     onChange={handleImageFileChange}
+                    name='image'
                     style={{ display: 'none' }}
                     accept="image/jpg, image/png"
                   />
@@ -50,6 +92,9 @@ const AddNewCar = () => {
                   type="text"
                   className=''
                   placeholder='Enter company name'
+                  //value={formData.company}
+                  //onChange={handleInputChange}
+                  name='company'
                 />
               </div>
               <div className='col-span-6'>
@@ -58,6 +103,9 @@ const AddNewCar = () => {
                   type="text"
                   className=''
                   placeholder='Enter brand name'
+                  //value={formData.brand}
+                  //onChange={handleInputChange}
+                  name='brand'
                 />
               </div>
               <div className='col-span-6'>
@@ -66,6 +114,9 @@ const AddNewCar = () => {
                   type="text"
                   className=''
                   placeholder='Enter car model'
+                  //value={formData.model}
+                  //onChange={handleInputChange}
+                  name='model'
                 />
               </div>
 
@@ -75,6 +126,9 @@ const AddNewCar = () => {
                   type="text"
                   className=''
                   placeholder='Enter license plate number'
+                  //value={formData.licensePlate}
+                  //onChange={handleInputChange}
+                  name='licensePlate'
                 />
               </div>
               <div className='col-span-6'>
@@ -83,6 +137,9 @@ const AddNewCar = () => {
                   type="number"
                   className=''
                   placeholder='Enter year'
+                  //value={formData.year}
+                  //onChange={handleInputChange}
+                  name='year'
                 />
               </div>
               <div className='col-span-6'>
@@ -91,11 +148,14 @@ const AddNewCar = () => {
                   type="number"
                   className=''
                   placeholder='Enter VIN Number'
+                  //value={formData.vinNumber}
+                  //onChange={handleInputChange}
+                  name='vinNumber'
                 />
               </div>
             </div>
             <div className="text-center mt-[15px]">
-              <button className="common_button">Add a new Truck</button>
+              <button type='submit' className="common_button">Add a new Truck</button>
             </div>
           </form>
         </div>
