@@ -6,7 +6,7 @@ import Link from "next/link";
 import AuthTitle from "@/components/authTitle/authTitle";
 import eye from "../../../public/assets/passwortd_eye.png";
 import login from "../../../public/assets/login.jpg";
-import instance from '../hooks/Instance';
+import instance from '../../hooks/Instance';
 import { useRouter } from 'next/navigation';
 
 const Login = () => {

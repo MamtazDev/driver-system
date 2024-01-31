@@ -7,7 +7,7 @@ import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { useEffect, useState } from "react";
-import instance from "@/app/hooks/Instance";
+import instance from "@/hooks/Instance";
 
 const Drivers = () => {
 

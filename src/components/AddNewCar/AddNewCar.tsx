@@ -3,7 +3,7 @@
 'use client'
 import Image from 'next/image';
 import profile from "../../../public/assets/selectImage.png";
-import { useImageUpload } from '@/app/hooks/fileUpload';
+import { useImageUpload } from '@/hooks/fileUpload';
 
 const AddNewCar = () => {
 

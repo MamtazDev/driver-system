@@ -1,4 +1,4 @@
-import { UserProvider } from "./hooks/contexts"
+import { UserProvider } from "../hooks/contexts"
 
 export default function RootLayout({
   children,

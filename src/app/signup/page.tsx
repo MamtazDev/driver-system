@@ -6,7 +6,7 @@ import AuthTitle from "@/components/authTitle/authTitle";
 import PrimaryBtn from "@/components/primaryBtn/PrimaryBtn";
 import eye from "../../../public/assets/passwortd_eye.png";
 import login from "../../../public/assets/login.jpg";
-import instance from "../hooks/Instance";
+import instance from "../../hooks/Instance";
 
 
 const signUp = () => {

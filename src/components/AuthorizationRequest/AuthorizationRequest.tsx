@@ -1,5 +1,5 @@
 'use client'
-import { useFileUpload } from "@/app/hooks/fileUpload";
+import { useFileUpload } from "@/hooks/fileUpload";
 
 const AuthorizationRequest = () => {
 
