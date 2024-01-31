@@ -40,6 +40,8 @@ const Sidebar: React.FC = () => {
     setDropDown(false);
   };
 
+
+
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
       <label className="sidebar-toggle" htmlFor="check">
@@ -51,7 +53,7 @@ const Sidebar: React.FC = () => {
         </div>
       </label>
       <div className="upper">
-        <h2 className="text-white text-center">Admin</h2>
+        <h2 className="text-center text-white">Admin</h2>
         <div className="sidebar-nav">
           <div className="sidebar-buttons">
             <MenuBtn
@@ -89,7 +91,7 @@ const Sidebar: React.FC = () => {
               <div className="dropdown_list">
                 {dropDown && (
                   <ul className="list-disc text-[#fff]" style={{ marginLeft: "50px" }}>
-                   
+
                     <li className="">
                       <MenuBtn
                         link="/dashboard/addNewCar"

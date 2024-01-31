@@ -5,14 +5,32 @@ import { ChangeEvent, useRef, useState } from "react";
 import { FiCamera } from "react-icons/fi";
 
 const EditDriverProfile = () => {
+
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+    const handleFileChange = () => {
+        const file: File | undefined = fileInputRef.current?.files?.[0];
+
+        if (file && file.type === 'application/pdf') {
+            setSelectedFile(file);
+        } else {
+            alert('Please select a PDF file.');
+            if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+            }
+        }
+    };
+
+    // img upload
+    const imageFileInputRef = useRef<HTMLInputElement | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const handleImageClick = () => {
-        fileInputRef.current?.click();
+        imageFileInputRef.current?.click();
     };
 
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleImageFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             const imageUrl = URL.createObjectURL(selectedFile);
@@ -20,10 +38,11 @@ const EditDriverProfile = () => {
         }
     };
 
+
     return (
         <>
             <div className="w-full">
-                
+
                 <div className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
                     <input
                         type="file"
@@ -51,7 +70,7 @@ const EditDriverProfile = () => {
                         <div className="add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
-                                    First Name
+                                    Full Name
                                 </label>
                                 <input
                                     type="email"
@@ -64,13 +83,13 @@ const EditDriverProfile = () => {
                         <div className="add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
-                                    Last Name
+                                    Address
                                 </label>
                                 <input
                                     type="text"
                                     className="border border-[] w-full "
                                     id=""
-                                    placeholder="Enter your last name"
+                                    placeholder="Enter your address"
                                 />
                             </div>
                         </div>
@@ -100,19 +119,7 @@ const EditDriverProfile = () => {
                                 />
                             </div>
                         </div>
-                        <div className="add_driver">
-                            <div className="mb-3">
-                                <label htmlFor="" className="">
-                                    Address
-                                </label>
-                                <input
-                                    type="text"
-                                    className="border border-[] w-full "
-                                    id=""
-                                    placeholder="Enter your address"
-                                />
-                            </div>
-                        </div>
+
                         <div className="add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
@@ -120,6 +127,19 @@ const EditDriverProfile = () => {
                                 </label>
                                 <input
                                     type="number"
+                                    className="border border-[] w-full "
+                                    id=""
+                                    placeholder="Enter your phone number"
+                                />
+                            </div>
+                        </div>
+                        <div className="add_driver">
+                            <div className="mb-3">
+                                <label htmlFor="" className="">
+                               Date of Birth
+                                </label>
+                                <input
+                                    type="date"
                                     className="border border-[] w-full "
                                     id=""
                                     placeholder="Enter your phone number"
@@ -140,17 +160,28 @@ const EditDriverProfile = () => {
                                 />
                             </div>
                         </div>
-
-                        <div className="add_driver">
+                        <div className=" add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
-                                    License Expiration Date
+                                    Driving License
                                 </label>
                                 <input
-                                    type="date"
-                                    className="border border-[] w-full "
-                                    id=""
-                                    placeholder="Enter your city"
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={handleFileChange}
+                                    style={{ display: 'none' }}
+                                    accept=".pdf"
+                                    id="fileInput"
+                                />
+                                <input
+                                    type="text"
+                                    className="cursor-pointer form-control ps-5"
+                                    id="customFileInput"
+                                    name="customFileInput"
+                                    placeholder="Select a PDF file"
+                                    onClick={() => fileInputRef?.current?.click()}
+                                    value={selectedFile ? selectedFile.name : ''}
+                                    readOnly
                                 />
                             </div>
                         </div>

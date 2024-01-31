@@ -10,9 +10,9 @@ import instance from "../hooks/Instance";
 
 
 const signUp = () => {
-
+  
   const [passwordShow, setPasswordShow] = useState(false);
-
+  
   const [userData, setUserData] = useState({
     fullName: "",
     role: "Owner",

@@ -1,13 +1,10 @@
 'use client'
 import Stats from "@/components/stats/Stats";
 import Head from "next/head";
-import { useUser } from "../hooks/contexts";
 
 
 
 export default function Home() {
-  const { user } = useUser();
-  console.log(user)
 
 
   return (

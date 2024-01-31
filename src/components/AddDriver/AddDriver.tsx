@@ -1,46 +1,18 @@
 'use client'
 
+const numRows: number = 5;
+const numCols: number = 10;
+
 import Image from "next/image";
 import profile from "../../../public/assets/profile.png";
-import { ChangeEvent, useRef, useState } from "react";
 import { FiCamera } from "react-icons/fi";
+import { useFileUpload, useImageUpload } from "@/app/hooks/fileUpload";
 
 const AddDriver = () => {
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
+  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
 
-  const handleFileChange = () => {
-    const file: File | undefined = fileInputRef.current?.files?.[0];
-
-    if (file && file.type === 'application/pdf') {
-      setSelectedFile(file);
-    } else {
-      alert('Please select a PDF file.');
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
-  };
-
-  // img upload
-  const imageFileInputRef = useRef<HTMLInputElement | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const handleImageClick = () => {
-    imageFileInputRef.current?.click();
-  };
-
-  const handleImageFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      const imageUrl = URL.createObjectURL(selectedFile);
-      setSelectedImage(imageUrl);
-    }
-  };
-
-  const numRows: number = 5;
-  const numCols: number = 10;
 
   return (
 
@@ -54,7 +26,7 @@ const AddDriver = () => {
         />
         <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
           <Image
-            src={selectedImage || profile} 
+            src={selectedImage || profile}
             alt="Selected"
             layout="fill"
             objectFit="cover"
@@ -68,85 +40,89 @@ const AddDriver = () => {
           }
         </div>
         <div className="grid grid-cols-12 gap-4">
-          <div className="add_driver col-span-6">
+          <div className="col-span-6 add_driver">
             <div className="mb-3">
-              <label htmlFor="" className="">
-                First Name
-              </label>
-              <input
-                type="email"
-                className="border  w-full "
-                id=""
-                placeholder="Enter your first name"
-              />
+              <label htmlFor="">Select Driver </label>
+              <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                <option selected>Choose</option>
+                <option value="Authorized">Nicolos</option>
+                <option value="reject"> John weak</option>
+                <option value="exam">Shah Rukh </option>
+                <option value="Authorized">Nicolos</option>
+                <option value="reject"> John weak</option>
+                <option value="exam">Shah Rukh </option>
+                <option value="Authorized">Nicolos</option>
+                <option value="reject"> John weak</option>
+                <option value="exam">Shah Rukh </option>
+              </select>
             </div>
           </div>
-          <div className="add_driver col-span-6">
-            <div className="mb-3">
-              <label htmlFor="" className="">
-                Last Name
-              </label>
-              <input
-                type="text"
-                className="border  w-full "
-                id=""
-                placeholder="Enter your last name"
-              />
-            </div>
-          </div>
-          <div className="add_driver col-span-6">
-            <div className="mb-3">
-              <label htmlFor="" className="">
-                Email
-              </label>
-              <input
-                type="email"
-                className="border  w-full "
-                id=""
-                placeholder="Enter your email"
-              />
-            </div>
-          </div>
-          <div className="add_driver col-span-6">
-            <div className="mb-3">
-              <label htmlFor="" className="">
-                Password
-              </label>
-              <input
-                type="password"
-                className="border  w-full "
-                id=""
-                placeholder="Enter your password"
-              />
-            </div>
-          </div>
-          <div className="add_driver col-span-6">
+          <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="" className="">
                 Address
               </label>
               <input
                 type="text"
-                className="border  w-full "
+                className="w-full border "
+                id=""
+                placeholder="Enter your last name"
+              />
+            </div>
+          </div>
+          <div className="col-span-6 add_driver">
+            <div className="mb-3">
+              <label htmlFor="" className="">
+                Email
+              </label>
+              <input
+                type="email"
+                className="w-full border "
+                id=""
+                placeholder="Enter your email"
+              />
+            </div>
+          </div>
+          <div className="col-span-6 add_driver">
+            <div className="mb-3">
+              <label htmlFor="" className="">
+                Password
+              </label>
+              <input
+                type="password"
+                className="w-full border "
+                id=""
+                placeholder="Enter your password"
+              />
+            </div>
+          </div>
+          <div className="col-span-6 add_driver">
+            <div className="mb-3">
+              <label htmlFor="" className="">
+                Date of Birth
+              </label>
+              <input
+                type="text"
+                className="w-full border "
                 id=""
                 placeholder="Enter your address"
               />
             </div>
           </div>
-          <div className="add_driver col-span-6">
+          <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="" className="">
                 Phone Number
               </label>
               <input
                 type="number"
-                className="border  w-full "
+                className="w-full border "
                 id=""
                 placeholder="Enter your city"
               />
             </div>
           </div>
-          <div className="add_driver col-span-6">
+          <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="" className="">
                 Driving License
@@ -156,12 +132,12 @@ const AddDriver = () => {
                 ref={fileInputRef}
                 onChange={handleFileChange}
                 style={{ display: 'none' }}
-                accept=".pdf" 
+                accept=".pdf"
                 id="fileInput"
               />
               <input
                 type="text"
-                className="form-control ps-5 cursor-pointer"
+                className="cursor-pointer form-control ps-5"
                 id="customFileInput"
                 name="customFileInput"
                 placeholder="Select a PDF file"
@@ -172,20 +148,20 @@ const AddDriver = () => {
 
             </div>
           </div>
-          <div className="add_driver col-span-6">
+          <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="" className="">
                 License Expiration Date
               </label>
               <input
                 type="date"
-                className="border  w-full "
+                className="w-full border "
                 id=""
                 placeholder="Enter your city"
               />
             </div>
           </div>
-          <div className="col-span-12 add_driver  w-full">
+          <div className="w-full col-span-12 add_driver">
             <textarea className="w-full  border rounded-[5px] border-[#dee2e6]" name="" placeholder="About...." id="" cols={numCols} rows={numRows}></textarea>
           </div>
         </div>

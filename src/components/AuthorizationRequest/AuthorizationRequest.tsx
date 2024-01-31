@@ -1,21 +1,9 @@
 'use client'
-import { useRef, useState } from "react";
+import { useFileUpload } from "@/app/hooks/fileUpload";
+
 const AuthorizationRequest = () => {
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-    const handleFileChange = () => {
-        const file: File | undefined = fileInputRef.current?.files?.[0];
-
-        if (file && file.type === 'application/pdf') {
-            setSelectedFile(file);
-        } else {
-            alert('Please select a PDF file.');
-            if (fileInputRef.current) {
-                fileInputRef.current.value = '';
-            }
-        }
-    };
+    const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
 
     return (
         <>
@@ -24,7 +12,7 @@ const AuthorizationRequest = () => {
                     <button>select</button>
                     <h1 className='text-center mb-[20px]'>Request For Authorization</h1>
                     <form action="">
-                        <div className=" add_driver grid grid-cols-12  gap-5 ">
+                        <div className="grid grid-cols-12 gap-5 add_driver">
 
                             <div className='col-span-6'>
                                 <label htmlFor="">Truck</label>
@@ -76,14 +64,14 @@ const AuthorizationRequest = () => {
                                 <label htmlFor="">Driver Email</label>
                                 <input
                                     type="email"
-                                    placeholder='Enter email'
+                                    value="nicolos@gmail.com"
                                 />
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Phone Number</label>
                                 <input
                                     type="number"
-                                    placeholder='Enter Number'
+                                    value="018254564456456"
                                 />
                             </div>
                             <div className='col-span-6'>
@@ -102,7 +90,7 @@ const AuthorizationRequest = () => {
                                         />
                                         <input
                                             type="text"
-                                            className="form-control ps-5 cursor-pointer"
+                                            className="cursor-pointer form-control ps-5"
                                             id="customFileInput"
                                             name="customFileInput"
                                             placeholder="Select a PDF file"
