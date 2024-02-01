@@ -1,8 +1,6 @@
 'use client'
 import React from 'react'
 import './Topbar.scss'
-import Image from 'next/image'
-import profile from '../../../public/assets/dashHeader.jpg';
 
 const TopBar = () => {
   // get logged in user from  localstorage

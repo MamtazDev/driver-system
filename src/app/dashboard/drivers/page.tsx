@@ -11,8 +11,6 @@ import instance from "@/hooks/Instance";
 
 const Drivers = () => {
 
-
-
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

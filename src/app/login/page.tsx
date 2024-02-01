@@ -47,6 +47,7 @@ const Login = () => {
     }
   };
 
+  
   return (
     <div className="w-full mt-[100px] mx-auto">
       <div className="grid items-center w-full grid-cols-2 my-auto ">
