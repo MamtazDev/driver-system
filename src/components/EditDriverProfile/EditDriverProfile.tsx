@@ -10,15 +10,15 @@ import instance from "@/hooks/Instance";
 import { useParams } from "next/navigation";
 
 const EditDriverProfile = () => {
+
     const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
     const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
-
     const [userData, setUserData] = useState(null);
 
     const router = useParams();
     const id = router.slug;
 
-    const getUserById = async (userId) => {
+    const getUserById = async (userId: string | string[]) => {
         try {
             const response = await instance.get(`/api/user/getUserById/${userId}`);
             setUserData(response.data.data);
@@ -34,10 +34,10 @@ const EditDriverProfile = () => {
     const handleEditDetails = async (e) => {
 
         e.preventDefault()
-        if (imageFileInputRef.current) {
+        // if (imageFileInputRef.current) {
             const form = e.target;
             const image = imageFileInputRef.current.files[0];
-
+            
             const fullName = form.fullName.value;
             const email = form.email.value;
             const password = form.password.value;
@@ -47,9 +47,10 @@ const EditDriverProfile = () => {
             const about = form.about.value;
             const drivingLicense = form.drivingLicense.value;
             const drivingLicenseExpirationDate = form.drivingLicenseExpirationDate.value;
-
+            
             // Create FormData and append values
             const formData = new FormData();
+            
             formData.append('image', image);
             formData.append('fullName', fullName);
             formData.append('email', email);
@@ -60,32 +61,28 @@ const EditDriverProfile = () => {
             formData.append('about', about);
             formData.append('drivingLicense', drivingLicense);
             formData.append('drivingLicenseExpirationDate', drivingLicenseExpirationDate);
+            
+        console.log('formData', formData);
 
-            console.log('formData', formData);
+        try {
+            const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error submitting form:', error.message);
         }
-
-        // try {
-        //     const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData, {
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data',
-        //         },
-        //     });
-
-        //     console.log(response.data);
-
-        // } catch (error: any) {
-        //     console.error('Error submitting form:', error.message);
-        // }
-    };
-
-    // const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setEditedUserData((prevData) => ({
-    //         ...prevData,
-    //         [name]: value,
-    //     }));
-    // };
-
+    }
+    const handleInputChange = (e: any) => {
+        const { name, value } = e.target;
+        setUserData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      };
 
     return (
         <>
@@ -98,6 +95,7 @@ const EditDriverProfile = () => {
                         style={{ display: 'none' }}
                         onChange={handleImageFileChange}
                         name="image"
+                        id="image"
                     />
                     <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
                         <Image
@@ -107,7 +105,6 @@ const EditDriverProfile = () => {
                             objectFit="cover"
                             onClick={handleImageClick}
                             style={{ borderRadius: "50%" }}
-                            
                         />
                         {
                             !selectedImage && <div onClick={handleImageClick} className="absolute right-[22px] bottom-[28px] ">
@@ -124,11 +121,12 @@ const EditDriverProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="border border-[] w-full "
-                                    id=""
+                                    className="w-full border "
+                                    id="fullName"
                                     placeholder="Enter your first name"
-                                    // defaultValue={userData?.fullName}
+                                    value={userData?.fullName}
                                     name="fullName"
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -140,11 +138,12 @@ const EditDriverProfile = () => {
                                 <input
                                     type="text"
                                     className="border border-[] w-full "
-                                    id=""
-                                    placeholder="Enter your address"
-                                    // defaultValue={userData?.address}
-                                    name="address"
 
+                                    placeholder="Enter your address"
+                                    value={userData?.address}
+                                    name="address"
+                                    id="address"
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -155,12 +154,12 @@ const EditDriverProfile = () => {
                                 </label>
                                 <input
                                     type="email"
-                                    className="border border-[] w-full "
-                                    id=""
+                                    className="w-full border "
                                     placeholder="Enter your email"
-                                    // defaultValue={userData?.email}
-
+                                    value={userData?.email}
+                                    id="email"
                                     name="email"
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -174,6 +173,8 @@ const EditDriverProfile = () => {
                                     className="border border-[] w-full "
                                     name="password"
                                     placeholder="Enter your password"
+                                    onChange={handleInputChange}
+
                                 />
                             </div>
                         </div>
@@ -186,11 +187,11 @@ const EditDriverProfile = () => {
                                 <input
                                     type="number"
                                     className="border border-[] w-full "
-                                    id=""
+                                    id="phoneNumber"
                                     placeholder="Enter your phone number"
-                                    // defaultValue={userData?.phoneNumber}
-
+                                    value={userData?.phoneNumber}
                                     name="phoneNumber"
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -202,9 +203,11 @@ const EditDriverProfile = () => {
                                 <input
                                     type="date"
                                     className="border border-[] w-full "
-                                    id=""
+                                    id="dob"
                                     placeholder="Enter your phone number"
                                     name="dob"
+                                    value={userData?.dob}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -217,11 +220,12 @@ const EditDriverProfile = () => {
                                 <input
                                     type="text"
                                     className="border border-[] w-full "
-                                    id=""
+                                    id="drivingLicenseExpirationDate"
                                     placeholder="Enter your city"
-                                    // defaultValue={userData?.drivingLicenseExpirationDate ? drivingLicenseExpirationDate : '10/20/5'}
+                                    value={userData?.drivingLicenseExpirationDate ? drivingLicenseExpirationDate : '10/20/5'}
 
                                     name="drivingLicenseExpirationDate"
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -236,18 +240,19 @@ const EditDriverProfile = () => {
                                     onChange={handleFileChange}
                                     style={{ display: 'none' }}
                                     accept=".pdf"
-                                    id="fileInput"
+                                    id="drivingLicense"
                                     name="drivingLicense"
                                 />
                                 <input
                                     type="text"
                                     className="cursor-pointer form-control ps-5"
-                                    id="customFileInput"
-                                    name="customFileInput"
+                                    id="drivingLicense"
+                                    name="drivingLicense"
                                     placeholder="Select a PDF file"
                                     onClick={() => fileInputRef?.current?.click()}
                                     value={selectedFile ? selectedFile.name : ''}
                                     readOnly
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -258,7 +263,8 @@ const EditDriverProfile = () => {
                             About
                         </label>
                         <textarea
-                            // defaultValue={userData?.about ? about : ''}
+                            value={userData?.about ? about : ''}
+                            onChange={handleInputChange}
                             className="w-full  border rounded-[5px] border-[#dee2e6]" placeholder="About...." id="" cols={numCols} rows={numRows} name="about"></textarea>
                     </div>
 

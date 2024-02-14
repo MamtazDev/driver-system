@@ -28,7 +28,7 @@ const carList = () => {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, []);
 
     return (
         <>
@@ -44,7 +44,7 @@ const carList = () => {
                                         <option value="Authorized">Authorized</option>
                                     </select>
                                 </div>
-                                <Image height={200} width={200} src={`/${details.image[0].replace(/\\/g, '/')}`} alt="car" />
+                                <Image height={200} width={200} src={car} alt="car" />
                                 <div className="card_body">
                                     <p>{details.brand}</p>
                                     <div className='flex items-center justify-between car_title'>
@@ -68,102 +68,7 @@ const carList = () => {
                                 </div>
                             </div>
                         ))}
-                        {/* <div className="card border border-[red] rounded-[10px]">
-                            <div className='flex items-center justify-end gap-2 card_header'>
-                                <select name="status" onChange={handleSelectChange}>
-                                    <option value="Choose">Choose</option>
-                                    <option value="Available">Available</option>
-                                    <option value="Authorized">Authorized</option>
-                                </select>
 
-                            </div>
-                            <Image src={car} alt="" />
-                            <div className="card_body">
-                                <p>FORD FOCUS</p>
-                                <div className='flex items-center justify-between car_title'>
-                                    <h5 className="">1.5 EcoBlue MT Titenium X</h5>
-                                    <p>$24.59 <span>/hour</span></p>
-                                </div>
-                                {
-                                    selectedValue === 'Available' &&
-                                    <Link href="/dashboard/authorizationRequest"><button>Authorized Now</button></Link>
-                                }
-
-                                {
-                                    selectedValue === 'Authorized' &&
-                                    <div className="flex justify-between items-center mt-[14px]">
-
-                                        <p className="text-black">Company: Ferrari</p>
-                                        <Link href="/dashboard/driverDetails"><p className="text-black">Driver name: Nicolos</p></Link>
-                                    </div>
-                                }
-
-                            </div>
-                        </div>
-                        <div className="card border border-[red] rounded-[10px]">
-                            <div className='flex items-center justify-end gap-2 card_header'>
-                                <select name="status" onChange={handleSelectChange}>
-                                    <option value="Choose">Choose</option>
-                                    <option value="Available">Available</option>
-                                    <option value="Authorized">Authorized</option>
-                                </select>
-
-                            </div>
-                            <Image src={car} alt="" />
-                            <div className="card_body">
-                                <p>FORD FOCUS</p>
-                                <div className='flex items-center justify-between car_title'>
-                                    <h5 className="">1.5 EcoBlue MT Titenium X</h5>
-                                    <p>$24.59 <span>/hour</span></p>
-                                </div>
-                                {
-                                    selectedValue === 'Available' &&
-                                    <Link href="/dashboard/authorizationRequest"><button>Authorized Now</button></Link>
-                                }
-
-                                {
-                                    selectedValue === 'Authorized' &&
-                                    <div className="flex justify-between items-center mt-[14px]">
-
-                                        <p className="text-black">Company: Ferrari</p>
-                                        <Link href="/dashboard/driverDetails"><p className="text-black">Driver name: Nicolos</p></Link>
-                                    </div>
-                                }
-
-                            </div>
-                        </div>
-                        <div className="card border border-[red] rounded-[10px]">
-                            <div className='flex items-center justify-end gap-2 card_header'>
-                                <select name="status" onChange={handleSelectChange}>
-                                    <option value="Choose">Choose</option>
-                                    <option value="Available">Available</option>
-                                    <option value="Authorized">Authorized</option>
-                                </select>
-
-                            </div>
-                            <Image src={car} alt="" />
-                            <div className="card_body">
-                                <p>FORD FOCUS</p>
-                                <div className='flex items-center justify-between car_title'>
-                                    <h5 className="">1.5 EcoBlue MT Titenium X</h5>
-                                    <p>$24.59 <span>/hour</span></p>
-                                </div>
-                                {
-                                    selectedValue === 'Available' &&
-                                    <Link href="/dashboard/authorizationRequest"><button>Authorized Now</button></Link>
-                                }
-
-                                {
-                                    selectedValue === 'Authorized' &&
-                                    <div className="flex justify-between items-center mt-[14px]">
-
-                                        <p className="text-black">Company: Ferrari</p>
-                                        <Link href="/dashboard/driverDetails"><p className="text-black">Driver name: Nicolos</p></Link>
-                                    </div>
-                                }
-
-                            </div>
-                        </div> */}
                     </div>
 
 

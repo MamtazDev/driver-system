@@ -1,9 +1,18 @@
 'use client'
 import { useFileUpload } from "@/hooks/fileUpload";
+import { useState } from "react";
 
 const AuthorizationRequest = () => {
 
     const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
+
+    const [formData, setFormData] = useState({
+
+
+        
+    })
+
+
 
     return (
         <>
@@ -133,9 +142,6 @@ const AuthorizationRequest = () => {
                                     <option value="exam">Authorized</option>
                                 </select>
                             </div>
-
-
-
                         </div>
                         <div className="text-center mt-[15px]">
                             <button type='button' className="common_button">Send Request</button>

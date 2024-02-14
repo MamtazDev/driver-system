@@ -14,9 +14,9 @@ const Login = () => {
   const router = useRouter()
 
   const [isChecked, setChecked] = useState(false);
-  
+
   const [passwordShow, setPasswordShow] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -47,7 +47,7 @@ const Login = () => {
     }
   };
 
-  
+
   return (
     <div className="w-full mt-[100px] mx-auto">
       <div className="grid items-center w-full grid-cols-2 my-auto ">
@@ -92,21 +92,10 @@ const Login = () => {
             </div>
 
             <div className="flex items-center justify-between gap-1 mb-5 lg:gap-3 lg:mb-10">
-              <label className="flex items-center gap-4 mb-0">
-                <input
-                  className="hidden"
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={handleCheckboxChange}
-                />
-                <span
-                  className={`${isChecked && "bg-slate-200"
-                    } border  border-slate-200 rounded-sm h-[18px] w-[18px] flex items-center justify-center`}
-                >
-                  {isChecked ? "✔" : ""}
-                </span>
-                Stay signed in
-              </label>
+              <div className="flex items-center gap-4 mb-0">
+             
+                Dont have an account? <Link href="/signup" className='font-bold'>Signup</Link>
+              </div>
 
               <Link
                 href="/forgetPass"

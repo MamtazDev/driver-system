@@ -12,26 +12,25 @@ import instance from "@/hooks/Instance";
 const Drivers = () => {
 
   const [users, setUsers] = useState([]);
-
+  
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await instance.get('/getAllUser');
+        const response = await instance.get('/api/user/getAllUser');
         const allUsers = response.data.data;
+       
         const driverUsers = allUsers.filter((user) => user.role.includes('Driver'));
         setUsers(driverUsers);
-
+        console.log(driverUsers)
       } catch (error) {
-
         console.error('Error fetching users:', error.message);
       }
     };
     fetchUsers();
-
   }, []);
 
-  console.log(users);
-
+  console.log("users", users);
+  
   return (
 
     <>
@@ -74,12 +73,12 @@ const Drivers = () => {
                             />
                             <Link href="/dashboard/driverDetails" >  <p className="fw-bold ">
 
-                              Nicolos</p></Link>
+                              {user?.fullName}</p></Link>
                           </div>
                         </td>
                         <td className="px-6 py-4"></td>
-                        <td className="px-6 py-4">nicolos@gmail.com</td>
-                        <td className="px-6 py-4">01856416846</td>
+                        <td className="px-6 py-4">{user?.email}</td>
+                        <td className="px-6 py-4">{user?.phoneNumber}</td>
                         <td>
                           <div className="p-2 border rounded-lg w-fit ">
                             <button className="flex items-center gap-2 "> <FaFilePdf className="text-[14px] h-[10px]" />pdf</button>

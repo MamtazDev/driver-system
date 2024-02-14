@@ -7,10 +7,11 @@ import PrimaryBtn from "@/components/primaryBtn/PrimaryBtn";
 import eye from "../../../public/assets/passwortd_eye.png";
 import login from "../../../public/assets/login.jpg";
 import instance from "../../hooks/Instance";
-
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const signUp = () => {
-
+  const navigate = useRouter()
   const [passwordShow, setPasswordShow] = useState(false);
 
   const [userData, setUserData] = useState({
@@ -46,6 +47,8 @@ const signUp = () => {
           phoneNumber: "",
         }
       )
+      navigate.push('/login')
+
     } catch (error: any) {
       console.error("Registration failed:", error.message);
     }
@@ -120,7 +123,7 @@ const signUp = () => {
                 </div>
               </div>
 
-              <div className="mb-10">
+              <div className="mb-[20px]">
                 <label htmlFor="name">
                   Address
                 </label>
@@ -129,7 +132,7 @@ const signUp = () => {
                   onChange={handleInputChange} />
               </div>
 
-              <div className="mb-10">
+              <div className="mb-[10px]">
                 <label htmlFor="name">
                   Phone Number
                 </label>
@@ -140,6 +143,10 @@ const signUp = () => {
                 />
               </div>
             </div>
+            <div className="flex items-end justify-end gap-4 mb-[10px] ">
+             
+             Already have an account? <Link href="/login" className='font-bold'>Login.</Link>
+           </div>
             <PrimaryBtn>Create Account</PrimaryBtn>
           </form>
         </div>

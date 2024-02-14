@@ -6,7 +6,6 @@ const instance = axios.create({
   timeout: 10000,
   headers: {
     'X-Custom-Header': 'foobar',
-    'Content-Type': 'application/json',
   },
 });
 
