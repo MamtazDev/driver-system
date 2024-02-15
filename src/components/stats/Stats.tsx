@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import "./stats.scss";
 import { useDriverContext } from "@/hooks/driverContext";
+import { useTruckContext } from "@/hooks/truckContext";
 
 const Stats = () => {
 
@@ -26,8 +27,12 @@ const Stats = () => {
 
 
   const driverContext = useDriverContext();
+  const truckContext = useTruckContext();
 
   const [driverDataList, setDriverDataList] = useState()
+  const [truckDataList, setTruckDataList] = useState()
+
+
 
   useEffect(() => {
     if (driverContext && driverContext.data) {
@@ -37,6 +42,11 @@ const Stats = () => {
     }
   }, [driverContext]);
 
+  useEffect(() => {
+    setTruckDataList(truckContext?.data?.length)
+    console.log(truckDataList)
+  }, [truckContext]);
+  
   const totalDriver = driverDataList?.length;
 
   return (
@@ -54,7 +64,7 @@ const Stats = () => {
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total Truck</h6>
             </div>
             <div className="status_Card rounded-[5px]  text-center">
-              <h1 className="mb1">130</h1>
+              <h1 className="mb1">{truckDataList}</h1>
             </div>
           </div>
         </div>
