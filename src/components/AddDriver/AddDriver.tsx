@@ -7,14 +7,31 @@ import Image from "next/image";
 import profile from "../../../public/assets/profile.png";
 import { FiCamera } from "react-icons/fi";
 import { useFileUpload, useImageUpload } from "@/hooks/fileUpload";
+import { useEffect, useState } from "react";
+import { useDriverContext } from "@/hooks/driverContext";
 
 const AddDriver = () => {
 
   const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
+  const driverContext = useDriverContext();
 
-  
+  const [driverDataList, setDriverDataList] = useState([]);
+  const [selectedDriver, setSelectedDriver] = useState(null);
 
+  useEffect(() => {
+    if (driverContext && driverContext.data) {
+      const driverData = driverContext.data.filter((data) => data.role.includes("Driver"));
+      setDriverDataList(driverData);
+    }
+  }, [driverContext]);
+
+  const handleDriverSelect = (selectedValue) => {
+    const selectedDriverData = driverDataList.find((data) => data.fullName === selectedValue);
+    setSelectedDriver(selectedDriverData);
+  };
+
+  console.log("selectedDriver", selectedDriver);
   return (
 
     <div className="w-full">
@@ -44,17 +61,13 @@ const AddDriver = () => {
           <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="">Select Driver </label>
-              <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+              <select onChange={(e) => handleDriverSelect(e.target.value)} id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                 <option selected>Choose</option>
-                <option value="Authorized">Nicolos</option>
-                <option value="reject"> John weak</option>
-                <option value="exam">Shah Rukh </option>
-                <option value="Authorized">Nicolos</option>
-                <option value="reject"> John weak</option>
-                <option value="exam">Shah Rukh </option>
-                <option value="Authorized">Nicolos</option>
-                <option value="reject"> John weak</option>
-                <option value="exam">Shah Rukh </option>
+                {driverDataList.map((data) => (
+                  <option key={data._id} value={data.fullName}>
+                    {data.fullName}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -68,6 +81,7 @@ const AddDriver = () => {
                 className="w-full border "
                 id=""
                 placeholder="Enter your last name"
+                value={selectedDriver ? selectedDriver.address : ""}
               />
             </div>
           </div>
@@ -81,10 +95,11 @@ const AddDriver = () => {
                 className="w-full border "
                 id=""
                 placeholder="Enter your email"
+                value={selectedDriver ? selectedDriver.email : ""}
               />
             </div>
           </div>
-          <div className="col-span-6 add_driver">
+          {/* <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="" className="">
                 Password
@@ -96,7 +111,7 @@ const AddDriver = () => {
                 placeholder="Enter your password"
               />
             </div>
-          </div>
+          </div> */}
           <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="" className="">
@@ -106,7 +121,8 @@ const AddDriver = () => {
                 type="text"
                 className="w-full border "
                 id=""
-                placeholder="Enter your address"
+                placeholder="Enter your date of birth"
+                value={selectedDriver ? selectedDriver.dob : ""}
               />
             </div>
           </div>
@@ -119,7 +135,8 @@ const AddDriver = () => {
                 type="number"
                 className="w-full border "
                 id=""
-                placeholder="Enter your city"
+                placeholder="Enter your phone number"
+                value={selectedDriver ? selectedDriver.phoneNumber : ""}
               />
             </div>
           </div>
@@ -158,12 +175,12 @@ const AddDriver = () => {
                 type="date"
                 className="w-full border "
                 id=""
-                placeholder="Enter your city"
+                placeholder="Enter your license expiration date"
               />
             </div>
           </div>
           <div className="w-full col-span-12 add_driver">
-            <textarea className="w-full  border rounded-[5px] border-[#dee2e6]" name="" placeholder="About...." id="" cols={numCols} rows={numRows}></textarea>
+            <textarea className="w-full  border rounded-[5px] border-[#dee2e6]" name="" placeholder="About...." id="" cols={numCols} rows={numRows}         value={selectedDriver ? selectedDriver.about : ""}></textarea>
           </div>
         </div>
 

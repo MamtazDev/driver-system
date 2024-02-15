@@ -37,14 +37,14 @@ const Stats = () => {
   useEffect(() => {
     if (driverContext && driverContext.data) {
       const driverData = driverContext.data.filter((data) => data.role.includes("Driver"));
-      console.log("driverData", driverData);
+      // console.log("driverData", driverData);
       setDriverDataList(driverData)
     }
   }, [driverContext]);
 
   useEffect(() => {
     setTruckDataList(truckContext?.data?.length)
-    console.log(truckDataList)
+    // console.log(truckDataList)
   }, [truckContext]);
   
   const totalDriver = driverDataList?.length;
@@ -75,7 +75,7 @@ const Stats = () => {
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total drivers
               </h6>
             </div>
-            <div className="status_Card rounded-[5px]  text-center">
+            <div className="status_Card rounded-[5px]  text-center">  
               <h1 className="mb1">{totalDriver}</h1>
             </div>
           </div>
