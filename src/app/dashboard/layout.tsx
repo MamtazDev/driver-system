@@ -1,7 +1,7 @@
 import Sidebar from "@/components/sidebar/Sidebar";
 import "../globals.scss";
 import TopBar from "@/components/TopBar/TopBar";
-
+import { DriverProvider } from '../../hooks/driverContext'
 export const metadata = {
   title: {
     template: "%s | Truck Authorization System",
@@ -16,17 +16,20 @@ export default function DashboardLayout({
 }) {
   return (
     <html lang="en">
+      <DriverProvider>
 
-      <body>
-        <Sidebar />
-        <div className="lg:ms-[296px] ms-[50px] w-full">
-          <div className="w-full">
-            <TopBar />
+        <body>
+          <Sidebar />
+          <div className="lg:ms-[296px] ms-[50px] w-full">
+            <div className="w-full">
+              <TopBar />
+            </div>
+            <div className="mt-[100px] bg-[]  ">{children}</div>
           </div>
-          <div className="mt-[100px] bg-[]  ">{children}</div>
-        </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-      </body>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+        </body>
+
+      </DriverProvider>
     </html>
   );
 }
