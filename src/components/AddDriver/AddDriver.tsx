@@ -26,12 +26,13 @@ const AddDriver = () => {
     }
   }, [driverContext]);
 
-  const handleDriverSelect = (selectedValue) => {
+  const handleDriverSelect = (selectedValue: string) => {
     const selectedDriverData = driverDataList.find((data) => data.fullName === selectedValue);
     setSelectedDriver(selectedDriverData);
   };
 
   console.log("selectedDriver", selectedDriver);
+  
   return (
 
     <div className="w-full">
@@ -99,19 +100,19 @@ const AddDriver = () => {
               />
             </div>
           </div>
-          {/* <div className="col-span-6 add_driver">
+          <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="" className="">
-                Password
+                Company
               </label>
               <input
-                type="password"
+                type="text"
                 className="w-full border "
                 id=""
-                placeholder="Enter your password"
+                placeholder="Enter company name"
               />
             </div>
-          </div> */}
+          </div>
           <div className="col-span-6 add_driver">
             <div className="mb-3">
               <label htmlFor="" className="">

@@ -1,26 +1,81 @@
 'use client'
+import { useDriverContext } from "@/hooks/driverContext";
 import { useFileUpload } from "@/hooks/fileUpload";
-import { useState } from "react";
+import instance from "@/hooks/instance";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AuthorizationRequest = () => {
-
+    
     const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
+    const driverContext = useDriverContext();
 
-    const [formData, setFormData] = useState({
+    const [driverDataList, setDriverDataList] = useState([]);
+    const [selectedDriver, setSelectedDriver] = useState(null);
+
+    useEffect(() => {
+        if (driverContext && driverContext.data) {
+            const driverData = driverContext.data.filter((data) => data.role.includes("Driver"));
+            setDriverDataList(driverData);
+        }
+    }, [driverContext]);
+
+    
+    const handleDriverSelect = (selectedValue) => {
+        const selectedDriverData = driverDataList.find((data) => data.fullName === selectedValue);
+        setSelectedDriver(selectedDriverData);
+    };
+
+    // console.log("selectedDriver", selectedDriver?._id);
+    const router = useParams();
+
+    const id = router.slug;
+    // console.log(id)
 
 
-        
-    })
+    const selectedDriverId = selectedDriver?._id
 
+    //  authorization state
 
+    const [authorizationState, setAuthorizationState] = useState("")
 
+    const data = {
+        user: selectedDriverId,
+        trucks: id,
+        authorizationState: authorizationState
+    }
+    
+    console.log(data)
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        try {
+            const response = await instance.post("/api/authorization/addNewRequest", data);
+
+            if (response.data.success) {
+                toast.success('Request added successfully');
+            } else {
+                toast.error('Failed to add a new request');
+            }
+
+        } catch (error: any) {
+            toast.error(`Request failed: ${error.message}`);
+        }
+    };
     return (
         <>
+            <ToastContainer />
             <div className='container m-auto'>
                 <div className="shadow-card p-[30px]  w-[70%] m-auto">
                     <button>select</button>
                     <h1 className='text-center mb-[20px]'>Request For Authorization</h1>
-                    <form action="">
+
+
+                    <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-12 gap-5 add_driver">
 
                             <div className='col-span-6'>
@@ -56,24 +111,21 @@ const AuthorizationRequest = () => {
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Select Driver </label>
-                                <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                <select onChange={(e) => handleDriverSelect(e.target.value)} id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                     <option selected>Choose</option>
-                                    <option value="Authorized">Nicolos</option>
-                                    <option value="reject"> John weak</option>
-                                    <option value="exam">Shah Rukh </option>
-                                    <option value="Authorized">Nicolos</option>
-                                    <option value="reject"> John weak</option>
-                                    <option value="exam">Shah Rukh </option>
-                                    <option value="Authorized">Nicolos</option>
-                                    <option value="reject"> John weak</option>
-                                    <option value="exam">Shah Rukh </option>
+                                    {driverDataList.map((data) => (
+                                        <option key={data._id} value={data.fullName}>
+                                            {data.fullName}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Driver Email</label>
                                 <input
                                     type="email"
-                                    value="nicolos@gmail.com"
+                                    value={selectedDriver ? selectedDriver.email : ""}
+
                                 />
                             </div>
                             <div className='col-span-6'>
@@ -107,44 +159,43 @@ const AuthorizationRequest = () => {
                                             value={selectedFile ? selectedFile.name : ''}
                                             readOnly
                                         />
-
                                     </div>
                                 </div>
                             </div>
                             <div className='col-span-6'>
-                                <label htmlFor="">Phone Number</label>
+                                <label htmlFor="">Date of Birth</label>
                                 <input
-                                    type="number"
-                                    value="018253659656"
+                                    type="text"
+                                    value={selectedDriver ? selectedDriver.dob : ""}
                                 />
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Address</label>
                                 <input
                                     type="text"
-                                    value="mirpur-1 dhaka-1216"
+                                    value={selectedDriver ? selectedDriver.address : ""}
                                 />
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">License Expiration Date</label>
                                 <input
                                     type="text"
-                                    value="1/30/24"
+                                    value={selectedDriver ? selectedDriver.dob : ""}
                                 />
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Authorization State</label>
 
-                                <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                <select id="countries" onChange={(e) => setAuthorizationState(e.target.value)} className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                     <option selected>Choose</option>
-                                    <option value="Authorized">Request</option>
-                                    <option value="reject">Practice</option>
-                                    <option value="exam">Authorized</option>
+                                    <option value="Request">Request</option>
+                                    <option value="Practice">Practice</option>
+                                    <option value="Authorized">Authorized</option>
                                 </select>
                             </div>
                         </div>
                         <div className="text-center mt-[15px]">
-                            <button type='button' className="common_button">Send Request</button>
+                            <button type='submit' className="common_button">Send Request</button>
                         </div>
                     </form>
                 </div>

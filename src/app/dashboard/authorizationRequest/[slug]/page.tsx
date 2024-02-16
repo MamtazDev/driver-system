@@ -4,8 +4,7 @@ import React from 'react'
 const authorizationRequest = () => {
   return (
     <>
-    <AuthorizationRequest/>
-    
+      <AuthorizationRequest />
     </>
   )
 }

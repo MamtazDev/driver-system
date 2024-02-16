@@ -29,6 +29,7 @@ const EditDriverProfile = () => {
     const id = router.slug;
 
     const getUserById = async (userId: string | string[]) => {
+        
         try {
             const response = await instance.get(`/api/user/getUserById/${userId}`);
 

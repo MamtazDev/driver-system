@@ -30,6 +30,9 @@ const carList = () => {
         fetchData();
     }, []);
 
+    console.log(data)
+
+
     return (
         <>
             <div className="searchResults">
@@ -37,11 +40,14 @@ const carList = () => {
                     <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
                         {data.map((details) => (
                             <div className="card border border-[red] rounded-[10px]">
+
                                 <div className='flex items-center justify-end gap-2 card_header'>
+
                                     <select name="status" onChange={handleSelectChange}>
                                         <option value="Choose">Choose</option>
                                         <option value="Available">Available</option>
                                         <option value="Authorized">Authorized</option>
+
                                     </select>
                                 </div>
                                 <Image height={200} width={200} src={car} alt="car" />
@@ -53,7 +59,7 @@ const carList = () => {
                                     </div>
                                     {
                                         selectedValue === 'Available' &&
-                                        <Link href="/dashboard/authorizationRequest"><button>Authorized Now</button></Link>
+                                        <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link>
                                     }
 
                                     {
