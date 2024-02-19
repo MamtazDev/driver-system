@@ -9,12 +9,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AuthorizationRequest = () => {
-    
+
     const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
     const driverContext = useDriverContext();
 
     const [driverDataList, setDriverDataList] = useState([]);
     const [selectedDriver, setSelectedDriver] = useState(null);
+    const [authorizationState, setAuthorizationState] = useState("")
 
     useEffect(() => {
         if (driverContext && driverContext.data) {
@@ -23,32 +24,23 @@ const AuthorizationRequest = () => {
         }
     }, [driverContext]);
 
-    
+
     const handleDriverSelect = (selectedValue) => {
         const selectedDriverData = driverDataList.find((data) => data.fullName === selectedValue);
         setSelectedDriver(selectedDriverData);
     };
 
-    // console.log("selectedDriver", selectedDriver?._id);
     const router = useParams();
 
     const id = router.slug;
-    // console.log(id)
-
-
     const selectedDriverId = selectedDriver?._id
 
     //  authorization state
-
-    const [authorizationState, setAuthorizationState] = useState("")
-
     const data = {
         user: selectedDriverId,
         trucks: id,
         authorizationState: authorizationState
     }
-    
-    console.log(data)
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -66,6 +58,7 @@ const AuthorizationRequest = () => {
             toast.error(`Request failed: ${error.message}`);
         }
     };
+
     return (
         <>
             <ToastContainer />
@@ -73,7 +66,6 @@ const AuthorizationRequest = () => {
                 <div className="shadow-card p-[30px]  w-[70%] m-auto">
                     <button>select</button>
                     <h1 className='text-center mb-[20px]'>Request For Authorization</h1>
-
 
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-12 gap-5 add_driver">
