@@ -15,8 +15,9 @@ const AuthorizationRequest = () => {
 
     const [driverDataList, setDriverDataList] = useState([]);
     const [selectedDriver, setSelectedDriver] = useState(null);
-    const [authorizationState, setAuthorizationState] = useState("")
+    const [authorizationState, setAuthorizationState] = useState("")    
 
+    
     useEffect(() => {
         if (driverContext && driverContext.data) {
             const driverData = driverContext.data.filter((data) => data.role.includes("Driver"));

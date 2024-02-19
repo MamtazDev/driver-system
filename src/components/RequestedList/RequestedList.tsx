@@ -30,6 +30,8 @@ const RequestedList = () => {
 
 
     const [selectedValue, setSelectedValue] = useState("")
+    const [practiceHour, setPracticeHour] = useState("");
+
 
     useEffect(() => {
         if (selectedValue === 'In practice') {
@@ -45,36 +47,88 @@ const RequestedList = () => {
     const fetchData = async () => {
         try {
             const response = await instance.get('/api/authorization/allRequest');
-            setRequestsLists(response.data.data); 
+            setRequestsLists(response.data.data);
         } catch (error) {
             setError(error?.response?.data?.error_message || 'An error occurred');
         }
     };
+    // const handleSelectChange = async (event: any, requestId: string) => {
+    //     const newAuthorizationState = event.target.value;
+    //     console.log(newAuthorizationState); // Log the selected value
+    //     setSelectedValue(newAuthorizationState)
+
+    //     try {
+    //         const response = await instance.put(`/api/authorization/updateAuthorization/${requestId}`, {
+    //             newAuthorizationState,
+    //         });
+
+    //         if (response.data.success) {
+    //             setRequestsLists((prevRequests) =>
+    //                 prevRequests.map((request) =>
+    //                     request._id === requestId
+    //                         ? { ...request, authorizationState: [newAuthorizationState] }
+    //                         : request
+    //                 )
+    //             );
+    //         }
+    //     } catch (error) {
+    //         console.error('Error updating authorization status:', error);
+    //     }
+    // };
     const handleSelectChange = async (event: any, requestId: string) => {
         const newAuthorizationState = event.target.value;
+       
         console.log(newAuthorizationState); // Log the selected value
-        setSelectedValue(newAuthorizationState)
-    
+        
+        setSelectedValue(newAuthorizationState);
+
+        try {
+            if (newAuthorizationState === 'In practice') {
+                // If the new state is "In practice", open the modal or take other necessary actions
+                setIsOpen(true);
+            } else {
+                // For other states, update the authorization status without practice hours
+                const response = await instance.put(`/api/authorization/updateAuthorization/${requestId}`, {
+                    newAuthorizationState,
+                });
+
+                if (response.data.success) {
+                    setRequestsLists((prevRequests) =>
+                        prevRequests.map((request) =>
+                            request._id === requestId
+                                ? { ...request, authorizationState: [newAuthorizationState] }
+                                : request
+                        )
+                    );
+                }
+            }
+        } catch (error) {
+            console.error('Error updating authorization status:', error);
+        }
+    };
+    const handleSave = async (requestId: string) => {
         try {
             const response = await instance.put(`/api/authorization/updateAuthorization/${requestId}`, {
-                newAuthorizationState,
+                newAuthorizationState: 'In practice',
+                practiceHour,
             });
     
             if (response.data.success) {
                 setRequestsLists((prevRequests) =>
                     prevRequests.map((request) =>
                         request._id === requestId
-                            ? { ...request, authorizationState: [newAuthorizationState] }
+                            ? { ...request, authorizationState: ['In practice'], practiceHour }
                             : request
                     )
                 );
+                // Close the modal after saving
+                setIsOpen(false);
             }
         } catch (error) {
             console.error('Error updating authorization status:', error);
         }
     };
-
-
+    
     // console.log(requestsLists)
     return (
         <div>
@@ -146,10 +200,34 @@ const RequestedList = () => {
 
                                                     </td>
                                                 </tr>
+                                                <Modal
+                                                    isOpen={modalIsOpen}
+                                                    onRequestClose={closeModal}
+                                                    style={customStyles}
+                                                    contentLabel="Example Modal">
+
+                                                    <div className='text-right mb-[10px]'>
+                                                        <button onClick={closeModal}><IoMdClose /></button>
+                                                    </div>
+
+                                                    <div className="flex flex-col">
+                                                        <label htmlFor="" className='mb-[8px] fw-[900]'>Hours Of Practice</label>
+                                                        {/* <input className='rounded-[8px] bg-[#F8FAFC] mt-[10px]' type="number" placeholder='Hours of Practice' /> */}
+                                                        <input
+                                                            className='rounded-[8px] bg-[#F8FAFC] mt-[10px]'
+                                                            type="number"
+                                                            placeholder='Hours of Practice'
+                                                            value={practiceHour}
+                                                            onChange={(e) => setPracticeHour(e.target.value)}
+                                                        />
+                                                        <div className="text-center">
+                                                            {/* <button className='common_button'>Save</button> */}
+                                                            <button className='common_button' onClick={() => handleSave(requests._id)}>Save</button>
+                                                        </div>
+                                                    </div>
+                                                </Modal>
+
                                             </>
-
-
-
 
                                         ))
                                     }
@@ -159,24 +237,7 @@ const RequestedList = () => {
                     </div>
                 </div>
             </div>
-            <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal">
 
-                <div className='text-right mb-[10px]'>
-                    <button onClick={closeModal}><IoMdClose /></button>
-                </div>
-
-                <div className="flex flex-col">
-                    <label htmlFor="" className='mb-[8px] fw-[900]'>Hours Of Practice</label>
-                    <input className='rounded-[8px] bg-[#F8FAFC] mt-[10px]' type="number" placeholder='Hours of Practice' />
-                    <div className="text-center">
-                        <button className='common_button'>Save</button>
-                    </div>
-                </div>
-            </Modal>
         </div>
     )
 }
