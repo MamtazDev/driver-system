@@ -17,10 +17,10 @@ const Login = () => {
 
   const [passwordShow, setPasswordShow] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState([{
     email: "",
     password: "",
-  });
+  }]);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -93,7 +93,7 @@ const Login = () => {
 
             <div className="flex items-center justify-between gap-1 mb-5 lg:gap-3 lg:mb-10">
               <div className="flex items-center gap-4 mb-0">
-             
+
                 Dont have an account? <Link href="/signup" className='font-bold'>Signup</Link>
               </div>
 

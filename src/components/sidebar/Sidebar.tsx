@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import {  useState } from "react";
+import { useState } from "react";
 import Bell from "../../../public/assets/Bell.svg";
 import Car from "../../../public/assets/Car.svg";
 import Dashboard from "../../../public/assets/Dashboard.svg";
@@ -30,13 +30,13 @@ const Sidebar: React.FC = () => {
     setDropDownCars(false)
     setDropDownManager(false)
   };
-  
+
   const toggleDropDownCars = () => {
     setDropDown(false);
     setDropDownCars(!dropDownCars)
     setDropDownManager(false)
   };
-  
+
   const toggleDropDownManager = () => {
     setDropDownManager(!dropDownManager)
     setDropDownCars(false)
@@ -49,6 +49,15 @@ const Sidebar: React.FC = () => {
   const role = user?.user?.role[0]
 
   // const user=useContext(UserContext)
+
+
+  const handleLoggedOut = (e) => {
+    
+    e.preventDefault()
+
+    localStorage.removeItem('user')
+
+  }
 
 
   return (
@@ -241,7 +250,7 @@ const Sidebar: React.FC = () => {
             </>
             }
 
-              {/* <div className="drivers_dropdown" onClick={toggleDropDown}>
+            {/* <div className="drivers_dropdown" onClick={toggleDropDown}>
 
                 <div className="relative ">
 
@@ -404,7 +413,7 @@ const Sidebar: React.FC = () => {
                   )}
                 </div>
               </div> */}
-          
+
             {/* {role === "Driver" &&  */}
             <MenuBtn icon={Car}
               link="/dashboard/carList"
@@ -420,7 +429,7 @@ const Sidebar: React.FC = () => {
               isActive={activeLink === "/notifications"}
               onClick={() => setActiveLink("/notifications")}
             />
-         {role !== 'Manager' &&   <MenuBtn
+            {role !== 'Manager' && <MenuBtn
               icon={Bell}
               link="/dashboard/driverDetails"
               text="My Profile"
@@ -439,7 +448,7 @@ const Sidebar: React.FC = () => {
       </div>
       <div className="logout">
         <Link href="/login">
-          <button>
+          <button onClick={handleLoggedOut}>
             <Image className="logout-icon" src={Logout} alt="Logo" />
             Logout
           </button>

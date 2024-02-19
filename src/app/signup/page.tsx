@@ -14,14 +14,14 @@ const signUp = () => {
   const navigate = useRouter()
   const [passwordShow, setPasswordShow] = useState(false);
 
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState([{
     fullName: "",
     role: "Owner",
     email: "",
     password: "",
     address: "",
     phoneNumber: "",
-  });
+  }]);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -144,9 +144,9 @@ const signUp = () => {
               </div>
             </div>
             <div className="flex items-end justify-end gap-4 mb-[10px] ">
-             
-             Already have an account? <Link href="/login" className='font-bold'>Login.</Link>
-           </div>
+
+              Already have an account? <Link href="/login" className='font-bold'>Login.</Link>
+            </div>
             <PrimaryBtn>Create Account</PrimaryBtn>
           </form>
         </div>
