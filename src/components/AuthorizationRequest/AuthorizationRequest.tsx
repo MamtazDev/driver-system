@@ -26,7 +26,7 @@ const AuthorizationRequest = () => {
     }, [driverContext]);
 
 
-    const handleDriverSelect = (selectedValue) => {
+    const handleDriverSelect = (selectedValue: string) => {
         const selectedDriverData = driverDataList.find((data) => data.fullName === selectedValue);
         setSelectedDriver(selectedDriverData);
     };

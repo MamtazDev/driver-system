@@ -3,7 +3,7 @@ import car from "../../../../public/assets/car.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import instance from "@/hooks/Instance";
+import instance from "@/hooks/instance";
 
 const carList = () => {
 
@@ -12,14 +12,14 @@ const carList = () => {
     const handleSelectChange = (event: any) => {
         setSelectedValue(event.target.value);
     };
-    console.log(selectedValue);
+    // console.log(selectedValue);
 
     const [data, setData] = useState([])
 
     async function fetchData() {
         try {
             const response = await instance.get('/api/truck/getAllTrucks');
-            console.log(response.data.data);
+            // console.log(response.data.data);
             setData(response.data.data);
         } catch (error) {
             console.error('Error fetching data:', error.message);
@@ -30,7 +30,8 @@ const carList = () => {
         fetchData();
     }, []);
 
-    console.log(data)
+    console.log(data, "data")
+    const apiUrl = process.env.VITE_LOCAL_API_URL || 'http://localhost:4000/';
 
 
     return (
@@ -50,11 +51,18 @@ const carList = () => {
 
                                     </select>
                                 </div>
-                                <Image height={200} width={200} src={car} alt="car" />
+
+                                <Image height={200} width={200} src={
+                                    details && details?.image
+                                        ? `http://localhost:4000/api/uploads/${details?.image}`
+                                        // ? `${apiUrl}/api/uploads/${details?.image}`
+                                        : car
+                                } alt="car" />
+                           
                                 <div className="card_body">
-                                    <p>{details.brand}</p>
+                                    <p>{details?.brand}</p>
                                     <div className='flex items-center justify-between car_title'>
-                                        <h5 className="">Model: {details.model} </h5>
+                                        <h5 className="">Model: {details?.model} </h5>
                                         <p>VIN Number: <span>{details.vinNumber}</span></p>
                                     </div>
                                     {
@@ -65,7 +73,6 @@ const carList = () => {
                                     {
                                         selectedValue === 'Authorized' &&
                                         <div className="flex justify-between items-center mt-[14px]">
-
                                             <p className="text-black">Company: {details?.company}</p>
                                             <Link href="/dashboard/driverDetails"><p className="text-black">Driver name: Nicolos</p></Link>
                                         </div>
