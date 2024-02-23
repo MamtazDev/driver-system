@@ -4,19 +4,26 @@ const numCols: number = 10;
 import Image from "next/image";
 import profile from "../../../public/assets/profile.png";
 import { FiCamera } from "react-icons/fi";
-import { useFileUpload, useImageUpload } from "@/hooks/fileUpload";
+import {  useImageUpload } from "@/hooks/fileUpload";
 import { useEffect, useState } from "react";
-import instance from "@/hooks/Instance";
 import { useParams } from "next/navigation";
+import instance from "@/hooks/instance";
+
 
 const EditDriverProfile = () => {
 
-    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
-    const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
+    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange,selectedFiles } = useImageUpload();
+    // const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
+
+    console.log(selectedFiles)
+
+
+        
     const [userData, setUserData] = useState({
+        image:"",
         fullName:"",
         email: "",
-        password: "",
+        password: "",   
         address: "",
         phoneNumber: "",
         dob:"",
@@ -24,6 +31,7 @@ const EditDriverProfile = () => {
         drivingLicense:"",
         drivingLicenseExpirationDate:""
     });
+    
     const router = useParams();
 
     const id = router.slug;
@@ -55,33 +63,48 @@ const EditDriverProfile = () => {
         }));
       };
       
- 
       const handleSubmit = async (e: any) => {
+        
         e.preventDefault();
-        console.log(userData);
+        
+        const formData = new FormData();
+      
+        formData.append("image",selectedFiles);
+        formData.append("fullName", userData.fullName);
+        formData.append("email",userData.email);
+        formData.append("address", userData.address);
+        formData.append("phoneNumber", userData.phoneNumber);
+        formData.append("dob", userData.dob);
+        formData.append("about", userData.about);
+        // formData.append("drivingLicense", drivingLicense);
+        formData.append("drivingLicenseExpirationDate", userData.drivingLicenseExpirationDate);
+        
         try {
           const response = await instance.put(`/api/user/updateUserProfile/${id}`, userData);
+          
           console.log(response.data);
-          setUserData(
-            {
-                fullName:"",
-                email: "",
-                password: "",
-                address: "",
-                phoneNumber: "",
-                dob:"",
-                about:"",
-                drivingLicense:"",
-                drivingLicenseExpirationDate:""
-            }
-          )
+          
+        //   setUserData(
+        //     {
+        //         image:"",
+        //         fullName:"",
+        //         email: "",
+        //         password: "",
+        //         address: "",
+        //         phoneNumber: "",
+        //         dob:"",
+        //         about:"",
+        //         drivingLicense:"",
+        //         drivingLicenseExpirationDate:""
+        //     }
+        //   )
         //   navigate.push('/login')
     
         } catch (error: any) {
           console.error("Registration failed:", error.message);
         }
       };
-    console.log(userData);
+    console.log(selectedImage);
    
     return (
         <>
@@ -110,6 +133,7 @@ const EditDriverProfile = () => {
                                  <FiCamera />
                              </div>
                          }
+                         
                      </div> 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="add_driver">
@@ -226,37 +250,34 @@ const EditDriverProfile = () => {
                                     id="drivingLicenseExpirationDate"
                                     placeholder="Enter your city"
                                     value={userData?.drivingLicenseExpirationDate ? drivingLicenseExpirationDate : '10/20/5'}
-
                                     name="drivingLicenseExpirationDate"
-
                                 />
                             </div>
                         </div>
+
+                        
                         <div className=" add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
                                     Driving License
                                 </label>
                                 <input
-                                    type="file"
-                                    ref={fileInputRef}
-                                    onChange={handleFileChange}
-                                    style={{ display: 'none' }}
-                                    accept=".pdf"
-                                    id="drivingLicense"
-                                    name="drivingLicense"
-                                />
+                        type="file"
+                        ref={imageFileInputRef}
+                        style={{ display: 'none' }}
+                        onChange={handleImageFileChange}
+                        name="drivingLicense"
+                        id="drivingLicense"
+                    />
                                 <input
                                     type="text"
                                     className="cursor-pointer form-control ps-5"
                                     id="drivingLicense"
                                     name="drivingLicense"
                                     placeholder="Select a PDF file"
-                                    onClick={() => fileInputRef?.current?.click()}
-                                    value={selectedFile ? selectedFile.name : ''}
-                                    readOnly
-                                      onChange={handleInputChange}
-
+                                    // onClick={() => fileInputRef?.current?.click()}
+                                    onClick={handleImageClick}
+value={selectedImage}
                                 />
                             </div>
                         </div>

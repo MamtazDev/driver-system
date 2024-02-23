@@ -30,9 +30,7 @@ const carList = () => {
         fetchData();
     }, []);
 
-    console.log(data, "data")
-    const apiUrl = process.env.VITE_LOCAL_API_URL || 'http://localhost:4000/';
-
+  
 
     return (
         <>
@@ -40,46 +38,7 @@ const carList = () => {
                 <div className="container mx-[50px] w-full">
                     <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
                         {data.map((details) => (
-                            <div className="card border border-[red] rounded-[10px]">
-
-                                <div className='flex items-center justify-end gap-2 card_header'>
-
-                                    <select name="status" onChange={handleSelectChange}>
-                                        <option value="Choose">Choose</option>
-                                        <option value="Available">Available</option>
-                                        <option value="Authorized">Authorized</option>
-
-                                    </select>
-                                </div>
-
-                                <Image height={200} width={200} src={
-                                    details && details?.image
-                                        ? `http://localhost:4000/api/uploads/${details?.image}`
-                                        // ? `${apiUrl}/api/uploads/${details?.image}`
-                                        : car
-                                } alt="car" />
-                           
-                                <div className="card_body">
-                                    <p>{details?.brand}</p>
-                                    <div className='flex items-center justify-between car_title'>
-                                        <h5 className="">Model: {details?.model} </h5>
-                                        <p>VIN Number: <span>{details.vinNumber}</span></p>
-                                    </div>
-                                    {
-                                        selectedValue === 'Available' &&
-                                        <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link>
-                                    }
-
-                                    {
-                                        selectedValue === 'Authorized' &&
-                                        <div className="flex justify-between items-center mt-[14px]">
-                                            <p className="text-black">Company: {details?.company}</p>
-                                            <Link href="/dashboard/driverDetails"><p className="text-black">Driver name: Nicolos</p></Link>
-                                        </div>
-                                    }
-
-                                </div>
-                            </div>
+                            <CarDetails  details={details} handleSelectChange={handleSelectChange} selectedValue={selectedValue} />
                         ))}
 
                     </div>
@@ -93,3 +52,52 @@ const carList = () => {
 };
 
 export default carList;
+
+
+
+function CarDetails({details,handleSelectChange,selectedValue}) {
+    return (
+
+        <>
+            <div className="card border border-[red] rounded-[10px]">
+
+                <div className='flex items-center justify-end gap-2 card_header'>
+                    <select name="status" onChange={handleSelectChange} >
+               
+                        <option selected={details.status === "Available"}  value="Available">Available</option>
+                        <option selected={details.status === "Authorized"} value="Authorized">Authorized</option>
+                    </select>
+                </div>
+                <p>{details.status}</p>
+                
+                <Image height={200} width={200} src={
+                    details && details?.image
+                        ? `http://localhost:4000/api/uploads/${details?.image}`
+                        // ? `${apiUrl}/api/uploads/${details?.image}`
+                        : car
+                } alt="car" />
+
+                <div className="card_body">
+                    <p>{details?.brand}</p>
+                    <div className='flex items-center justify-between car_title'>
+                        <h5 className="">Model: {details?.model} </h5>
+                        <p>VIN Number: <span>{details.vinNumber}</span></p>
+                    </div>
+                    {
+                        details.status === "Available"&&
+                        <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link>
+                    }
+
+                    {
+                         details.status === 'Authorized' &&
+                        <div className="flex justify-between items-center mt-[14px]">
+                            <p className="text-black">Company: {details?.company}</p>
+                            <Link href="/dashboard/driverDetails"><p className="text-black">Driver name: Nicolos</p></Link>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </>
+    )
+}

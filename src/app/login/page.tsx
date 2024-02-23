@@ -6,8 +6,8 @@ import Link from "next/link";
 import AuthTitle from "@/components/authTitle/authTitle";
 import eye from "../../../public/assets/passwortd_eye.png";
 import login from "../../../public/assets/login.jpg";
-import instance from '../../hooks/Instance';
 import { useRouter } from 'next/navigation';
+import instance from '@/hooks/instance';
 
 const Login = () => {
 
@@ -28,10 +28,6 @@ const Login = () => {
       ...prevData,
       [name]: value,
     }));
-  };
-
-  const handleCheckboxChange = () => {
-    setChecked(!isChecked);
   };
 
   const handleLogin = async (e: any) => {
@@ -104,14 +100,12 @@ const Login = () => {
                 I forgot my password
               </Link>
             </div>
-            {/* <Link href="/verifyEmail"> */}
-            {/* <PrimaryBtn>Login</PrimaryBtn> */}
+
             <button
               type="submit"
               className="w-full px-8 py-3 text-base font-bold text-white transition ease-in-out bg-black rounded-3xl duration-600 hover:bg-primary-dark ">
               Login
             </button>
-            {/* </Link> */}
           </form>
         </div>
       </div>

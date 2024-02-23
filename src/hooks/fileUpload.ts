@@ -1,4 +1,4 @@
-import { useRef, useState, ChangeEvent } from 'react';
+import { useRef, useState, ChangeEvent } from "react";
 
 type FileHookResult = {
   fileInputRef: React.RefObject<HTMLInputElement>;
@@ -6,12 +6,13 @@ type FileHookResult = {
   handleFileChange: () => void;
 };
 
-type ImageHookResult = {
-  imageFileInputRef: React.RefObject<HTMLInputElement>;
+interface ImageHookResult {
+  imageFileInputRef: React.RefObject<HTMLInputElement | null>;
   selectedImage: string | null;
+  selectedFiles: File | null; // Add the selectedFiles property
   handleImageClick: () => void;
   handleImageFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const useFileUpload = (): FileHookResult => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -20,12 +21,12 @@ const useFileUpload = (): FileHookResult => {
   const handleFileChange = () => {
     const file: File | undefined = fileInputRef.current?.files?.[0];
 
-    if (file && file.type === 'application/pdf') {
+    if (file && file.type === "application/pdf") {
       setSelectedFile(file);
     } else {
-      alert('Please select a PDF file.');
+      alert("Please select a PDF file.");
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        fileInputRef.current.value = "";
       }
     }
   };
@@ -36,20 +37,30 @@ const useFileUpload = (): FileHookResult => {
 const useImageUpload = (): ImageHookResult => {
   const imageFileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null); // Specify the type explicitly
   const handleImageClick = () => {
     imageFileInputRef.current?.click();
   };
 
+ 
   const handleImageFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
+    const files = event.target.files;
+
+    if (files && files.length > 0) {
+      setSelectedFiles(files);
+      const selectedFile = files[0];
       const imageUrl = URL.createObjectURL(selectedFile);
       setSelectedImage(imageUrl);
     }
   };
 
-  return { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange };
+  return {
+    imageFileInputRef,
+    selectedImage,
+    handleImageClick,
+    handleImageFileChange,
+    selectedFiles
+  };
 };
 
 export { useFileUpload, useImageUpload };
