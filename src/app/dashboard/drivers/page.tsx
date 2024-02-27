@@ -1,16 +1,19 @@
 "use client";
 import driver1 from "../../../../public/assets/driver.jpg";
 import Image from "next/image";
-import { FaFilePdf } from "react-icons/fa6";
 
 import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { useEffect, useState } from "react";
-import instance from "@/hooks/Instance";
+import instance from "@/hooks/instance";
+import { useParams } from "next/navigation";
 
 const Drivers = () => {
-
+  
+  const { id } = useParams();
+  
+  // const { userData, setUser } = useUser(); 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -33,7 +36,7 @@ const Drivers = () => {
 
   const downloadImage = (imageUrl) => {
     const link = document.createElement('a');
-    link.target='blank';
+    link.target = 'blank';
     link.href = imageUrl;
     link.download = 'driver_image';
     link.click();
@@ -76,7 +79,7 @@ const Drivers = () => {
                           <div className="flex items-center gap-[8px]">
                             <Image
                               className="w-[40px] h-[40px]  rounded-full "
-                              // src={user? user.image}
+
                               src={
                                 user?.image
                                   ? `http://localhost:4000/api/uploads/public/images/${user?.image}`
@@ -86,7 +89,7 @@ const Drivers = () => {
                               height={50}
                               alt="driver1"
                             />
-                            <Link href="/dashboard/driverDetails" >  <p className="fw-bold ">
+                            <Link href={`/dashboard/driverDetails/${user._id}`} >  <p className="fw-bold ">
                               {user?.fullName}</p></Link>
                           </div>
                         </td>

@@ -52,33 +52,21 @@ const EditManagerProfile = () => {
                         }
                     </div>
                     <div className="grid grid-cols-12 gap-4">
-                        <div className="add_driver col-span-6">
+                        <div className="col-span-6 add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
-                                    First Name
+                                    Full Name
                                 </label>
                                 <input
                                     type="email"
                                     className="border border-[] w-full "
                                     id=""
-                                    placeholder="Enter your first name"
+                                    placeholder="Enter your full name"
                                 />
                             </div>
                         </div>
-                        <div className="add_driver col-span-6">
-                            <div className="mb-3">
-                                <label htmlFor="" className="">
-                                    Last Name
-                                </label>
-                                <input
-                                    type="text"
-                                    className="border border-[] w-full "
-                                    id=""
-                                    placeholder="Enter your last name"
-                                />
-                            </div>
-                        </div>
-                        <div className="add_driver col-span-6">
+                     
+                        <div className="col-span-6 add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
                                     Email
@@ -91,7 +79,7 @@ const EditManagerProfile = () => {
                                 />
                             </div>
                         </div>
-                        <div className="add_driver col-span-6">
+                        {/* <div className="col-span-6 add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
                                     Password
@@ -103,8 +91,8 @@ const EditManagerProfile = () => {
                                     placeholder="Enter your password"
                                 />
                             </div>
-                        </div>
-                        <div className="add_driver col-span-6">
+                        </div> */}
+                        <div className="col-span-6 add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
                                     Address
@@ -117,7 +105,7 @@ const EditManagerProfile = () => {
                                 />
                             </div>
                         </div>
-                        <div className="add_driver col-span-6">
+                        <div className="col-span-6 add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
                                     Phone Number
@@ -130,7 +118,7 @@ const EditManagerProfile = () => {
                                 />
                             </div>
                         </div>
-                        <div className="col-span-12 add_driver w-full">
+                        <div className="w-full col-span-12 add_driver">
                             <textarea className="w-full  border rounded-[5px] border-[#dee2e6]" name="" placeholder="About...." id="" cols={numCols} rows={numRows}></textarea>
                         </div>
                     </div>
