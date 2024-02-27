@@ -13,7 +13,18 @@ const managerProfile = () => {
   
   const [user, setUser] = useState<any>([]);
 
-  const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
+  let userData: any = null
+
+
+  if (typeof window !== 'undefined') {
+    // Perform localStorage action
+    // const item = localStorage.getItem('key')
+
+    
+  userData = JSON.parse(localStorage.getItem('user') || 'null');
+  }
+
+  
   
 
   const { _id } = userData?.user;
