@@ -15,6 +15,12 @@ const managerProfile = () => {
 
 
   const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
+  
+
+
+
+
+  
 
   const { _id } = userData?.user;
 
