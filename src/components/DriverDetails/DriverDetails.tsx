@@ -16,8 +16,6 @@ const DriverDetails = () => {
 
   const router = useParams();
 
-  console.log(router.slug)
-
   const id = router.slug
 
   useEffect(() => {
@@ -32,11 +30,6 @@ const DriverDetails = () => {
     };
     fetchUsers();
   }, []);
-
-
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // console.log(user?.user);
-  // const { fullName, email, phoneNumber, address, _id } = user?.user;
 
   return (
     <>
@@ -125,8 +118,7 @@ const DriverDetails = () => {
           <div className="col-span-8 w-full p-[2rem] shadow-card ">
             <div className="">
               <h1>About</h1>
-              {/* <p className="common_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus explicabo architecto repellendus magnam corporis ad minima nam aspernatur veritatis repellat eum, quidem quisquam corrupti laborum velit minus iure sunt, exercitationem ratione magni. Dolores, aliquam. Sed facere itaque, voluptatibus, velit provident quibusdam molestias minus, ea facilis nostrum molestiae cumque nesciunt.
-              </p> */}
+   
               <h1 className="flex justify-center items-center mt-[100px] ">Not Found any details</h1>
             </div>
 

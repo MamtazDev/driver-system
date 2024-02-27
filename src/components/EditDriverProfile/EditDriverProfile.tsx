@@ -31,7 +31,9 @@ const EditDriverProfile = () => {
 
 
     const router = useParams();
+    
     const id = router.slug;
+
 
     const getUserById = async (userId) => {
         try {
@@ -55,13 +57,12 @@ const EditDriverProfile = () => {
     };
 
     const handleSubmit = async (e) => {
-
-
         e.preventDefault();
+        
         const formData = new FormData();
-        formData.append("image", image || selectedFiles[0]);
+        formData.append("image", image || selectedFiles ? selectedFiles[0] : null);
 
-        formData.append("drivingLicense", drivingLicense || selectedFiles2[0]);
+        formData.append("drivingLicense", drivingLicense || selectedFiles2 ? selectedFiles2[0] : null);
         formData.append("fullName", userData.fullName);
         formData.append("email", userData.email);
         formData.append("address", userData.address);
@@ -94,7 +95,6 @@ const EditDriverProfile = () => {
 
                     <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
                         <Image
-                            // src={selectedImage || profile}
                             src={
                                 userData?.image
                                     ? `http://localhost:4000/api/uploads/public/images/${userData?.image}`
@@ -111,12 +111,6 @@ const EditDriverProfile = () => {
                                 <FiCamera />
                             </div>
                         }
-
-                        {/*   src={
-                                  post?.image
-                                    ? `${import.meta.env.VITE_LOCAL_API_URL}/api/v1/uploads/${post?.image}`
-                                    : GenerateImg
-                                } */}
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="add_driver">
@@ -262,31 +256,7 @@ const EditDriverProfile = () => {
                             </div>
                         </div>
 
-                        {/* <div className=" add_driver">
-                            <div className="mb-3">
-                                <label htmlFor="" className="">
-                                    Driving License
-                                </label>
-                                <input
-                                    type="file"
-                                    ref={imageFileInputRef2}
-                                    style={{ display: 'none' }}
-                                    onChange={handleImageFileChange}
-                                    name="drivingLicense"
-                                    id="drivingLicense"
-                                />
-                                <input
-                                    type="text"
-                                    className="cursor-pointer form-control ps-5"
-                                    id="drivingLicense"
-                                    name="drivingLicense"
-                                    placeholder="Select a PDF file"
-                                    // onClick={() => fileInputRef?.current?.click()}
-                                    onClick={handleImageClick2}
-                                    value={selectedImage2}
-                                />
-                            </div>
-                        </div> */}
+                    
                     </div>
 
                     <div className="w-[100%] add_driver mt-3">

@@ -3,21 +3,22 @@ import { useDriverContext } from "@/hooks/driverContext";
 import { useFileUpload } from "@/hooks/fileUpload";
 import instance from "@/hooks/instance";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AuthorizationRequest = () => {
 
-    const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
+    const { imageFileInputRef2, selectedImage2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
+
     const driverContext = useDriverContext();
 
     const [driverDataList, setDriverDataList] = useState([]);
     const [selectedDriver, setSelectedDriver] = useState(null);
-    const [authorizationState, setAuthorizationState] = useState("")    
+    const [authorizationState, setAuthorizationState] = useState("")
 
-    
+
     useEffect(() => {
         if (driverContext && driverContext.data) {
             const driverData = driverContext.data.filter((data) => data.role.includes("Driver"));
@@ -30,18 +31,38 @@ const AuthorizationRequest = () => {
         const selectedDriverData = driverDataList.find((data) => data.fullName === selectedValue);
         setSelectedDriver(selectedDriverData);
     };
-
     const router = useParams();
 
+    // car id 
     const id = router.slug;
+
+    console.log(id)
+
     const selectedDriverId = selectedDriver?._id
 
     //  authorization state
+
     const data = {
         user: selectedDriverId,
         trucks: id,
         authorizationState: authorizationState
     }
+
+    const [truck, setTruck] = useState([])
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await instance.get(`/api/truck/getTruckById/${id}`);
+                setTruck(response.data.data)
+                console.log(response)
+
+            } catch (error) {
+                console.error('Error fetching users:', error.message);
+            }
+        };
+        fetchUsers();
+    }, []);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -76,6 +97,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     type="text"
                                     placeholder='Enter company name'
+                                    value={truck?.company}
                                 />
                             </div>
 
@@ -84,6 +106,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     type="text"
                                     placeholder='Enter Truck model'
+                                    value={truck?.model}
                                 />
                             </div>
 
@@ -92,7 +115,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     type="text"
                                     placeholder='Enter license plate number'
-                                />
+                                    value={truck?.licensePlate} />
                             </div>
 
                             <div className='col-span-6'>
@@ -100,6 +123,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     type="number"
                                     placeholder='Enter VIN Number'
+                                    value={truck.vinNumber}
                                 />
                             </div>
                             <div className='col-span-6'>
@@ -129,31 +153,32 @@ const AuthorizationRequest = () => {
                                 />
                             </div>
                             <div className='col-span-6'>
-                                <div className="add_driver">
+                                <div className=" add_driver">
                                     <div className="mb-3">
                                         <label htmlFor="" className="">
                                             Driving License
                                         </label>
                                         <input
                                             type="file"
-                                            ref={fileInputRef}
-                                            onChange={handleFileChange}
+                                            ref={imageFileInputRef2}
                                             style={{ display: 'none' }}
-                                            accept=".pdf"
-                                            id="fileInput"
+                                            onChange={handleImageFileChange2}
+                                            name="drivingLicense"
+                                            id="drivingLicense"
                                         />
+
                                         <input
                                             type="text"
                                             className="cursor-pointer form-control ps-5"
-                                            id="customFileInput"
-                                            name="customFileInput"
+                                            id="drivingLicense"
+                                            name="drivingLicense"
                                             placeholder="Select a PDF file"
-                                            onClick={() => fileInputRef?.current?.click()}
-                                            value={selectedFile ? selectedFile.name : ''}
-                                            readOnly
+                                            onClick={handleImageClick2}
+                                            value={selectedFiles2 ? selectedFiles2[0]?.name : ''}
                                         />
                                     </div>
                                 </div>
+
                             </div>
                             <div className='col-span-6'>
                                 <label htmlFor="">Date of Birth</label>
@@ -198,3 +223,33 @@ const AuthorizationRequest = () => {
 }
 
 export default AuthorizationRequest
+
+
+
+const useSecondImageUpload = () => {
+    const imageFileInputRef2 = useRef(null);
+    const [selectedImage2, setSelectedImage2] = useState(null);
+    const [selectedFiles2, setSelectedFiles2] = useState(null);
+
+    const handleImageClick2 = () => {
+        imageFileInputRef2.current?.click();
+    };
+
+    const handleImageFileChange2 = (event) => {
+        const files = event.target.files;
+        if (files && files.length > 0) {
+            setSelectedFiles2(files);
+            const selectedFile = files[0];
+            const imageUrl = URL.createObjectURL(selectedFile);
+            setSelectedImage2(imageUrl);
+        }
+    };
+
+    return {
+        imageFileInputRef2,
+        selectedImage2,
+        handleImageClick2,
+        handleImageFileChange2,
+        selectedFiles2
+    };
+};
