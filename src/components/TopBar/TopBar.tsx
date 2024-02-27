@@ -7,13 +7,20 @@ const TopBar = () => {
   const [data, setData] = useState<any>({})
 
   useEffect(() => {
-    // const userDataString = localStorage.getItem('user');
-    const userDataString : any = {};
+
+    let userDataString;
+    if(typeof window !== undefined ){
+       userDataString = localStorage.getItem('user');
+    }
+    // const userDataString : any = {};
     if (userDataString) {
       const userData = JSON.parse(userDataString);
+      console.log('userData',userData)
       setData(userData?.user);
     }
   }, []);
+  
+  
 
   return (
     <div className='main-header z-[50] p-[20px] flex justify-between items-center'>

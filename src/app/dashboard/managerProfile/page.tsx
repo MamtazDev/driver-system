@@ -15,13 +15,14 @@ const managerProfile = () => {
 
   let userData: any = null
 
-
+useEffect(()=>{
+  
   if (typeof window !== 'undefined') {
     // Perform localStorage action
-    
     // const item = localStorage.getItem('key')
-  userData = JSON.parse(window.localStorage.getItem('user') || 'null');
+  userData = JSON.parse(localStorage.getItem('user') || 'null');
   }
+},[])
 
   
   
