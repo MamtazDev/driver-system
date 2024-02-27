@@ -41,7 +41,7 @@ const AddNewCar = () => {
       const response = await instance.post('/api/truck/addNewTrucks', formData);
       console.log(response.data);
     } catch (error) {
-      console.error('Error submitting form:', error.message);
+      // console.error('Error submitting form:', error.message);
     }
   };
 

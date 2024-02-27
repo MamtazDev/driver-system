@@ -22,7 +22,7 @@ const managerProfile = () => {
         setUser(response.data.data)
 
       } catch (error) {
-        console.error('Error fetching users:', error.message);
+        // console.error('Error fetching users:', error.message);
       }
     };
     fetchUsers();

@@ -26,7 +26,7 @@ const Drivers = () => {
         setUsers(driverUsers);
         console.log(driverUsers)
       } catch (error) {
-        console.error('Error fetching users:', error.message);
+        console.error('Error fetching users:', error);
       }
     };
     fetchUsers();

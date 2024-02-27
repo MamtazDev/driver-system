@@ -77,7 +77,7 @@ const AuthorizationRequest = () => {
             }
 
         } catch (error: any) {
-            toast.error(`Request failed: ${error.message}`);
+            // toast.error(`Request failed: ${error.message}`);
         }
     };
 

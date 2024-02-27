@@ -50,7 +50,7 @@ const signUp = () => {
       navigate.push('/login')
 
     } catch (error: any) {
-      console.error("Registration failed:", error.message);
+      // console.error("Registration failed:", error.message);
     }
   };
 

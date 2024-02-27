@@ -74,7 +74,7 @@ const EditDriverProfile = () => {
             const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData);
             console.log(response.data);
         } catch (error) {
-            console.error("Registration failed:", error.message);
+            // console.error("Registration failed:", error.message);
         }
     };
 

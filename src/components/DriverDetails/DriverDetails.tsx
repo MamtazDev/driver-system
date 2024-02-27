@@ -25,7 +25,7 @@ const DriverDetails = () => {
         setUser(response.data.data)
 
       } catch (error) {
-        console.error('Error fetching users:', error.message);
+        // console.erro r('Error fetching users:', error.message);
       }
     };
     fetchUsers();
