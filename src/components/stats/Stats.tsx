@@ -29,14 +29,14 @@ const Stats = () => {
   const driverContext = useDriverContext();
   const truckContext = useTruckContext();
 
-  const [driverDataList, setDriverDataList] = useState()
-  const [truckDataList, setTruckDataList] = useState()
+  const [driverDataList, setDriverDataList] = useState<any>()
+  const [truckDataList, setTruckDataList] = useState<any>()
 
 
 
   useEffect(() => {
     if (driverContext && driverContext.data) {
-      const driverData = driverContext.data.filter((data) => data.role.includes("Driver"));
+      const driverData = driverContext.data.filter((data:any) => data.role.includes("Driver"));
       // console.log("driverData", driverData);
       setDriverDataList(driverData)
     }
