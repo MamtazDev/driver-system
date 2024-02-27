@@ -12,7 +12,7 @@ import instance from "@/hooks/instance";
 
 const EditDriverProfile = () => {
 
-    const { imageFileInputRef,selectedFiles, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
+    const { imageFileInputRef, selectedFiles, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
     const { imageFileInputRef2, selectedImage2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
 
     const [userData, setUserData] = useState({
@@ -29,7 +29,7 @@ const EditDriverProfile = () => {
     const [image, setImage] = useState(null);
     const [drivingLicense, setDrivingLicense] = useState(null);
 
-    
+
     const router = useParams();
     const id = router.slug;
 
@@ -55,12 +55,12 @@ const EditDriverProfile = () => {
     };
 
     const handleSubmit = async (e) => {
-    
-        
+
+
         e.preventDefault();
         const formData = new FormData();
         formData.append("image", image || selectedFiles[0]);
-        
+
         formData.append("drivingLicense", drivingLicense || selectedFiles2[0]);
         formData.append("fullName", userData.fullName);
         formData.append("email", userData.email);
@@ -91,10 +91,15 @@ const EditDriverProfile = () => {
                         name="image"
                         id="image"
                     />
-                    
+
                     <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
                         <Image
-                            src={selectedImage || profile}
+                            // src={selectedImage || profile}
+                            src={
+                                userData?.image
+                                    ? `http://localhost:4000/api/uploads/public/images/${userData?.image}`
+                                    : profile
+                            }
                             alt="Selected"
                             layout="fill"
                             objectFit="cover"
@@ -107,6 +112,11 @@ const EditDriverProfile = () => {
                             </div>
                         }
 
+                        {/*   src={
+                                  post?.image
+                                    ? `${import.meta.env.VITE_LOCAL_API_URL}/api/v1/uploads/${post?.image}`
+                                    : GenerateImg
+                                } */}
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="add_driver">

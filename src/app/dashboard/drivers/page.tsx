@@ -12,13 +12,13 @@ import instance from "@/hooks/Instance";
 const Drivers = () => {
 
   const [users, setUsers] = useState([]);
-  
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await instance.get('/api/user/getAllUser');
         const allUsers = response.data.data;
-       
+
         const driverUsers = allUsers.filter((user) => user.role.includes('Driver'));
         setUsers(driverUsers);
         console.log(driverUsers)
@@ -30,7 +30,15 @@ const Drivers = () => {
   }, []);
 
   console.log("users", users);
-  
+
+  const downloadImage = (imageUrl) => {
+    const link = document.createElement('a');
+    link.target='blank';
+    link.href = imageUrl;
+    link.download = 'driver_image';
+    link.click();
+  };
+
   return (
 
     <>
@@ -68,11 +76,17 @@ const Drivers = () => {
                           <div className="flex items-center gap-[8px]">
                             <Image
                               className="w-[40px] h-[40px]  rounded-full "
-                              src={driver1}
+                              // src={user? user.image}
+                              src={
+                                user?.image
+                                  ? `http://localhost:4000/api/uploads/public/images/${user?.image}`
+                                  : driver1
+                              }
+                              width={50}
+                              height={50}
                               alt="driver1"
                             />
                             <Link href="/dashboard/driverDetails" >  <p className="fw-bold ">
-
                               {user?.fullName}</p></Link>
                           </div>
                         </td>
@@ -81,11 +95,19 @@ const Drivers = () => {
                         <td className="px-6 py-4">{user?.phoneNumber}</td>
                         <td>
                           <div className="p-2 border rounded-lg w-fit ">
-                            <button className="flex items-center gap-2 "> <FaFilePdf className="text-[14px] h-[10px]" />pdf</button>
+                            <button className="flex items-center gap-2" onClick={() => downloadImage(`http://localhost:4000/api/uploads/public/images/${user?.drivingLicense}`)}>
+                              {/* <FaFilePdf className="text-[14px] h-[10px]" /> */}
+                              <Image
+                                className="w-[40px] h-[40px] rounded-full"
+                                src={user?.drivingLicense ? `http://localhost:4000/api/uploads/public/images/${user?.drivingLicense}` : driver1}
+                                width={50}
+                                height={50}
+                                alt="driver1"
+                              />
+                            </button>
                           </div>
                         </td>
                         <td className="py-4 ">Ferrari (Model-10)</td>
-
                         <td className="">
                           <div className="flex items-center gap-2">
                             <Link href="/dashboard/editDriverProfile"><button>
