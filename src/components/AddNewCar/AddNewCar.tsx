@@ -4,7 +4,7 @@
 import Image from 'next/image';
 import profile from "../../../public/assets/selectImage.png";
 import { useImageUpload } from '@/hooks/fileUpload';
-import instance from '@/hooks/Instance';
+import instance from '@/hooks/instance';
 
 const AddNewCar = () => {
 
