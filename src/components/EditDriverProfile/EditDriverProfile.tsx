@@ -4,45 +4,39 @@ const numCols: number = 10;
 import Image from "next/image";
 import profile from "../../../public/assets/profile.png";
 import { FiCamera } from "react-icons/fi";
-import {  useImageUpload } from "@/hooks/fileUpload";
-import { useEffect, useState } from "react";
+import { useImageUpload } from "@/hooks/fileUpload";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import instance from "@/hooks/instance";
 
 
 const EditDriverProfile = () => {
 
-    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange,selectedFiles } = useImageUpload();
-    // const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
+    const { imageFileInputRef,selectedFiles, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
+    const { imageFileInputRef2, selectedImage2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
 
-    console.log(selectedFiles)
-
-
-        
     const [userData, setUserData] = useState({
-        image:"",
-        fullName:"",
+        fullName: "",
         email: "",
-        password: "",   
         address: "",
         phoneNumber: "",
-        dob:"",
-        about:"",
-        drivingLicense:"",
-        drivingLicenseExpirationDate:""
+        dob: "",
+        about: "",
+        drivingLicenseExpirationDate: ""
     });
+
+    // State for profile image and driving license
+    const [image, setImage] = useState(null);
+    const [drivingLicense, setDrivingLicense] = useState(null);
+
     
     const router = useParams();
-
     const id = router.slug;
 
-    const getUserById = async (userId: string | string[]) => {
-        
+    const getUserById = async (userId) => {
         try {
             const response = await instance.get(`/api/user/getUserById/${userId}`);
-
             setUserData(response.data.data);
-            
         } catch (error) {
             console.error('Error fetching user by ID:', error);
         }
@@ -51,67 +45,45 @@ const EditDriverProfile = () => {
     useEffect(() => {
         getUserById(id);
     }, [id]);
-    
-    const handleInputChange = (e: any) => {
+
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
-        
-        console.log(name,value)
-        
         setUserData((prevData) => ({
-          ...prevData,
-          [name]: value,
+            ...prevData,
+            [name]: value,
         }));
-      };
-      
-      const handleSubmit = async (e: any) => {
+    };
+
+    const handleSubmit = async (e) => {
+    
         
         e.preventDefault();
-        
         const formData = new FormData();
-      
-        formData.append("image",selectedFiles);
+        formData.append("image", image || selectedFiles[0]);
+        
+        formData.append("drivingLicense", drivingLicense || selectedFiles2[0]);
         formData.append("fullName", userData.fullName);
-        formData.append("email",userData.email);
+        formData.append("email", userData.email);
         formData.append("address", userData.address);
         formData.append("phoneNumber", userData.phoneNumber);
         formData.append("dob", userData.dob);
         formData.append("about", userData.about);
-        // formData.append("drivingLicense", drivingLicense);
         formData.append("drivingLicenseExpirationDate", userData.drivingLicenseExpirationDate);
-        
         try {
-          const response = await instance.put(`/api/user/updateUserProfile/${id}`, userData);
-          
-          console.log(response.data);
-          
-        //   setUserData(
-        //     {
-        //         image:"",
-        //         fullName:"",
-        //         email: "",
-        //         password: "",
-        //         address: "",
-        //         phoneNumber: "",
-        //         dob:"",
-        //         about:"",
-        //         drivingLicense:"",
-        //         drivingLicenseExpirationDate:""
-        //     }
-        //   )
-        //   navigate.push('/login')
-    
-        } catch (error: any) {
-          console.error("Registration failed:", error.message);
+            const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData);
+            console.log(response.data);
+        } catch (error) {
+            console.error("Registration failed:", error.message);
         }
-      };
-    console.log(selectedImage);
-   
+    };
+
     return (
         <>
             <div className="w-full">
 
                 <form onSubmit={handleSubmit} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
-                <input
+
+                    <input
                         type="file"
                         ref={imageFileInputRef}
                         style={{ display: 'none' }}
@@ -119,22 +91,23 @@ const EditDriverProfile = () => {
                         name="image"
                         id="image"
                     />
-                <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
-                         <Image
-                             src={selectedImage || profile}
-                             alt="Selected"
-                             layout="fill"
-                             objectFit="cover"
-                             onClick={handleImageClick}
-                             style={{ borderRadius: "50%" }}
-                         />
-                         {
-                             !selectedImage && <div onClick={handleImageClick} className="absolute right-[22px] bottom-[28px] ">
-                                 <FiCamera />
-                             </div>
-                         }
-                         
-                     </div> 
+                    
+                    <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
+                        <Image
+                            src={selectedImage || profile}
+                            alt="Selected"
+                            layout="fill"
+                            objectFit="cover"
+                            onClick={handleImageClick}
+                            style={{ borderRadius: "50%" }}
+                        />
+                        {
+                            !selectedImage && <div onClick={handleImageClick} className="absolute right-[22px] bottom-[28px] ">
+                                <FiCamera />
+                            </div>
+                        }
+
+                    </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="add_driver">
                             <div className="mb-3">
@@ -166,8 +139,7 @@ const EditDriverProfile = () => {
                                     value={userData?.address}
                                     name="address"
                                     id="address"
-                                      onChange={handleInputChange}
-
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -183,7 +155,7 @@ const EditDriverProfile = () => {
                                     value={userData?.email}
                                     id="email"
                                     name="email"
-                                      onChange={handleInputChange}
+                                    onChange={handleInputChange}
 
                                 />
                             </div>
@@ -198,7 +170,7 @@ const EditDriverProfile = () => {
                                     className="border border-[] w-full "
                                     name="password"
                                     placeholder="Enter your password"
-                                      onChange={handleInputChange}
+                                    onChange={handleInputChange}
 
 
                                 />
@@ -217,7 +189,7 @@ const EditDriverProfile = () => {
                                     placeholder="Enter your phone number"
                                     value={userData?.phoneNumber}
                                     name="phoneNumber"
-                                      onChange={handleInputChange}
+                                    onChange={handleInputChange}
 
                                 />
                             </div>
@@ -234,7 +206,7 @@ const EditDriverProfile = () => {
                                     placeholder="Enter your phone number"
                                     name="dob"
                                     value={userData?.dob}
-                                      onChange={handleInputChange}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -254,21 +226,45 @@ const EditDriverProfile = () => {
                                 />
                             </div>
                         </div>
-
-                        
                         <div className=" add_driver">
                             <div className="mb-3">
                                 <label htmlFor="" className="">
                                     Driving License
                                 </label>
                                 <input
-                        type="file"
-                        ref={imageFileInputRef}
-                        style={{ display: 'none' }}
-                        onChange={handleImageFileChange}
-                        name="drivingLicense"
-                        id="drivingLicense"
-                    />
+                                    type="file"
+                                    ref={imageFileInputRef2}
+                                    style={{ display: 'none' }}
+                                    onChange={handleImageFileChange2}
+                                    name="drivingLicense"
+                                    id="drivingLicense"
+                                />
+
+                                <input
+                                    type="text"
+                                    className="cursor-pointer form-control ps-5"
+                                    id="drivingLicense"
+                                    name="drivingLicense"
+                                    placeholder="Select a PDF file"
+                                    onClick={handleImageClick2}
+                                    value={selectedFiles2 ? selectedFiles2[0]?.name : ''}
+                                />
+                            </div>
+                        </div>
+
+                        {/* <div className=" add_driver">
+                            <div className="mb-3">
+                                <label htmlFor="" className="">
+                                    Driving License
+                                </label>
+                                <input
+                                    type="file"
+                                    ref={imageFileInputRef2}
+                                    style={{ display: 'none' }}
+                                    onChange={handleImageFileChange}
+                                    name="drivingLicense"
+                                    id="drivingLicense"
+                                />
                                 <input
                                     type="text"
                                     className="cursor-pointer form-control ps-5"
@@ -276,11 +272,11 @@ const EditDriverProfile = () => {
                                     name="drivingLicense"
                                     placeholder="Select a PDF file"
                                     // onClick={() => fileInputRef?.current?.click()}
-                                    onClick={handleImageClick}
-value={selectedImage}
+                                    onClick={handleImageClick2}
+                                    value={selectedImage2}
                                 />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="w-[100%] add_driver mt-3">
@@ -289,7 +285,7 @@ value={selectedImage}
                         </label>
                         <textarea
                             value={userData?.about}
-                              onChange={handleInputChange}
+                            onChange={handleInputChange}
 
                             className="w-full  border rounded-[5px] border-[#dee2e6]" placeholder="About...." id="" cols={numCols} rows={numRows} name="about"></textarea>
                     </div>
@@ -304,276 +300,31 @@ value={selectedImage}
 }
 
 export default EditDriverProfile
-// 'use client'
-// const numRows: number = 5;
-// const numCols: number = 10;
-// import Image from "next/image";
-// import profile from "../../../public/assets/profile.png";
-// import { FiCamera } from "react-icons/fi";
-// import { useFileUpload, useImageUpload } from "@/hooks/fileUpload";
-// import { useEffect, useState } from "react";
-// import instance from "@/hooks/Instance";
-// import { useParams } from "next/navigation";
 
-// const EditDriverProfile = () => {
+const useSecondImageUpload = () => {
+    const imageFileInputRef2 = useRef(null);
+    const [selectedImage2, setSelectedImage2] = useState(null);
+    const [selectedFiles2, setSelectedFiles2] = useState(null);
 
-//     const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
-//     const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
-//     const [userData, setUserData] = useState(null);
+    const handleImageClick2 = () => {
+        imageFileInputRef2.current?.click();
+    };
 
-//     const router = useParams();
+    const handleImageFileChange2 = (event) => {
+        const files = event.target.files;
+        if (files && files.length > 0) {
+            setSelectedFiles2(files);
+            const selectedFile = files[0];
+            const imageUrl = URL.createObjectURL(selectedFile);
+            setSelectedImage2(imageUrl);
+        }
+    };
 
-//     const id = router.slug;
-
-//     const getUserById = async (userId: string | string[]) => {
-//         try {
-//             const response = await instance.get(`/api/user/getUserById/${userId}`);
-
-//             setUserData(response.data.data);
-//         } catch (error) {
-//             console.error('Error fetching user by ID:', error);
-//         }
-//     };
-
-//     useEffect(() => {
-//         getUserById(id);
-//     }, [id]);
-
-//     const handleEditDetails = async (e) => {
-
-//         e.preventDefault()
-//         // if (imageFileInputRef.current) {
-//         const form = e.target;
-//         // const image = imageFileInputRef.current.files[0];
-
-//         const fullName = form.fullName.value;
-//         const email = form.email.value;
-//         const password = form.password.value;
-//         const address = form.address.value;
-//         const phoneNumber = form.phoneNumber.value;
-//         const dob = form.dob.value;
-//         const about = form.about.value;
-//         const drivingLicense = form.drivingLicense.value;
-//         const drivingLicenseExpirationDate = form.drivingLicenseExpirationDate.value;
-
-//         // Create FormData and append values
-//         const formData = new FormData();
-
-//         // formData.append('image', image);
-//         formData.append('fullName', fullName);
-//         formData.append('email', email);
-//         formData.append('password', password);
-//         formData.append('address', address);
-//         formData.append('phoneNumber', phoneNumber);
-//         formData.append('dob', dob);
-//         formData.append('about', about);
-//         formData.append('drivingLicense', drivingLicense);
-//         formData.append('drivingLicenseExpirationDate', drivingLicenseExpirationDate);
-
-//         console.log('formData', formData);
-
-//         try {
-//             const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData );
-          
-//             console.log(response.data);
-            
-//         } catch (error) {
-//             console.error('Error submitting form:', error.message);
-//         }
-//     }
-
-//     console.log(userData);
-
-//     return (
-//         <>
-//             <div className="w-full">
-
-//                 <form onSubmit={handleEditDetails} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
-//                     <input
-//                         type="file"
-//                         ref={imageFileInputRef}
-//                         style={{ display: 'none' }}
-//                         onChange={handleImageFileChange}
-//                         name="image"
-//                         id="image"
-//                     />
-//                     <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
-//                         <Image
-//                             src={selectedImage || profile}
-//                             alt="Selected"
-//                             layout="fill"
-//                             objectFit="cover"
-//                             onClick={handleImageClick}
-//                             style={{ borderRadius: "50%" }}
-//                         />
-//                         {
-//                             !selectedImage && <div onClick={handleImageClick} className="absolute right-[22px] bottom-[28px] ">
-//                                 <FiCamera />
-//                             </div>
-//                         }
-//                     </div>
-
-//                     <div className="grid grid-cols-2 gap-4">
-//                         <div className="add_driver">
-//                             <div className="mb-3">
-//                                 <label htmlFor="" className="">
-//                                     Full Name
-//                                 </label>
-//                                 <input
-//                                     type="text"
-//                                     className="w-full border "
-//                                     id="fullName"
-//                                     placeholder="Enter your first name"
-//                                     value={userData?.fullName}
-//                                     name="fullName"
-
-//                                 />
-//                             </div>
-//                         </div>
-//                         <div className="add_driver">
-//                             <div className="mb-3">
-//                                 <label htmlFor="" className="">
-//                                     Address
-//                                 </label>
-//                                 <input
-//                                     type="text"
-//                                     className="border border-[] w-full "
-
-//                                     placeholder="Enter your address"
-//                                     value={userData?.address}
-//                                     name="address"
-//                                     id="address"
-
-//                                 />
-//                             </div>
-//                         </div>
-//                         <div className="add_driver">
-//                             <div className="mb-3">
-//                                 <label htmlFor="" className="">
-//                                     Email
-//                                 </label>
-//                                 <input
-//                                     type="email"
-//                                     className="w-full border "
-//                                     placeholder="Enter your email"
-//                                     value={userData?.email}
-//                                     id="email"
-//                                     name="email"
-
-//                                 />
-//                             </div>
-//                         </div>
-//                         <div className="add_driver">
-//                             <div className="mb-3">
-//                                 <label htmlFor="" className="">
-//                                     Password
-//                                 </label>
-//                                 <input
-//                                     type="password"
-//                                     className="border border-[] w-full "
-//                                     name="password"
-//                                     placeholder="Enter your password"
-
-
-//                                 />
-//                             </div>
-//                         </div>
-
-//                         <div className="add_driver">
-//                             <div className="mb-3">
-//                                 <label htmlFor="" className="">
-//                                     Phone Number
-//                                 </label>
-//                                 <input
-//                                     type="number"
-//                                     className="border border-[] w-full "
-//                                     id="phoneNumber"
-//                                     placeholder="Enter your phone number"
-//                                     value={userData?.phoneNumber}
-//                                     name="phoneNumber"
-
-//                                 />
-//                             </div>
-//                         </div>
-//                         <div className="add_driver">
-//                             <div className="mb-3">
-//                                 <label htmlFor="" className="">
-//                                     Date of Birth
-//                                 </label>
-//                                 <input
-//                                     type="date"
-//                                     className="border border-[] w-full "
-//                                     id="dob"
-//                                     placeholder="Enter your phone number"
-//                                     name="dob"
-//                                     value={userData?.dob}
-//                                 />
-//                             </div>
-//                         </div>
-
-//                         <div className="add_driver">
-//                             <div className="mb-3">
-//                                 <label htmlFor="" className="">
-//                                     License Expiration Date
-//                                 </label>
-//                                 <input
-//                                     type="text"
-//                                     className="border border-[] w-full "
-//                                     id="drivingLicenseExpirationDate"
-//                                     placeholder="Enter your city"
-//                                     value={userData?.drivingLicenseExpirationDate ? drivingLicenseExpirationDate : '10/20/5'}
-
-//                                     name="drivingLicenseExpirationDate"
-
-//                                 />
-//                             </div>
-//                         </div>
-//                         <div className=" add_driver">
-//                             <div className="mb-3">
-//                                 <label htmlFor="" className="">
-//                                     Driving License
-//                                 </label>
-//                                 <input
-//                                     type="file"
-//                                     ref={fileInputRef}
-//                                     onChange={handleFileChange}
-//                                     style={{ display: 'none' }}
-//                                     accept=".pdf"
-//                                     id="drivingLicense"
-//                                     name="drivingLicense"
-//                                 />
-//                                 <input
-//                                     type="text"
-//                                     className="cursor-pointer form-control ps-5"
-//                                     id="drivingLicense"
-//                                     name="drivingLicense"
-//                                     placeholder="Select a PDF file"
-//                                     onClick={() => fileInputRef?.current?.click()}
-//                                     value={selectedFile ? selectedFile.name : ''}
-//                                     readOnly
-
-//                                 />
-//                             </div>
-//                         </div>
-//                     </div>
-
-//                     <div className="w-[100%] add_driver mt-3">
-//                         <label htmlFor="" className="">
-//                             About
-//                         </label>
-//                         <textarea
-//                             value={userData?.about}
-
-//                             className="w-full  border rounded-[5px] border-[#dee2e6]" placeholder="About...." id="" cols={numCols} rows={numRows} name="about"></textarea>
-//                     </div>
-
-//                     <div className="text-center mt-[15px]">
-//                         <button type="submit" className="common_button">Edit Profile</button>
-//                     </div>
-//                 </form>
-//             </div>
-//         </>
-//     )
-// }
-
-// export default EditDriverProfile
+    return {
+        imageFileInputRef2,
+        selectedImage2,
+        handleImageClick2,
+        handleImageFileChange2,
+        selectedFiles2
+    };
+};

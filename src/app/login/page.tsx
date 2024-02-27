@@ -6,14 +6,13 @@ import Link from "next/link";
 import AuthTitle from "@/components/authTitle/authTitle";
 import eye from "../../../public/assets/passwortd_eye.png";
 import login from "../../../public/assets/login.jpg";
-import { useRouter } from 'next/navigation';
 import instance from '@/hooks/instance';
+
+import { useRouter } from 'next/navigation'
 
 const Login = () => {
 
   const router = useRouter()
-
-  const [isChecked, setChecked] = useState(false);
 
   const [passwordShow, setPasswordShow] = useState(false);
 

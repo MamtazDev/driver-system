@@ -10,8 +10,8 @@ import Link from "next/link";
 const DriverDetails = () => {
 
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user.user);
-  const { fullName, email, phoneNumber, address, _id } = user.user;
+  console.log(user?.user);
+  const { fullName, email, phoneNumber, address, _id } = user?.user;
 
   return (
     <>
