@@ -18,10 +18,9 @@ const managerProfile = () => {
 
   if (typeof window !== 'undefined') {
     // Perform localStorage action
-    // const item = localStorage.getItem('key')
-
     
-  userData = JSON.parse(localStorage.getItem('user') || 'null');
+    // const item = localStorage.getItem('key')
+  userData = JSON.parse(window.localStorage.getItem('user') || 'null');
   }
 
   

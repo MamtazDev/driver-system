@@ -44,7 +44,7 @@ const Sidebar: React.FC = () => {
   };
   // get the user 
 
-  const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
+  const userData: any = JSON.parse(window.localStorage.getItem('user') || 'null');
 
   const role = userData?.user?.role[0]
 
