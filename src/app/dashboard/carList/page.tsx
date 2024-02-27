@@ -22,7 +22,7 @@ const carList = () => {
             // console.log(response.data.data);
             setData(response.data.data);
         } catch (error) {
-            console.error('Error fetching data:', error?.message);
+            console.error('Error fetching data:', error);
         }
     }
 
