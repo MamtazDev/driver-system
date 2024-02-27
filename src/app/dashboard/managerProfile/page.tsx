@@ -10,8 +10,8 @@ import instance from "@/hooks/instance";
 import { useEffect, useState } from "react";
 
 const managerProfile = () => {
+  
   const [user, setUser] = useState<any>([]);
-
 
   const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
   

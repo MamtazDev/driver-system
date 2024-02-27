@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 
 const Homepage = () => {
 
+    
+
     useEffect(() => {
         redirect('/dashboard')
     }, [])
