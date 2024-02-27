@@ -11,11 +11,15 @@ import { useEffect, useState } from "react";
 
 const managerProfile = () => {
 
-  const [user, setUser] = useState([]);
-  const userData = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState<any>([]);
+
+
+  const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
+
   const { _id } = userData?.user;
 
   useEffect(() => {
+
     const fetchUsers = async () => {
       try {
         const response = await instance.get(`/api/user/getUserById/${_id}`);
@@ -34,7 +38,7 @@ const managerProfile = () => {
     <div className="p-[50px]">
       <div className="driver_details_wrapper">
         <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-40 flex items-center justify-end mt-[50px]">
-          
+
           <Link href={`/dashboard/driverDetails/${user._id}`}>
             <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]"> Edit Profile </button>
           </Link>

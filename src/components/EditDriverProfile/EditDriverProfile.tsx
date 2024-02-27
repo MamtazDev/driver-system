@@ -12,10 +12,10 @@ import instance from "@/hooks/instance";
 
 const EditDriverProfile = () => {
 
-    const { imageFileInputRef, selectedFiles, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
-    const { imageFileInputRef2, selectedImage2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
+    const { imageFileInputRef, selectedFiles, selectedImage, handleImageClick, handleImageFileChange }: any = useImageUpload();
+    const { imageFileInputRef2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
 
-    const [userData, setUserData] = useState({
+    const [userData, setUserData] = useState<any>({
         fullName: "",
         email: "",
         address: "",
@@ -31,11 +31,11 @@ const EditDriverProfile = () => {
 
 
     const router = useParams();
-    
+
     const id = router.slug;
 
 
-    const getUserById = async (userId) => {
+    const getUserById = async (userId: any) => {
         try {
             const response = await instance.get(`/api/user/getUserById/${userId}`);
             setUserData(response.data.data);
@@ -48,19 +48,19 @@ const EditDriverProfile = () => {
         getUserById(id);
     }, [id]);
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {
         const { name, value } = e.target;
-        setUserData((prevData) => ({
+        setUserData((prevData: any) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        
-        const formData = new FormData();
-        formData.append("image", image || selectedFiles ? selectedFiles[0] : null);
+
+        const formData: any = new FormData();
+        formData.append("image", image || selectedFiles[0]);
 
         formData.append("drivingLicense", drivingLicense || selectedFiles2 ? selectedFiles2[0] : null);
         formData.append("fullName", userData.fullName);
@@ -225,7 +225,7 @@ const EditDriverProfile = () => {
                                     className="border border-[] w-full "
                                     id="drivingLicenseExpirationDate"
                                     placeholder="Enter your city"
-                                    value={userData?.drivingLicenseExpirationDate ? drivingLicenseExpirationDate : '10/20/5'}
+                                    value={userData?.drivingLicenseExpirationDate ? userData.drivingLicenseExpirationDate : '10/20/5'}
                                     name="drivingLicenseExpirationDate"
                                 />
                             </div>
@@ -256,7 +256,7 @@ const EditDriverProfile = () => {
                             </div>
                         </div>
 
-                    
+
                     </div>
 
                     <div className="w-[100%] add_driver mt-3">
@@ -281,21 +281,22 @@ const EditDriverProfile = () => {
 
 export default EditDriverProfile
 
+
 const useSecondImageUpload = () => {
-    const imageFileInputRef2 = useRef(null);
-    const [selectedImage2, setSelectedImage2] = useState(null);
-    const [selectedFiles2, setSelectedFiles2] = useState(null);
+    const imageFileInputRef2 = useRef<HTMLInputElement>(null); // Specify the type as HTMLInputElement
+    const [selectedImage2, setSelectedImage2] = useState<any>(null); // Assuming selectedImage2 is a string
+    const [selectedFiles2, setSelectedFiles2] = useState<any>(null); // Assuming selectedFiles2 is a FileList
 
     const handleImageClick2 = () => {
         imageFileInputRef2.current?.click();
     };
 
-    const handleImageFileChange2 = (event) => {
+    const handleImageFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => { // Use React.ChangeEvent<HTMLInputElement> for the event type
         const files = event.target.files;
         if (files && files.length > 0) {
             setSelectedFiles2(files);
             const selectedFile = files[0];
-            const imageUrl = URL.createObjectURL(selectedFile);
+            const imageUrl: string = URL.createObjectURL(selectedFile); // Specify the type as string
             setSelectedImage2(imageUrl);
         }
     };

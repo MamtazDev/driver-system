@@ -10,9 +10,9 @@ import instance from "@/hooks/instance";
 import { useParams } from "next/navigation";
 
 const Drivers = () => {
-  
+
   const { id } = useParams();
-  
+
   // const { userData, setUser } = useUser(); 
   const [users, setUsers] = useState([]);
 
@@ -22,7 +22,7 @@ const Drivers = () => {
         const response = await instance.get('/api/user/getAllUser');
         const allUsers = response.data.data;
 
-        const driverUsers = allUsers.filter((user) => user.role.includes('Driver'));
+        const driverUsers = allUsers.filter((user: any) => user.role.includes('Driver'));
         setUsers(driverUsers);
         console.log(driverUsers)
       } catch (error) {
@@ -34,7 +34,7 @@ const Drivers = () => {
 
   console.log("users", users);
 
-  const downloadImage = (imageUrl) => {
+  const downloadImage = (imageUrl: any) => {
     const link = document.createElement('a');
     link.target = 'blank';
     link.href = imageUrl;
@@ -70,7 +70,7 @@ const Drivers = () => {
                 </thead>
                 <tbody>
                   {
-                    users.map(user => (
+                    users.map((user: any) => (
                       <tr className="border-b border-dashed bg-grey-400 dark:border-gray-700">
                         <td
                           scope="row"

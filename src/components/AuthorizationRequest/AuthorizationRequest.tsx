@@ -1,6 +1,5 @@
 'use client'
 import { useDriverContext } from "@/hooks/driverContext";
-import { useFileUpload } from "@/hooks/fileUpload";
 import instance from "@/hooks/instance";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -10,25 +9,25 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AuthorizationRequest = () => {
 
-    const { imageFileInputRef2, selectedImage2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
+    const { imageFileInputRef2, handleImageClick2, handleImageFileChange2, selectedFiles2 }: any = useSecondImageUpload();
 
     const driverContext = useDriverContext();
 
     const [driverDataList, setDriverDataList] = useState([]);
-    const [selectedDriver, setSelectedDriver] = useState(null);
+    const [selectedDriver, setSelectedDriver] = useState<any>(null);
     const [authorizationState, setAuthorizationState] = useState("")
 
 
     useEffect(() => {
         if (driverContext && driverContext.data) {
-            const driverData = driverContext.data.filter((data) => data.role.includes("Driver"));
+            const driverData = driverContext.data.filter((data: any) => data.role.includes("Driver"));
             setDriverDataList(driverData);
         }
     }, [driverContext]);
 
 
     const handleDriverSelect = (selectedValue: string) => {
-        const selectedDriverData = driverDataList.find((data) => data.fullName === selectedValue);
+        const selectedDriverData = driverDataList.find((data:any) => data.fullName === selectedValue);
         setSelectedDriver(selectedDriverData);
     };
     const router = useParams();
@@ -48,7 +47,7 @@ const AuthorizationRequest = () => {
         authorizationState: authorizationState
     }
 
-    const [truck, setTruck] = useState([])
+    const [truck, setTruck] = useState<any>([])
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -58,7 +57,7 @@ const AuthorizationRequest = () => {
                 console.log(response)
 
             } catch (error) {
-                console.error('Error fetching users:', error.message);
+                // console.error('Error fetching users:', error.message);
             }
         };
         fetchUsers();
@@ -130,7 +129,7 @@ const AuthorizationRequest = () => {
                                 <label htmlFor="">Select Driver </label>
                                 <select onChange={(e) => handleDriverSelect(e.target.value)} id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                     <option selected>Choose</option>
-                                    {driverDataList.map((data) => (
+                                    {driverDataList.map((data: any) => (
                                         <option key={data._id} value={data.fullName}>
                                             {data.fullName}
                                         </option>
@@ -225,22 +224,21 @@ const AuthorizationRequest = () => {
 export default AuthorizationRequest
 
 
-
 const useSecondImageUpload = () => {
-    const imageFileInputRef2 = useRef(null);
-    const [selectedImage2, setSelectedImage2] = useState(null);
-    const [selectedFiles2, setSelectedFiles2] = useState(null);
+    const imageFileInputRef2 = useRef<HTMLInputElement>(null); // Specify the type as HTMLInputElement
+    const [selectedImage2, setSelectedImage2] = useState<string | null>(null); // Assuming selectedImage2 is a string
+    const [selectedFiles2, setSelectedFiles2] = useState<FileList | null>(null); // Assuming selectedFiles2 is a FileList
 
     const handleImageClick2 = () => {
         imageFileInputRef2.current?.click();
     };
 
-    const handleImageFileChange2 = (event) => {
+    const handleImageFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => { // Use React.ChangeEvent<HTMLInputElement> for the event type
         const files = event.target.files;
         if (files && files.length > 0) {
             setSelectedFiles2(files);
             const selectedFile = files[0];
-            const imageUrl = URL.createObjectURL(selectedFile);
+            const imageUrl: string = URL.createObjectURL(selectedFile); // Specify the type as string
             setSelectedImage2(imageUrl);
         }
     };
@@ -253,3 +251,5 @@ const useSecondImageUpload = () => {
         selectedFiles2
     };
 };
+
+

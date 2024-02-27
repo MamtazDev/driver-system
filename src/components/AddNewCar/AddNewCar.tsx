@@ -10,22 +10,23 @@ const AddNewCar = () => {
 
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
 
-  const handleFormSubmit = async (e) => {
-    
+  const handleFormSubmit = async (e:any) => {
+
     e.preventDefault();
 
     const form = e.target;
-    const image = imageFileInputRef?.current?.files[0];
+    
+    const image = imageFileInputRef?.current?.files?.[0];
+
+
     const company = form.company.value;
     const brand = form.brand.value;
     const model = form.model.value;
     const licensePlate = form.licensePlate.value;
     const vinNumber = form.vinNumber.value;
     const year = form.year.value;
-    
-    console.log(company, brand, model, licensePlate)
-    
-    const formData = new FormData();
+
+    const formData: any = new FormData();
 
     formData.append('image', image);
     formData.append('company', company);
@@ -79,9 +80,7 @@ const AddNewCar = () => {
                     id='image'
                     style={{ display: 'none' }}
                     accept="image/jpg, image/png"
-                    
 
-                    
                   />
                 </div>
 

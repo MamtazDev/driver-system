@@ -12,7 +12,7 @@ import { useParams } from "next/navigation";
 
 const DriverDetails = () => {
 
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState<any>([]);
 
   const router = useParams();
 

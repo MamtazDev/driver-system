@@ -4,35 +4,34 @@ const numRows: number = 5;
 const numCols: number = 10;
 
 import Image from "next/image";
+
 import profile from "../../../public/assets/profile.png";
 import { FiCamera } from "react-icons/fi";
-import { useFileUpload, useImageUpload } from "@/hooks/fileUpload";
 import { useEffect, useState } from "react";
 import { useDriverContext } from "@/hooks/driverContext";
+import { useImageUpload } from "@/hooks/fileUpload";
 
 const AddDriver = () => {
 
-  const { fileInputRef, selectedFile, handleFileChange } = useFileUpload();
+
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
   const driverContext = useDriverContext();
 
-  const [driverDataList, setDriverDataList] = useState([]);
-  const [selectedDriver, setSelectedDriver] = useState(null);
+  const [driverDataList, setDriverDataList] = useState<any>([]);
+  const [selectedDriver, setSelectedDriver] = useState<any>(null);
 
   useEffect(() => {
     if (driverContext && driverContext.data) {
-      const driverData = driverContext.data.filter((data) => data.role.includes("Driver"));
+      const driverData = driverContext.data.filter((data: { role: string | string[]; }) => data.role.includes("Driver"));
       setDriverDataList(driverData);
     }
   }, [driverContext]);
 
   const handleDriverSelect = (selectedValue: string) => {
-    const selectedDriverData = driverDataList.find((data) => data.fullName === selectedValue);
+    const selectedDriverData = driverDataList.find((data: { fullName: string; }) => data.fullName === selectedValue);
     setSelectedDriver(selectedDriverData);
   };
 
-  console.log("selectedDriver", selectedDriver);
-  
   return (
 
     <div className="w-full">
@@ -64,7 +63,7 @@ const AddDriver = () => {
               <label htmlFor="">Select Driver </label>
               <select onChange={(e) => handleDriverSelect(e.target.value)} id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                 <option selected>Choose</option>
-                {driverDataList.map((data) => (
+                {driverDataList.map((data: any) => (
                   <option key={data._id} value={data.fullName}>
                     {data.fullName}
                   </option>
@@ -146,7 +145,7 @@ const AddDriver = () => {
               <label htmlFor="" className="">
                 Driving License
               </label>
-              <input
+              {/* <input
                 type="file"
                 ref={fileInputRef}
                 onChange={handleFileChange}
@@ -163,7 +162,7 @@ const AddDriver = () => {
                 onClick={() => fileInputRef?.current?.click()}
                 value={selectedFile ? selectedFile.name : ''}
                 readOnly
-              />
+              /> */}
 
             </div>
           </div>
@@ -181,7 +180,7 @@ const AddDriver = () => {
             </div>
           </div>
           <div className="w-full col-span-12 add_driver">
-            <textarea className="w-full  border rounded-[5px] border-[#dee2e6]" name="" placeholder="About...." id="" cols={numCols} rows={numRows}         value={selectedDriver ? selectedDriver.about : ""}></textarea>
+            <textarea className="w-full  border rounded-[5px] border-[#dee2e6]" name="" placeholder="About...." id="" cols={numCols} rows={numRows} value={selectedDriver ? selectedDriver.about : ""}></textarea>
           </div>
         </div>
 

@@ -20,7 +20,7 @@ const customStyles = {
 };
 
 const RequestedList = () => {
-    const [requestsLists, setRequestsLists] = useState([]);
+    const [requestsLists, setRequestsLists] = useState<any>([]);
     const [error, setError] = useState(null);
     const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -29,8 +29,8 @@ const RequestedList = () => {
     }
 
 
-    const [selectedValue, setSelectedValue] = useState("")
-    const [practiceHour, setPracticeHour] = useState("");
+    const [selectedValue, setSelectedValue] = useState<any>("")
+    const [practiceHour, setPracticeHour] = useState<any>("");
 
 
     useEffect(() => {
@@ -48,38 +48,16 @@ const RequestedList = () => {
         try {
             const response = await instance.get('/api/authorization/allRequest');
             setRequestsLists(response.data.data);
-        } catch (error) {
+        } catch (error: any) {
             setError(error?.response?.data?.error_message || 'An error occurred');
         }
     };
-    // const handleSelectChange = async (event: any, requestId: string) => {
-    //     const newAuthorizationState = event.target.value;
-    //     console.log(newAuthorizationState); // Log the selected value
-    //     setSelectedValue(newAuthorizationState)
 
-    //     try {
-    //         const response = await instance.put(`/api/authorization/updateAuthorization/${requestId}`, {
-    //             newAuthorizationState,
-    //         });
-
-    //         if (response.data.success) {
-    //             setRequestsLists((prevRequests) =>
-    //                 prevRequests.map((request) =>
-    //                     request._id === requestId
-    //                         ? { ...request, authorizationState: [newAuthorizationState] }
-    //                         : request
-    //                 )
-    //             );
-    //         }
-    //     } catch (error) {
-    //         console.error('Error updating authorization status:', error);
-    //     }
-    // };
     const handleSelectChange = async (event: any, requestId: string) => {
         const newAuthorizationState = event.target.value;
-       
+
         console.log(newAuthorizationState); // Log the selected value
-        
+
         setSelectedValue(newAuthorizationState);
 
         try {
@@ -93,8 +71,8 @@ const RequestedList = () => {
                 });
 
                 if (response.data.success) {
-                    setRequestsLists((prevRequests) =>
-                        prevRequests.map((request) =>
+                    setRequestsLists((prevRequests: any ) =>
+                        prevRequests.map((request: any) =>
                             request._id === requestId
                                 ? { ...request, authorizationState: [newAuthorizationState] }
                                 : request
@@ -112,10 +90,10 @@ const RequestedList = () => {
                 newAuthorizationState: 'In practice',
                 practiceHour,
             });
-    
+
             if (response.data.success) {
-                setRequestsLists((prevRequests) =>
-                    prevRequests.map((request) =>
+                setRequestsLists((prevRequests: any) =>
+                    prevRequests.map((request: any) =>
                         request._id === requestId
                             ? { ...request, authorizationState: ['In practice'], practiceHour }
                             : request
@@ -128,7 +106,7 @@ const RequestedList = () => {
             console.error('Error updating authorization status:', error);
         }
     };
-    
+
     // console.log(requestsLists)
     return (
         <div>
@@ -162,7 +140,7 @@ const RequestedList = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        requestsLists.map(requests => (
+                                        requestsLists.map((requests: any) => (
                                             <>
                                                 <tr className="border-b border-dashed bg-grey-400">
                                                     <td

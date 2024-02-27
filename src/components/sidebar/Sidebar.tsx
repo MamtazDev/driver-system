@@ -44,13 +44,13 @@ const Sidebar: React.FC = () => {
   };
   // get the user 
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
 
-  const role = user?.user?.role[0]
+  const role = userData?.user?.role[0]
 
   // const user=useContext(UserContext)
-  
-  const handleLoggedOut = (e) => {
+
+  const handleLoggedOut = (e: any) => {
     e.preventDefault()
     localStorage.removeItem('user')
   }

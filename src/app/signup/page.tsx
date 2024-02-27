@@ -14,7 +14,7 @@ const signUp = () => {
   const navigate = useRouter()
   const [passwordShow, setPasswordShow] = useState(false);
 
-  const [userData, setUserData] = useState([{
+  const [userData, setUserData] = useState<any>([{
     fullName: "",
     role: "Owner",
     email: "",
@@ -25,7 +25,7 @@ const signUp = () => {
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    setUserData((prevData) => ({
+    setUserData((prevData: any) => ({
       ...prevData,
       [name]: value,
     }));

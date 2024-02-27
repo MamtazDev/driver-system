@@ -4,8 +4,8 @@ import './Topbar.scss'
 
 const TopBar = () => {
   // get logged in user from  localstorage
-  const user = JSON.parse(localStorage.getItem('user'));
-  const { fullName } = user?.user || {};
+  const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
+  const { fullName } = userData?.user || {};
 
   return (
     <div className='main-header z-[50] p-[20px] flex justify-between items-center'>

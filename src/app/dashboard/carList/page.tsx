@@ -55,7 +55,7 @@ export default carList;
 
 
 
-function CarDetails({details,handleSelectChange,selectedValue}) {
+function CarDetails({details,handleSelectChange,selectedValue} : any) {
     return (
 
         <>

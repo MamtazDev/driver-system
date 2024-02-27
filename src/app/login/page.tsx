@@ -16,14 +16,14 @@ const Login = () => {
 
   const [passwordShow, setPasswordShow] = useState(false);
 
-  const [formData, setFormData] = useState([{
+  const [formData, setFormData] = useState<any>([{
     email: "",
     password: "",
   }]);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setFormData((prevData: any) => ({
       ...prevData,
       [name]: value,
     }));
