@@ -36,7 +36,7 @@ const Login = () => {
       const response = await instance.post('/api/user/login', formData);
       console.log(response.data);
       
-      localStorage.setItem('user', JSON.stringify(response.data))
+      // localStorage.setItem('user', JSON.stringify(response.data))
       
       router.push('/dashboard')
     } catch (error: any) {

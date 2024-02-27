@@ -7,7 +7,8 @@ const TopBar = () => {
   const [data, setData] = useState<any>({})
 
   useEffect(() => {
-    const userDataString = localStorage.getItem('user');
+    // const userDataString = localStorage.getItem('user');
+    const userDataString : any = {};
     if (userDataString) {
       const userData = JSON.parse(userDataString);
       setData(userData?.user);

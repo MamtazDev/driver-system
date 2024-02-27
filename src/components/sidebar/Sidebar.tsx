@@ -54,7 +54,7 @@ const Sidebar: React.FC = () => {
   
   const handleLoggedOut = (e: any) => {
     e.preventDefault()
-    localStorage.removeItem('user')
+    // localStorage.removeItem('user')
   }
 
 
