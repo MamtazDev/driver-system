@@ -48,8 +48,10 @@ const Sidebar: React.FC = () => {
 
   const role = userData?.user?.role[0]
 
-  // const user=useContext(UserContext)
 
+
+
+  
   const handleLoggedOut = (e: any) => {
     e.preventDefault()
     localStorage.removeItem('user')
