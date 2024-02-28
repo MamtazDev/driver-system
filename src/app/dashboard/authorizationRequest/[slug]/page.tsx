@@ -10,4 +10,4 @@ const authorizationRequest = () => {
   )
 }
 
-export default RequireAuth(authorizationRequest)
+export default authorizationRequest

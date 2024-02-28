@@ -18,8 +18,6 @@ const RequireAuth = (WrappedComponent) => {
         router.push('/login');
       }
     }, [loading, user, router]);
-
-    // Render the wrapped component
     return <>{user ? <WrappedComponent {...props} /> : null}</>;
   };
 

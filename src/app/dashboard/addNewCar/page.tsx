@@ -7,4 +7,4 @@ const addNewCar = () => {
     )
 }
 
-export default RequireAuth(addNewCar)
+export default addNewCar

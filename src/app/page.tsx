@@ -7,15 +7,15 @@ import useAuth from '../hooks/auth';
 import RequireAuth from '../hooks/RequireAuth';
 
 const Homepage = () => {
-    const router = useRouter();
-    const { user, loading } = useAuth();
+    // const router = useRouter();
+    // const { user, loading } = useAuth();
 
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/login');
-        }
-    }, [loading, user, router]);
+    // useEffect(() => {
+    //     if (!loading && !user) {
+    //         router.push('/login');
+    //     }
+    // }, [loading, user, router]);
 
 
     return (
@@ -27,4 +27,4 @@ const Homepage = () => {
     );
 };
 
-export default RequireAuth(Homepage);
+export default Homepage;

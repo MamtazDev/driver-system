@@ -9,4 +9,4 @@ const carOwnerList = () => {
   )
 }
 
-export default RequireAuth(carOwnerList)
+export default carOwnerList

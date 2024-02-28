@@ -30,6 +30,7 @@ const TruckProvider = ({ children }) => {
 };
 
 const useTruckContext = () => {
+    
     const contextValue = useContext(truckContext);
 
     if (contextValue === undefined) {

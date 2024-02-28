@@ -10,4 +10,4 @@ const driverDetails = () => {
   );
 };
 
-export default RequireAuth(driverDetails);
+export default driverDetails;
