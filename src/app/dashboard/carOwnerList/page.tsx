@@ -1,4 +1,5 @@
 import CarOwnerList from '@/components/CarOwnerList/CarOwnerList'
+import RequireAuth from '@/hooks/RequireAuth'
 
 const carOwnerList = () => {
   return (
@@ -8,4 +9,4 @@ const carOwnerList = () => {
   )
 }
 
-export default carOwnerList
+export default RequireAuth(carOwnerList)

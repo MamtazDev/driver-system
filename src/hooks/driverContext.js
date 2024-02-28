@@ -21,7 +21,6 @@ const DriverProvider = ({ children }) => {
     fetchData();
   }, []);
 
-
   return (
     <driverContext.Provider value={initialValue}>
       {children}
@@ -37,6 +36,6 @@ const useDriverContext = () => {
   }
 
   return contextValue;
-};
+}; 
 
 export { DriverProvider, useDriverContext };

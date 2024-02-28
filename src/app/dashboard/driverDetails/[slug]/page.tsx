@@ -1,4 +1,5 @@
 import DriverDetails from "@/components/DriverDetails/DriverDetails";
+import RequireAuth from "@/hooks/RequireAuth";
 import React from "react";
 
 const driverDetails = () => {
@@ -9,4 +10,4 @@ const driverDetails = () => {
   );
 };
 
-export default driverDetails;
+export default RequireAuth(driverDetails);

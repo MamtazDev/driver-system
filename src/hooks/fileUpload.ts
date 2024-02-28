@@ -1,4 +1,5 @@
-import { RefObject, useRef, ChangeEvent } from 'react';
+"use client";
+import { RefObject, useRef, ChangeEvent } from "react";
 
 interface ImageHookResult {
   imageFileInputRef: RefObject<HTMLInputElement>;
@@ -38,7 +39,6 @@ const useImageUpload = (): ImageHookResult => {
 };
 
 export { useImageUpload };
-  function useState<T>(arg0: null): [any, any] {
-    throw new Error('Function not implemented.');
-  }
-
+function useState<T>(arg0: null): [any, any] {
+  throw new Error("Function not implemented.");
+}

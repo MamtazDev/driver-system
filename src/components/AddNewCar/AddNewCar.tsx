@@ -1,6 +1,8 @@
 
 
-'use client'
+
+
+import React from 'react';
 import Image from 'next/image';
 import profile from "../../../public/assets/selectImage.png";
 import { useImageUpload } from '@/hooks/fileUpload';
@@ -10,13 +12,15 @@ const AddNewCar = () => {
 
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
 
-  const handleFormSubmit = async (e:any) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
 
-    const form = e.target;
-    
+
+    const form = e.target as HTMLFormElement;
     const image = imageFileInputRef?.current?.files?.[0];
+
+   
 
 
     const company = form.company.value;

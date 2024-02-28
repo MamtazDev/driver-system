@@ -1,4 +1,5 @@
 import AuthorizationRequest from '@/components/AuthorizationRequest/AuthorizationRequest'
+import RequireAuth from '@/hooks/RequireAuth'
 import React from 'react'
 
 const authorizationRequest = () => {
@@ -9,4 +10,4 @@ const authorizationRequest = () => {
   )
 }
 
-export default authorizationRequest
+export default RequireAuth(authorizationRequest)

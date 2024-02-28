@@ -1,10 +1,11 @@
 'use client'
 import Stats from "@/components/stats/Stats";
+import RequireAuth from "@/hooks/RequireAuth";
 import Head from "next/head";
 
 
 
-export default function Home() {
+const Home = () => {
 
   return (
     <>
@@ -18,3 +19,4 @@ export default function Home() {
     </>
   )
 }
+export default RequireAuth(Home)
