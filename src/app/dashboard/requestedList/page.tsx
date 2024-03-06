@@ -1,12 +1,8 @@
 "use client"
 import { useEffect, useState } from 'react'
-// import './RequestedList.scss'
-import { FaFilePdf } from "react-icons/fa6";
 import Modal from 'react-modal';
 import { IoMdClose } from "react-icons/io";
 import instance from '@/hooks/instance';
-
-
 
 const customStyles = {
     content: {
@@ -56,12 +52,12 @@ const RequestedList = () => {
         }
     };
 
-    const handleSelectChange = async (event: any, requestId: string, userId: string) => {
+    const handleSelectChange = async (event: any, requestId: string, userId: string, truckId: string) => {
 
-        // console.log('userId',userId)
+        // console.log('truckId', userId)
 
         const newAuthorizationState = event.target.value;
-        console.log(newAuthorizationState);
+        // console.log(newAuthorizationState);
 
         setSelectedValue(newAuthorizationState);
 
@@ -71,9 +67,9 @@ const RequestedList = () => {
             } else {
                 const response = await instance.put(`/api/authorization/updateAuthorization/${requestId}`, {
                     newAuthorizationState,
-                    userId
+                    userId,
+                    truckId
                 });
-
                 if (response.data.success) {
                     setRequestsLists((prevRequests: any) =>
                         prevRequests.map((request: any) =>
@@ -160,7 +156,7 @@ const RequestedList = () => {
                                                     <td className="w-[130px]">
                                                         <select
                                                             className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                                                            onChange={(e) => handleSelectChange(e, requests._id, requests.user._id)}
+                                                            onChange={(e) => handleSelectChange(e, requests._id, requests.user._id, requests?.trucks?._id)}
                                                             value={requests.authorizationState[0]}
                                                         >
                                                             <option value="choose">Choose</option>

@@ -23,7 +23,6 @@ const AuthorizationRequest = () => {
         }
     }, [driverContext]);
 
-
     const handleDriverSelect = (selectedValue: string) => {
         const selectedDriverData = driverDataList.find((data: any) => data.fullName === selectedValue);
         setSelectedDriver(selectedDriverData);
@@ -33,10 +32,10 @@ const AuthorizationRequest = () => {
     // car id 
     const id = router.slug;
 
-    console.log(id)
+    console.log("car id",id)
 
     const selectedDriverId = selectedDriver?._id
-
+console.log('selectedDriverId',selectedDriverId)
     //  authorization state
 
     const data = {
@@ -61,9 +60,8 @@ const AuthorizationRequest = () => {
     }, [id]);
 
     const handleSubmit = async (e: any) => {
-        
         e.preventDefault();
-        
+
         try {
             const response = await instance.post("/api/authorization/addNewRequest", data);
 
@@ -72,11 +70,13 @@ const AuthorizationRequest = () => {
             } else {
                 toast.error('Failed to add a new request');
             }
-
         } catch (error: any) {
-            toast.error(`Request failed: ${error.message}`);
+
+            toast.error(`Request failed: ${error.response.data.message}`);
+
         }
     };
+
 
     return (
         <>
@@ -189,7 +189,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     required
                                     type="date"
-                                    // value={selectedDriver ? selectedDriver.dob : ""}
+                                // value={selectedDriver ? selectedDriver.dob : ""}
                                 />
                             </div>
                             <div className='col-span-6'>
@@ -205,7 +205,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     required
                                     type="date"
-                                    // value={selectedDriver ? selectedDriver.dob : ""}
+                                // value={selectedDriver ? selectedDriver.dob : ""}
                                 />
                             </div>
                             <div className='col-span-6'>
