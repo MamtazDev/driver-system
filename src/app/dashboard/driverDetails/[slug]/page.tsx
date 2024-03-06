@@ -18,16 +18,19 @@ const DriverDetails = () => {
 
   const id = router.slug
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await instance.get(`/api/user/getUserById/${id}`);
-        setUser(response?.data?.data)
+  const fetchUsers = async () => {
+    try {
+      const response = await instance.get(`/api/user/getUserById/${id}`);
+      setUser(response?.data?.data)
 
-      } catch (error: any) {
-        console.error('Error fetching users:', error.message);
-      }
-    };
+    } catch (error: any) {
+      console.error('Error fetching users:', error.message);
+    }
+  };
+
+  console.log('user', user)
+
+  useEffect(() => {
     fetchUsers();
   }, [id]);
 
@@ -35,9 +38,9 @@ const DriverDetails = () => {
   return (
     <div className="p-[50px]">
       <div className="driver_details_wrapper">
-        <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-30 flex items-center justify-end mt-[50px]">
+        <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-40 flex items-center justify-end mt-[50px]">
           <div>
-            <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">Already Assigned </button>
+            <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">{user.assignedTo ? "Already Assigned" : "Not Assigned"}  </button>
             <Link href={`/dashboard/editDriverProfile/${user._id}`}>
               <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">Edit Profile </button>
             </Link>
@@ -116,7 +119,7 @@ const DriverDetails = () => {
                       <span className="text-[#9499A1]">Company</span>
                     </td>
                     <td>
-                      <strong className="text-heading">N/A</strong>
+                      <strong className="text-heading">{user.assignedTo && user.assignedTo.trucks.company}</strong>
                     </td>
                   </tr>
                 </tbody>
@@ -143,7 +146,7 @@ const DriverDetails = () => {
                     <span className="text-[#9499A1]">Company</span>
                   </td>
                   <td>
-                    <strong className="text-heading">N/A</strong>
+                    <strong className="text-heading">{user.assignedTo ? user.assignedTo.trucks.model : "N/A"}</strong>
                   </td>
                 </tr>
                 <tr className="w-full border-b border-dashed " >
@@ -152,17 +155,17 @@ const DriverDetails = () => {
                   </td>
                   <td>
                     <div className="flex items-center justify-start">
-                      <strong className="text-heading me3">N/A</strong>
+                      <strong className="text-heading me3">{user.assignedTo ? user.assignedTo.trucks.licensePlate : "N/A"}</strong>
                     </div>
                   </td>
                 </tr>
 
                 <tr className="w-full border-b border-dashed ">
                   <td>
-                    <span className="text-[#9499A1]">Location</span>
+                    <span className="text-[#9499A1]">Model</span>
                   </td>
                   <td>
-                    <strong className="text-heading">N/A</strong>
+                    <strong className="text-heading">{user.assignedTo ? user.assignedTo.trucks.model : "N/A"}</strong>
                   </td>
                 </tr>
                 <tr className="w-full border-b border-dashed ">
@@ -170,7 +173,7 @@ const DriverDetails = () => {
                     <span className="text-[#9499A1]">VIN Number</span>
                   </td>
                   <td>
-                    <strong><a href="#" className="">N/A</a></strong>
+                    <strong><a href="#" className="">{user.assignedTo ? user.assignedTo.trucks.vinNumber : "N/A"}</a></strong>
                   </td>
                 </tr>
 

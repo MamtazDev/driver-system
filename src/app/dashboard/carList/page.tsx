@@ -80,14 +80,13 @@ function CarDetails({ details }: any) {
                         <p>VIN Number: <span>{details.vinNumber}</span></p>
                     </div>
 
-
                     {!details?.status ?
                         <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link>
                         :
                         <div className="flex justify-between items-center mt-[14px]">
                             <p className="text-black">Company: {details?.company}</p>
                             <Link href={`/dashboard/driverDetails/${details?.status?.user?._id}`}><p className="font-bold text-black">Driver name: {details?.status?.user?.fullName}</p></Link>
-                        </div>
+                        </div>  
                     }
                 </div>
             </div >

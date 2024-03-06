@@ -23,7 +23,7 @@ const TopBar = () => {
   
 
   return (
-    <div className='main-header z-[50] p-[20px] flex justify-between items-center'>
+    <div className='main-header z-[80] p-[20px] flex justify-between items-center'>
       <h2 className=''>
         Dashboard
       </h2>
