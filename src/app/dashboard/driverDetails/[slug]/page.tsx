@@ -50,7 +50,7 @@ const DriverDetails = () => {
     fetchNotification();
   }, [id]);
 
-  console.log(notification)
+  console.log('notification', notification)
   return (
     <div className="p-[50px]">
       <div className="driver_details_wrapper">
@@ -65,7 +65,7 @@ const DriverDetails = () => {
 
           </div>
 
-        
+
         </div>
 
 
@@ -204,15 +204,30 @@ const DriverDetails = () => {
             </table>
           </div>
         </div>
+        <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
+          <h2>Notification </h2>
+          <div className="table-responsive text-nowrap">
+            <table className="table w-full mb-0 align-middle qd-table">
+              <tbody>
+          
+                {notification.map((noti: any) => (
 
-        <div className="bg-[#fff] absolute me-[50px] z-40 w-[79%] my-[100px]">
-            <h2>Notification</h2>
-            {notification.map((noti: any) => (
-              <>
-                <p>{noti.eventName}</p>
-              </>
-            ))}
+                  <>
+                    <tr className="w-full border-b border-dashed ">
+
+                      <td>
+                        <strong className="text-heading">{noti.eventName}</strong>
+                      </td>
+                    </tr>
+                  </>
+                ))}
+
+              </tbody>
+            </table>
           </div>
+        </div>
+
+        
 
       </div>
     </div>
