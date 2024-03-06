@@ -270,3 +270,63 @@ h6 {
   box-shadow: 0 2px 48px 0 rgba(0, 0, 0, .04);
   border-radius: 8px;
 }
+
+
+// requested list
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+// driver details 
+.qd-table tbody tr td:first-child {
+  padding-left: 0px !important;
+}
+
+.qd-table>:not(caption)>*>* {
+  padding: 1rem 0.5rem !important;
+  border-bottom-style: dashed;
+}
+
+.common_text {
+  font-size: 16px;
+  color: #9499A1;
+}
+
+// menubtn
+
+.menuBtn {
+  padding: 12px 16px;
+  border-radius: 4px;
+  color: #fff;
+  opacity: 0.75;
+  display: flex;
+  gap: 12px;
+  position: relative;
+
+  &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &.active {
+      background-color: $primary;
+      opacity: 1;
+  }
+
+  .bar {
+      position: absolute;
+      width: 6px;
+      background-color: #fff;
+      height: 36px;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      border-radius: 4px;
+  }
+}
+
+.dashboard {
+  width: 100%;
+  position: relative;
+}

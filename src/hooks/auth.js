@@ -9,7 +9,7 @@ const useAuth = () => {
     useEffect(() => {
 
         const checkAuth = () => {
-            const userData = localStorage.getItem('userData');
+            const userData = localStorage.getItem('user');
             if (userData) {
                 setUser(JSON.parse(userData));
                 setLoading(false);
@@ -18,7 +18,9 @@ const useAuth = () => {
             }
         };
         checkAuth();
+
         return () => {
+
         };
     }, []);
 

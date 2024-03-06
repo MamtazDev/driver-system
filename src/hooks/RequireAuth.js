@@ -2,7 +2,6 @@
 
 'use client'
 
-
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useAuth from './auth';
@@ -13,12 +12,12 @@ const RequireAuth = (WrappedComponent) => {
     const router = useRouter();
 
     useEffect(() => {
-      // Ensure code only runs on the client side
       if (typeof window !== 'undefined' && !loading && !user) {
-        router.push('/login');
+        router.push('/');
       }
     }, [loading, user, router]);
-    return <>{user ? <WrappedComponent {...props} /> : null}</>;
+
+    return user ? <WrappedComponent {...props} /> : null;
   };
 
   return Wrapper;

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import "./stats.scss";
 import { useDriverContext } from "@/hooks/driverContext";
 import { useTruckContext } from "@/hooks/truckContext";
+import instance from "@/hooks/instance";
+import { useRouter } from "next/navigation";
 
 const Stats = () => {
 
@@ -32,30 +34,47 @@ const Stats = () => {
   const [driverDataList, setDriverDataList] = useState<any>()
   const [truckDataList, setTruckDataList] = useState<any>()
 
-
-
   useEffect(() => {
     if (driverContext && driverContext.data) {
-      const driverData = driverContext.data.filter((data:any) => data.role.includes("Driver"));
-      // console.log("driverData", driverData);
+      const driverData = driverContext.data.filter((data: any) => data.role.includes("Driver"));
       setDriverDataList(driverData)
     }
   }, [driverContext]);
 
   useEffect(() => {
     setTruckDataList(truckContext?.data?.length)
-    // console.log(truckDataList)
   }, [truckContext]);
-  
+
   const totalDriver = driverDataList?.length;
 
-// all get request
+  const [initialValue, setInitialValue] = useState<any>(null);
+  const [inPracticeData, setInPracticeData] = useState([]);
+
+  useEffect(() => { 
+    const fetchData = async () => {
+      try {
+        const response = await instance.get('/api/authorization/allRequest');
+        setInitialValue(response.data);
+      } catch (error) {
+        console.error('Error fetching data from the database:', error);
+      }
+    };
+
+    fetchData();
+
+  }, []);
+
+  useEffect(() => {
+    if (initialValue && initialValue.data) {
+      const filteredData = initialValue.data.filter((item: any) =>
+        item.authorizationState[0].includes('In practice')
+      );
+      setInPracticeData(filteredData);
+    }
+  }, [initialValue]);
+  const router = useRouter()
 
 
-
-
-
-  
   return (
 
     <div className="container ">
@@ -65,7 +84,7 @@ const Stats = () => {
       </div>
 
       <div className="grid grid-cols-12 gap-5">
-        <div className="w-full col-span-12 lg:col-span-3 ">
+        <div onClick={() => router.push('/dashboard/carList')} className="w-full col-span-12 cursor-pointer lg:col-span-3">
           <div className="col-xxl-3 col-md-6 mb5">
             <div className="bg-[#7155E1] rounded-[5px] pt2 pb-5 text-center">
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total Truck</h6>
@@ -76,18 +95,18 @@ const Stats = () => {
           </div>
         </div>
 
-        <div className="w-full col-span-12 lg:col-span-3 ">
+        <div onClick={() => router.push('/dashboard/drivers')} className="w-full col-span-12 lg:col-span-3 ">
           <div className="col-xxl-3 col-md-6 mb5">
             <div className="bg-[#0EA4E7] rounded-[5px] pt2 pb-5 text-center">
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total drivers
               </h6>
             </div>
-            <div className="status_Card rounded-[5px]  text-center">  
+            <div className="status_Card rounded-[5px]  text-center">
               <h1 className="mb1">{totalDriver}</h1>
             </div>
           </div>
         </div>
-        <div className="w-full col-span-12 lg:col-span-3 ">
+        <div onClick={() => router.push('/dashboard/carList')} className="w-full col-span-12 lg:col-span-3 ">
 
           <div className="col-xxl-3 col-md-6 mb5">
             <div className="bg-[#11B780] rounded-[5px] pt2 pb-5 text-center">
@@ -95,19 +114,23 @@ const Stats = () => {
               </h6>
             </div>
             <div className="status_Card rounded-[5px]  text-center">
-              <h1 className="mb1">25</h1>
+              <h1 className="mb1">
+                {inPracticeData?.length}
+              </h1>
             </div>
           </div>
         </div>
-        <div className="w-full col-span-12 lg:col-span-3 ">
-
+        
+        <div onClick={() => router.push('/dashboard/requestedList')} className="w-full col-span-12 lg:col-span-3 ">
           <div className="mb-5 col-xxl-3 col-md-6">
             <div className="bg-[#6B747C] rounded-[5px] pb-5 text-center">
               <h6 className="text-white mb-0 pt-[15px] text-[20px] fw-bold ">Total requests
               </h6>
             </div>
             <div className="status_Card rounded-[5px]  text-center">
-              <h1 className="mb1">10</h1>
+              <h1 className="mb1">
+                {initialValue?.data?.length}
+              </h1>
             </div>
           </div>
         </div>

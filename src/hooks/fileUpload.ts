@@ -1,18 +1,18 @@
 "use client";
-import { RefObject, useRef, ChangeEvent } from "react";
+import  { RefObject, useRef, ChangeEvent, useState } from "react";
 
 interface ImageHookResult {
   imageFileInputRef: RefObject<HTMLInputElement>;
-  selectedImage: string | null;
-  selectedFiles: FileList | null;
+  selectedImage: any;
+  selectedFiles: any;
   handleImageClick: () => void;
   handleImageFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const useImageUpload = (): ImageHookResult => {
   const imageFileInputRef = useRef<HTMLInputElement>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [selectedFiles, setSelectedFiles] = useState<any>(null);
 
   const handleImageClick = () => {
     imageFileInputRef.current?.click();
@@ -38,7 +38,4 @@ const useImageUpload = (): ImageHookResult => {
   };
 };
 
-export { useImageUpload };
-function useState<T>(arg0: null): [any, any] {
-  throw new Error("Function not implemented.");
-}
+export default useImageUpload;

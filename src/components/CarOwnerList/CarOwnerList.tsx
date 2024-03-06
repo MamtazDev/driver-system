@@ -5,13 +5,13 @@ import Link from "next/link";
 
 const CarOwnerList = () => {
     return (
-        <div> <div className="driver_list_wrapper w-full">
+        <> <div className="w-full driver_list_wrapper">
             <div className="container mx-auto">
-                <h2 className="text-xl  py-5">Truck Owner list</h2>
+                <h2 className="py-5 text-xl">Truck Owner list</h2>
                 <div className="shadow-card">
                     <div className="relative overflow-x-auto">
-                        <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                            <thead className="bg-slate-200 text-xs text-gray-700 uppercase ">
+                        <table className="w-full text-sm text-left text-gray-500 rtl:text-right ">
+                            <thead className="text-xs text-gray-700 uppercase bg-slate-200 ">
                                 <tr>
                                     <th scope="col" className="px-6 py-[15px]">
                                         Profile
@@ -27,10 +27,10 @@ const CarOwnerList = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="bg-grey-400 border-b border-dashed  dark:border-gray-700">
+                                <tr className="border-b border-dashed bg-grey-400 dark:border-gray-700">
                                     <td
                                         scope="row"
-                                        className=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     >
                                         <div className="flex items-center gap-[8px]">
                                             <Image
@@ -57,7 +57,7 @@ const CarOwnerList = () => {
                     </div>
                 </div>
             </div>
-        </div></div>
+        </div></>
     )
 }
 

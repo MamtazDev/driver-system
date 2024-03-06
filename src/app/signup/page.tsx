@@ -9,23 +9,24 @@ import login from "../../../public/assets/login.jpg";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import instance from "@/hooks/instance";
+import toast from "react-hot-toast";
 
-const signUp = () => {
-  const navigate = useRouter()
+const SignUp = () => {
+  const navigate = useRouter();
   const [passwordShow, setPasswordShow] = useState(false);
 
-  const [userData, setUserData] = useState<any>([{
+  const [userData, setUserData] = useState({
     fullName: "",
-    role: "Owner",
+    role: "",
     email: "",
     password: "",
     address: "",
     phoneNumber: "",
-  }]);
+  });
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    setUserData((prevData: any) => ({
+    setUserData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -37,22 +38,22 @@ const signUp = () => {
     try {
       const response = await instance.post("/api/user/signup", userData);
       console.log(response.data);
-      setUserData(
-        {
-          fullName: "",
-          role: "",
-          email: "",
-          password: "",
-          address: "",
-          phoneNumber: "",
-        }
-      )
-      navigate.push('/login')
+      setUserData({
+        fullName: "",
+        role: "",
+        email: "",
+        password: "",
+        address: "",
+        phoneNumber: "",
+      });
+      toast.success('Signup Successfull!')
+      navigate.push('/');
 
     } catch (error: any) {
-      // console.error("Registration failed:", error.message);
+      toast.success("Registration failed: ", error.message)
     }
   };
+
 
   return (
     <div className="w-full mt-[100px] mx-auto">
@@ -70,6 +71,8 @@ const signUp = () => {
                 </label>
                 <input
                   type="text"
+                  required
+
                   id="name"
                   name="fullName"
                   value={userData.fullName}
@@ -81,6 +84,8 @@ const signUp = () => {
                   Role
                 </label> <br />
                 <select
+                  required
+
                   name="role"
                   id="role"
                   value={userData.role}
@@ -97,6 +102,8 @@ const signUp = () => {
                   Email
                 </label>
                 <input
+                  required
+
                   type="email"
                   name="email"
                   value={userData.email}
@@ -109,6 +116,8 @@ const signUp = () => {
                 </label>
                 <div className="relative">
                   <input
+                    required
+
                     type={passwordShow ? "text" : "password"}
                     name="password"
                     value={userData.password}
@@ -127,7 +136,9 @@ const signUp = () => {
                 <label htmlFor="name">
                   Address
                 </label>
-                <input type="text" name="address"
+                <input
+                  required
+                  type="text" name="address"
                   value={userData.address}
                   onChange={handleInputChange} />
               </div>
@@ -136,7 +147,9 @@ const signUp = () => {
                 <label htmlFor="name">
                   Phone Number
                 </label>
-                <input type="text"
+                <input
+                  required
+                  type="text"
                   name="phoneNumber"
                   value={userData.phoneNumber}
                   onChange={handleInputChange}
@@ -145,7 +158,7 @@ const signUp = () => {
             </div>
             <div className="flex items-end justify-end gap-4 mb-[10px] ">
 
-              Already have an account? <Link href="/login" className='font-bold'>Login.</Link>
+              Already have an account? <Link href="/" className='font-bold'>Login.</Link>
             </div>
             <PrimaryBtn>Create Account</PrimaryBtn>
           </form>
@@ -155,4 +168,4 @@ const signUp = () => {
   );
 };
 
-export default signUp;
+export default SignUp;
