@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Modal from 'react-modal';
 import { IoMdClose } from "react-icons/io";
 import instance from '@/hooks/instance';
+import {NotificationsCreate} from "@/utils/interects"
 
 const customStyles = {
     content: {
@@ -71,6 +72,15 @@ const RequestedList = () => {
                     truckId
                 });
                 if (response.data.success) {
+                    const notificationData = {
+                        eventName:newAuthorizationState,
+                        truckModel:truckId,
+                        userId:userId
+                    }
+                    const notification = await NotificationsCreate(notificationData)
+                    
+                    console.log('notification',notification)
+                    
                     setRequestsLists((prevRequests: any) =>
                         prevRequests.map((request: any) =>
                             request._id === requestId
@@ -84,14 +94,18 @@ const RequestedList = () => {
             console.error('Error updating authorization status:', error);
         }
     };
-    const handleSave = async (requestId: string) => {
+
+    const handleSave = async (requestId: string, userId: string, truckId: string) => {
         try {
             const response = await instance.put(`/api/authorization/updateAuthorization/${requestId}`, {
                 newAuthorizationState: 'In practice',
                 practiceHour,
+                userId, truckId
             });
 
             if (response.data.success) {
+                    
+               
                 setRequestsLists((prevRequests: any) =>
                     prevRequests.map((request: any) =>
                         request._id === requestId
@@ -192,7 +206,7 @@ const RequestedList = () => {
                                                         />
                                                         <div className="text-center">
                                                             {/* <button className='common_button'>Save</button> */}
-                                                            <button className='common_button' onClick={() => handleSave(requests._id)}>Save</button>
+                                                            <button className='common_button' onClick={() => handleSave(requests._id, requests.user._id, requests?.trucks?._id)}>Save</button>
                                                         </div>
                                                     </div>
                                                 </Modal>

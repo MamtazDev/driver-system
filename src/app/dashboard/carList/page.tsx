@@ -48,11 +48,7 @@ export default carList;
 
 
 function CarDetails({ details }: any) {
-
-    const [truckDetails, setTruckDetails] = useState("Available")
-
-    console.log('details of a car ', details)
-
+    
     return (
         <>
             <div className="card border border-[red] rounded-[10px]">

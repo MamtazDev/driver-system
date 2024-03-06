@@ -12,40 +12,62 @@ import { useParams } from "next/navigation";
 
 
 const DriverDetails = () => {
+
   const [user, setUser] = useState<any>([]);
+  const [notification, setNotification] = useState<any>([]);
 
   const router = useParams();
 
   const id = router.slug
 
-  const fetchUsers = async () => {
-    try {
-      const response = await instance.get(`/api/user/getUserById/${id}`);
-      setUser(response?.data?.data)
-
-    } catch (error: any) {
-      console.error('Error fetching users:', error.message);
-    }
-  };
-
-  console.log('user', user)
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await instance.get(`/api/user/getUserById/${id}`);
+        setUser(response?.data?.data)
+
+      } catch (error: any) {
+        console.error('Error fetching users:', error.message);
+      }
+    };
+
     fetchUsers();
   }, [id]);
 
+  useEffect(() => {
+    const fetchNotification = async () => {
+      try {
+        const response = await instance.get(`/api/notifications/getByUser/${id}`);
+        setNotification(response?.data)
+        console.log(response.data)
 
+      } catch (error: any) {
+        console.error('Error fetching users:', error.message);
+      }
+    };
+
+    fetchNotification();
+  }, [id]);
+
+  console.log(notification)
   return (
     <div className="p-[50px]">
       <div className="driver_details_wrapper">
-        <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-40 flex items-center justify-end mt-[50px]">
-          <div>
-            <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">{user.assignedTo ? "Already Assigned" : "Not Assigned"}  </button>
-            <Link href={`/dashboard/editDriverProfile/${user._id}`}>
-              <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">Edit Profile </button>
-            </Link>
+        <div>
+          <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-40 flex items-center justify-end mt-[50px]">
+            <div>
+              <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">{user.assignedTo ? "Already Assigned" : "Not Assigned"}  </button>
+              <Link href={`/dashboard/editDriverProfile/${user._id}`}>
+                <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">Edit Profile </button>
+              </Link>
+            </div>
+
           </div>
+
+        
         </div>
+
 
         <div className="bg-[#fff] absolute me-[50px] z-40 w-[79%]">
           <div className="flex pb-5 border ">
@@ -71,6 +93,7 @@ const DriverDetails = () => {
             </div>
           </div>
         </div>
+
         <div className="grid grid-cols-12 gap-4 mt-[180px]">
           <div className="col-span-4 w-full p-[2rem] shadow-card ">
             <h1>Information</h1>
@@ -181,6 +204,16 @@ const DriverDetails = () => {
             </table>
           </div>
         </div>
+
+        <div className="bg-[#fff] absolute me-[50px] z-40 w-[79%] my-[100px]">
+            <h2>Notification</h2>
+            {notification.map((noti: any) => (
+              <>
+                <p>{noti.eventName}</p>
+              </>
+            ))}
+          </div>
+
       </div>
     </div>
   );
