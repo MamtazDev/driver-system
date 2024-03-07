@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import Modal from 'react-modal';
 import { IoMdClose } from "react-icons/io";
 import instance from '@/hooks/instance';
-import {NotificationsCreate} from "@/utils/interects"
+import { NotificationsCreate } from "@/utils/interects"
+import ProtectedRoute from '@/routes/ProtectedRoute';
 
 const customStyles = {
     content: {
@@ -73,14 +74,14 @@ const RequestedList = () => {
                 });
                 if (response.data.success) {
                     const notificationData = {
-                        eventName:newAuthorizationState,
-                        truckModel:truckId,
-                        userId:userId
+                        eventName: newAuthorizationState,
+                        truckModel: truckId,
+                        userId: userId
                     }
                     const notification = await NotificationsCreate(notificationData)
-                    
-                    console.log('notification',notification)
-                    
+
+                    console.log('notification', notification)
+
                     setRequestsLists((prevRequests: any) =>
                         prevRequests.map((request: any) =>
                             request._id === requestId
@@ -104,8 +105,8 @@ const RequestedList = () => {
             });
 
             if (response.data.success) {
-                    
-               
+
+
                 setRequestsLists((prevRequests: any) =>
                     prevRequests.map((request: any) =>
                         request._id === requestId
@@ -121,108 +122,112 @@ const RequestedList = () => {
         }
     };
     return (
-        <div>
-            <div className="w-full driver_list_wrapper">
-                <div className="container mx-auto">
-                    <h2 className="py-5 text-xl" >Requested List</h2>
-                    <div className="shadow-card">
-                        <div className="relative overflow-x-auto">
-                            <table className="w-full text-sm text-left text-gray-500 rtl:text-right ">
-                                <thead className="text-xs text-gray-700 uppercase border-b ">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-[15px]">
-                                            Truck
-                                        </th>
-                                        <th scope="col" className="px-6 py-[15px]">
-                                            Company
-                                        </th>
-                                        <th scope="col" className="px-6 py-[15px]">
-                                            Name
-                                        </th>
-                                        <th scope="col" className="px-6 py-[15px]">
-                                            Email
-                                        </th>
-                                        <th scope="col" className="px-6 py-[15px]">
-                                            Phone Number
-                                        </th>
-                                        {/* <th>License</th> */}
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        requestsLists.map((requests: any) => (
-                                            <>
-                                                <tr key={requests?.trucks?._id} className="border-b border-dashed bg-grey-400">
-                                                    <td
-                                                        scope="row"
-                                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                                                    >
-                                                        <div className="flex items-center gap-[8px]">
-                                                            <p>{requests?.trucks?.model}</p>
-                                                        </div>
-                                                    </td>
-                                                    <td className="px-6 py-4">{requests?.trucks?.company}</td>
-                                                    <td className="px-6 py-4">{requests?.user?.fullName}</td>
-                                                    <td className="px-6 py-4">{requests?.user?.email}</td>
-                                                    <td className="px-6 py-4">{requests?.user?.phoneNumber}</td>
 
-                                                    <td className="w-[130px]">
-                                                        <select
-                                                            className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                                                            onChange={(e) => handleSelectChange(e, requests._id, requests.user._id, requests?.trucks?._id)}
-                                                            value={requests.authorizationState[0]}
+        <ProtectedRoute>
+
+            <>
+                <div className="w-full driver_list_wrapper">
+                    <div className="container mx-auto">
+                        <h2 className="py-5 text-xl" >Requested List</h2>
+                        <div className="shadow-card">
+                            <div className="relative overflow-x-auto">
+                                <table className="w-full text-sm text-left text-gray-500 rtl:text-right ">
+                                    <thead className="text-xs text-gray-700 uppercase border-b ">
+                                        <tr>
+                                            <th scope="col" className="px-6 py-[15px]">
+                                                Truck
+                                            </th>
+                                            <th scope="col" className="px-6 py-[15px]">
+                                                Company
+                                            </th>
+                                            <th scope="col" className="px-6 py-[15px]">
+                                                Name
+                                            </th>
+                                            <th scope="col" className="px-6 py-[15px]">
+                                                Email
+                                            </th>
+                                            <th scope="col" className="px-6 py-[15px]">
+                                                Phone Number
+                                            </th>
+                                            {/* <th>License</th> */}
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            requestsLists.map((requests: any) => (
+                                                <>
+                                                    <tr key={requests?.trucks?._id} className="border-b border-dashed bg-grey-400">
+                                                        <td
+                                                            scope="row"
+                                                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                                         >
-                                                            <option value="choose">Choose</option>
-                                                            <option value="Requested">Requested</option>
-                                                            <option value="Request approved">Request approved</option>
-                                                            <option value="In practice">In practice</option>
-                                                            <option value="Exam requested">Exam requested</option>
-                                                            <option value="Authorized">Authorized</option>
-                                                        </select>
+                                                            <div className="flex items-center gap-[8px]">
+                                                                <p>{requests?.trucks?.model}</p>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-6 py-4">{requests?.trucks?.company}</td>
+                                                        <td className="px-6 py-4">{requests?.user?.fullName}</td>
+                                                        <td className="px-6 py-4">{requests?.user?.email}</td>
+                                                        <td className="px-6 py-4">{requests?.user?.phoneNumber}</td>
 
-                                                    </td>
+                                                        <td className="w-[130px]">
+                                                            <select
+                                                                className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                                                                onChange={(e) => handleSelectChange(e, requests._id, requests.user._id, requests?.trucks?._id)}
+                                                                value={requests.authorizationState[0]}
+                                                            >
+                                                                <option value="choose">Choose</option>
+                                                                <option value="Requested">Requested</option>
+                                                                <option value="Request approved">Request approved</option>
+                                                                <option value="In practice">In practice</option>
+                                                                <option value="Exam requested">Exam requested</option>
+                                                                <option value="Authorized">Authorized</option>
+                                                            </select>
 
-                                                </tr>
-                                                <Modal
-                                                    isOpen={modalIsOpen}
-                                                    onRequestClose={closeModal}
-                                                    style={customStyles}
-                                                    contentLabel="Example Modal">
+                                                        </td>
 
-                                                    <div className='text-right mb-[10px]'>
-                                                        <button onClick={closeModal}><IoMdClose /></button>
-                                                    </div>
+                                                    </tr>
+                                                    <Modal
+                                                        isOpen={modalIsOpen}
+                                                        onRequestClose={closeModal}
+                                                        style={customStyles}
+                                                        contentLabel="Example Modal">
 
-                                                    <div className="flex flex-col">
-                                                        <label htmlFor="" className='mb-[8px] fw-[900]'>Hours Of Practice</label>
-                                                        {/* <input className='rounded-[8px] bg-[#F8FAFC] mt-[10px]' type="number" placeholder='Hours of Practice' /> */}
-                                                        <input
-                                                            className='rounded-[8px] bg-[#F8FAFC] mt-[10px]'
-                                                            type="number"
-                                                            placeholder='Hours of Practice'
-                                                            value={practiceHour}
-                                                            onChange={(e) => setPracticeHour(e.target.value)}
-                                                        />
-                                                        <div className="text-center">
-                                                            {/* <button className='common_button'>Save</button> */}
-                                                            <button className='common_button' onClick={() => handleSave(requests._id, requests.user._id, requests?.trucks?._id)}>Save</button>
+                                                        <div className='text-right mb-[10px]'>
+                                                            <button onClick={closeModal}><IoMdClose /></button>
                                                         </div>
-                                                    </div>
-                                                </Modal>
 
-                                            </>
+                                                        <div className="flex flex-col">
+                                                            <label htmlFor="" className='mb-[8px] fw-[900]'>Hours Of Practice</label>
+                                                            {/* <input className='rounded-[8px] bg-[#F8FAFC] mt-[10px]' type="number" placeholder='Hours of Practice' /> */}
+                                                            <input
+                                                                className='rounded-[8px] bg-[#F8FAFC] mt-[10px]'
+                                                                type="number"
+                                                                placeholder='Hours of Practice'
+                                                                value={practiceHour}
+                                                                onChange={(e) => setPracticeHour(e.target.value)}
+                                                            />
+                                                            <div className="text-center">
+                                                                {/* <button className='common_button'>Save</button> */}
+                                                                <button className='common_button' onClick={() => handleSave(requests._id, requests.user._id, requests?.trucks?._id)}>Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </Modal>
 
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
+                                                </>
+
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </>
+        </ProtectedRoute>
     )
 }
 

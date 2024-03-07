@@ -5,7 +5,6 @@ const ProtectedRoute = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const userData = JSON.parse(localStorage.getItem('user') || 'null');
-    
 
     const router = useRouter();
     userData?.user?.user?.email && setIsAuthenticated(true);

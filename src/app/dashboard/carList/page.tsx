@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import instance from "@/hooks/instance";
 import NoDataFound from "@/components/NoDataFound/NoDataFound";
+import ProtectedRoute from "@/routes/ProtectedRoute";
 
 const carList = () => {
 
@@ -25,21 +26,24 @@ const carList = () => {
     }, []);
 
     return (
-        <>
-            <div className="searchResults">
-                <div className="container mx-[50px] w-full">
-                    <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
-                        {data.length == 0 ? <NoDataFound /> : data.map((details: any) => (
-                            <CarDetails key={details._id} details={details} />
-                        ))}
+
+        <ProtectedRoute>
+            <>
+                <div className="searchResults">
+                    <div className="container mx-[50px] w-full">
+                        <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
+                            {data.length == 0 ? <NoDataFound /> : data.map((details: any) => (
+                                <CarDetails key={details._id} details={details} />
+                            ))}
+
+                        </div>
+
 
                     </div>
 
-
                 </div>
-
-            </div>
-        </>
+            </>
+        </ProtectedRoute>
     );
 };
 
@@ -48,7 +52,7 @@ export default carList;
 
 
 function CarDetails({ details }: any) {
-    
+
     return (
         <>
             <div className="card border border-[red] rounded-[10px]">
@@ -82,7 +86,7 @@ function CarDetails({ details }: any) {
                         <div className="flex justify-between items-center mt-[14px]">
                             <p className="text-black">Company: {details?.company}</p>
                             <Link href={`/dashboard/driverDetails/${details?.status?.user?._id}`}><p className="font-bold text-black">Driver name: {details?.status?.user?.fullName}</p></Link>
-                        </div>  
+                        </div>
                     }
                 </div>
             </div >
