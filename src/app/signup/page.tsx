@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 const SignUp = () => {
   const navigate = useRouter();
   const [passwordShow, setPasswordShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setUserData] = useState({
     fullName: "",
@@ -33,10 +34,12 @@ const SignUp = () => {
   };
 
   const handleSubmit = async (e: any) => {
+    setIsLoading(true)
     e.preventDefault();
     console.log(userData);
     try {
       const response = await instance.post("/api/user/signup", userData);
+      setIsLoading(false)
       console.log(response.data);
       setUserData({
         fullName: "",
@@ -46,8 +49,9 @@ const SignUp = () => {
         address: "",
         phoneNumber: "",
       });
+      localStorage.setItem('user', JSON.stringify(response.data))
       toast.success('Signup Successfull!')
-      navigate.push('/');
+      navigate.push('/dashboard')
 
     } catch (error: any) {
       toast.success("Registration failed: ", error.message)
@@ -160,7 +164,16 @@ const SignUp = () => {
 
               Already have an account? <Link href="/" className='font-bold'>Login.</Link>
             </div>
-            <PrimaryBtn>Create Account</PrimaryBtn>
+            <PrimaryBtn> {isLoading ? (
+              <>
+
+                Loading...
+              </>
+            ) : (
+              <>
+                Create Account
+              </>
+            )}</PrimaryBtn>
           </form>
         </div>
       </div>

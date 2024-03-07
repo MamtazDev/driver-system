@@ -23,7 +23,7 @@ const Homepage = () => {
     const router = useRouter()
 
     const [passwordShow, setPasswordShow] = useState(false);
-
+    const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState<loginType>({
         email: "",
         password: "",
@@ -38,17 +38,18 @@ const Homepage = () => {
     };
 
     const handleLogin = async (e: any) => {
-        console.log('login button cliecked')
+
+        setIsLoading(true)
 
         e.preventDefault();
 
         try {
             const response = await instance.post('/api/user/login', formData);
-            console.log(response.data);
-
+            setIsLoading(false)
             localStorage.setItem('user', JSON.stringify(response.data))
             toast.success('Login Successfull!')
             router.push('/dashboard')
+
         } catch (error) {
             toast.error("Login failed: Invalid user or password");
         }
@@ -116,7 +117,16 @@ const Homepage = () => {
                             <button
                                 type="submit"
                                 className="w-full px-8 py-3 text-base text-white transition ease-in-out bg-black border font-bbg-trold hover: rounded-3xl duration-600 hover:bg-transparent hover:text-black">
+                                {isLoading ? (
+                                    <>
+
+                                        Loading...
+                                    </>
+                                ) : (
+                                    <>
                                 Login
+                                    </>
+                                )}
                             </button>
                         </form>
                     </div>

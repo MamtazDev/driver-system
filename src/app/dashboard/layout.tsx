@@ -24,10 +24,11 @@ export default function DashboardLayout({
           <body>
             <Sidebar />
             <div className="lg:ms-[296px] ms-[50px] w-full">
-              <div className="w-full">
+              <div className="w-full mb-[30px]">
                 <TopBar />
               </div>
-              <div className="mt-[100px] bg-[]  ">{children}</div>
+              <div className="mt-[10
+                0px] bg-[]  ">{children}</div>
             </div>
             {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script> */}
           </body>

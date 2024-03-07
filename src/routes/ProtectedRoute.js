@@ -1,19 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useRouter } from "next/navigation";
+
 import React, { useEffect, useState } from "react";
 
 const ProtectedRoute = ({ children }) => {
-
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const userData = JSON.parse(localStorage.getItem('user') || 'null');
-
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
-    userData?.user?.user?.email && setIsAuthenticated(true);
 
     useEffect(() => {
-        if (!isAuthenticated) {
+        const userData = JSON.parse(localStorage.getItem("user") || null);
+        if (userData && userData.user && userData.user.email) {
+            setIsAuthenticated(true);
+        } else {
             router.push("/");
         }
-    }, [isAuthenticated, router]);
+    }, [router]);
+
     return isAuthenticated ? <>{children}</> : null;
 };
 

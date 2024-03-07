@@ -77,7 +77,7 @@ const Stats = () => {
 
   return (
 
-    <div className="container ">
+    <div className="container mt-[100px]">
       <div className="my-[20px]">
         <h1>Todays Statistics</h1>
         <p>{formattedDate}</p>
