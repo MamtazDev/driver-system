@@ -76,7 +76,7 @@ const AuthorizationRequest = () => {
         <>
             <div className='container m-auto'>
                 <div className="shadow-card p-[30px]  w-[70%] m-auto">
-                    <button>select</button>
+                
                     <h1 className='text-center mb-[20px]'>Request For Authorization</h1>
 
                     <form onSubmit={handleSubmit}>

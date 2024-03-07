@@ -13,17 +13,36 @@ const carList = () => {
     const [data, setData] = useState([])
 
 
+    const [userDatas, setUserDatas] = useState<any>({})
+
+    useEffect(() => {
+
+        let userDataString;
+        if (typeof window !== undefined) {
+            userDataString = localStorage.getItem('user');
+        }
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            setUserDatas(userData?.user);
+        }
+    }, []);
+
     async function fetchData() {
         try {
-            const response = await instance.get('/api/truck/getAllTrucks?managerId=65e97df379798c05ffb79f06');
-            setData(response.data.data);
+            if (userDatas._id) {
+                const managerIds = userDatas._id;
+                const response = await instance.get(`/api/truck/getAllTrucks?managerId=${managerIds}`);
+                setData(response.data.data);
+                console.log(response);
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
+
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [userDatas]);
 
     return (
 
