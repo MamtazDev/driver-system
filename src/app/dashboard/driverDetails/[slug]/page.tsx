@@ -209,7 +209,14 @@ const DriverDetails = () => {
           <div className="table-responsive text-nowrap">
             <table className="table w-full mb-0 align-middle qd-table">
               <tbody>
-          
+                <tr>
+                  <th>Notification status</th>
+                  <th>Notification status</th>
+                  <th>Notification status</th>
+                  <th>Notification status</th>
+                  <th></th>
+                </tr>
+
                 {notification.map((noti: any) => (
 
                   <>
@@ -221,13 +228,12 @@ const DriverDetails = () => {
                     </tr>
                   </>
                 ))}
-
               </tbody>
             </table>
           </div>
         </div>
 
-        
+
 
       </div>
     </div>

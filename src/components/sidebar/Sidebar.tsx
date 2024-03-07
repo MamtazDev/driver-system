@@ -55,9 +55,7 @@ const Sidebar: React.FC = () => {
       const role = userData?.user?.role[0]
       setRole(role)
       setUser(userData?.user)
-
     }
-
   }, [])
 
 
@@ -260,7 +258,7 @@ const Sidebar: React.FC = () => {
                           }}
                         />
                       </li>
-                      {/* <li className="">
+                      <li className="">
                         <MenuBtn
                           link="/dashboard/addDriver"
                           text="Add Driver"
@@ -270,7 +268,7 @@ const Sidebar: React.FC = () => {
                             setActiveLink("/dashboard/addDriver");
                           }}
                         />
-                      </li> */}
+                      </li>
                     </ul>
                   )}
                 </div>

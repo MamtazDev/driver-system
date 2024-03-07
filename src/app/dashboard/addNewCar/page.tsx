@@ -15,6 +15,7 @@ const AddNewCars = () => {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
+    
     const image = imageFileInputRef?.current?.files?.[0];
     const company = form.company.value;
     const brand = form.brand.value;

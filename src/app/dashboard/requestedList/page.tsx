@@ -153,7 +153,7 @@ const RequestedList = () => {
                                     {
                                         requestsLists.map((requests: any) => (
                                             <>
-                                                <tr key={requests.trucks._id} className="border-b border-dashed bg-grey-400">
+                                                <tr key={requests?.trucks?._id} className="border-b border-dashed bg-grey-400">
                                                     <td
                                                         scope="row"
                                                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"

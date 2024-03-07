@@ -35,7 +35,7 @@ export const UserProvider = ({ children }) => {
     };
 
     if (loading) {
-        return <div>
+        return <div className='flex items-center justify-center'>
             <ColorRing
                 visible={true}
                 height="80"
@@ -47,7 +47,6 @@ export const UserProvider = ({ children }) => {
             />
         </div>;
     }
-
     return (
         <UserContext.Provider value={{ user, login, logout }}>
             {children}
