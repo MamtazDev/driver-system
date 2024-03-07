@@ -12,15 +12,15 @@ const carList = () => {
 
     const [data, setData] = useState([])
 
+
     async function fetchData() {
         try {
-            const response = await instance.get('/api/truck/getAllTrucks');
+            const response = await instance.get('/api/truck/getAllTrucks?managerId=65e97df379798c05ffb79f06');
             setData(response.data.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
-
     useEffect(() => {
         fetchData();
     }, []);

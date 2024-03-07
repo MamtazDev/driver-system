@@ -6,12 +6,11 @@ import Image from "next/image";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 import Link from "next/link";
-import instance from "@/hooks/instance";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "../../../routes/ProtectedRoute";
 
-
 const ManagerProfile = () => {
+  
   const [user, setUser] = useState<any>([]);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ const ManagerProfile = () => {
       console.log('userdata', userData?.user)
     }
   }, [])
-
 
   return (
     <ProtectedRoute>
@@ -117,6 +115,44 @@ const ManagerProfile = () => {
                 </p>
 
               </div>
+            </div>
+
+          </div>
+          <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
+            <h2> Details of the company </h2>
+            <div className="table-responsive text-nowrap">
+              <table className="table w-full mb-0 align-middle qd-table">
+                <tbody>
+                  <tr className="w-full border-b border-dashed ">
+                    <td>
+                      <span className="text-[#9499A1]">Company</span>
+                    </td>
+                    <td>
+                      <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
+                    </td>
+                  </tr>
+                  <tr className="w-full border-b border-dashed " >
+                    <td>
+                      <span className="text-[#9499A1]"> Total cars</span>
+                    </td>
+                    <td>
+                      <div className="flex items-center justify-start">
+                        <strong className="text-heading me3">{user?.assignedTo ? user?.assignedTo?.trucks?.licensePlate : "N/A"}</strong>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr className="w-full border-b border-dashed ">
+                    <td>
+                      <span className="text-[#9499A1]">Total Drivers</span>
+                    </td>
+                    <td>
+                      <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

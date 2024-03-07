@@ -14,7 +14,7 @@ const AuthorizationRequest = () => {
     const [driverDataList, setDriverDataList] = useState([]);
     const [selectedDriver, setSelectedDriver] = useState<any>(null);
     const [authorizationState, setAuthorizationState] = useState("")
-
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (driverContext && driverContext.data) {
@@ -29,15 +29,9 @@ const AuthorizationRequest = () => {
     };
     const router = useParams();
 
-    // car id 
     const id = router.slug;
-
-    console.log("car id",id)
-
     const selectedDriverId = selectedDriver?._id
-console.log('selectedDriverId',selectedDriverId)
     //  authorization state
-
     const data = {
         user: selectedDriverId,
         trucks: id,
@@ -60,18 +54,18 @@ console.log('selectedDriverId',selectedDriverId)
     }, [id]);
 
     const handleSubmit = async (e: any) => {
+        setIsLoading(true)
         e.preventDefault();
-
         try {
             const response = await instance.post("/api/authorization/addNewRequest", data);
 
             if (response.data.success) {
                 toast.success('Request added successfully');
+                setIsLoading(false)
             } else {
                 toast.error('Failed to add a new request');
             }
         } catch (error: any) {
-
             toast.error(`Request failed: ${error.response.data.message}`);
 
         }
@@ -189,7 +183,6 @@ console.log('selectedDriverId',selectedDriverId)
                                 <input
                                     required
                                     type="date"
-                                // value={selectedDriver ? selectedDriver.dob : ""}
                                 />
                             </div>
                             <div className='col-span-6'>
@@ -205,7 +198,7 @@ console.log('selectedDriverId',selectedDriverId)
                                 <input
                                     required
                                     type="date"
-                                // value={selectedDriver ? selectedDriver.dob : ""}
+                           
                                 />
                             </div>
                             <div className='col-span-6'>
@@ -215,12 +208,21 @@ console.log('selectedDriverId',selectedDriverId)
                                     <option selected>Choose</option>
                                     <option value="Request">Request</option>
                                     <option value="Practice">Practice</option>
-                                    <option value="Authorized">Authorized</option>
                                 </select>
                             </div>
                         </div>
                         <div className="text-center mt-[15px]">
-                            <button type='submit' className="common_button">Send Request</button>
+                            <button type='submit' className="common_button">
+                                {isLoading ? (
+                                    <>
+                                        Loading...
+                                    </>
+                                ) : (
+                                    <>
+                                        Send Request
+                                    </>
+                                )}
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -233,20 +235,20 @@ export default AuthorizationRequest
 
 
 const useSecondImageUpload = () => {
-    const imageFileInputRef2 = useRef<HTMLInputElement>(null); // Specify the type as HTMLInputElement
-    const [selectedImage2, setSelectedImage2] = useState<string | null>(null); // Assuming selectedImage2 is a string
-    const [selectedFiles2, setSelectedFiles2] = useState<FileList | null>(null); // Assuming selectedFiles2 is a FileList
+    const imageFileInputRef2 = useRef<HTMLInputElement>(null); 
+    const [selectedImage2, setSelectedImage2] = useState<string | null>(null); 
+    const [selectedFiles2, setSelectedFiles2] = useState<FileList | null>(null); 
 
     const handleImageClick2 = () => {
         imageFileInputRef2.current?.click();
     };
 
-    const handleImageFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => { // Use React.ChangeEvent<HTMLInputElement> for the event type
+    const handleImageFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => { 
         const files = event.target.files;
         if (files && files.length > 0) {
             setSelectedFiles2(files);
             const selectedFile = files[0];
-            const imageUrl: string = URL.createObjectURL(selectedFile); // Specify the type as string
+            const imageUrl: string = URL.createObjectURL(selectedFile); 
             setSelectedImage2(imageUrl);
         }
     };

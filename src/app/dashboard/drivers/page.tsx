@@ -149,14 +149,14 @@ const Drivers = () => {
                             </div>
                           </td>
                           <td className="py-4 "><Link href={`/dashboard/truckDetails/${user?.assignedTo?.trucks?._id}`}>
-                            {user.assignedTo ? user.assignedTo.trucks.brand : "N/A"}</Link></td>
+                            {user.assignedTo ? user?.assignedTo?.trucks?.brand : "N/A"}</Link></td>
                           <td className="">
                             <div className="flex items-center gap-2">
-                              <Link href={`/dashboard/editDriverProfile/${user._id}`}><button>
+                              <Link href={`/dashboard/editDriverProfile/${user?._id}`}><button>
                                 <CiEdit className="text-[24px]" />
                               </button></Link>
 
-                              <button onClick={() => handleDelete(user._id)}>
+                              <button onClick={() => handleDelete(user?._id)}>
                                 <MdDelete className="text-[24px]" />
                               </button>
                             </div>

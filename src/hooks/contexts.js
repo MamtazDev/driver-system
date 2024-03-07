@@ -7,7 +7,9 @@ import { ColorRing } from 'react-loader-spinner'
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+
     const [user, setUser] = useState(null);
+
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -29,23 +31,23 @@ export const UserProvider = ({ children }) => {
     const login = (userData) => {
         setUser(userData);
     };
-
     const logout = () => {
         setUser(null);
     };
 
     if (loading) {
-        return <div className='flex items-center justify-center'>
+        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <ColorRing
                 visible={true}
                 height="80"
                 width="80"
                 ariaLabel="color-ring-loading"
-                wrapperStyle={{}}
+                wrapperStyle={{ margin: 'auto' }}
                 wrapperClass="color-ring-wrapper"
                 colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
             />
-        </div>;
+        </div>
+            ;
     }
     return (
         <UserContext.Provider value={{ user, login, logout }}>

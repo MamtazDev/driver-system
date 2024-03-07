@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import profile from "../../../../public/assets/selectImage.png";
 import instance from '@/hooks/instance';
@@ -12,7 +12,23 @@ const AddNewCars = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  
+  const [data, setData] = useState<any>({})
+
+  useEffect(() => {
+
+    let userDataString;
+    if (typeof window !== undefined) {
+      userDataString = localStorage.getItem('user');
+    }
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      setData(userData?.user);
+    }
+  }, []);
+
   const handleFormSubmit = async (e: any) => {
+
     setIsLoading(true)
     e.preventDefault();
 
@@ -25,6 +41,7 @@ const AddNewCars = () => {
     const licensePlate = form.licensePlate.value;
     const vinNumber = form.vinNumber.value;
     const year = form.year.value;
+    const managerId = data._id;
 
     const formData: any = new FormData();
 
@@ -35,6 +52,8 @@ const AddNewCars = () => {
     formData.append('licensePlate', licensePlate);
     formData.append('vinNumber', vinNumber);
     formData.append('year', year);
+    formData.append('managerId', managerId);
+
 
     try {
       const response = await instance.post('/api/truck/addNewTrucks', formData);

@@ -141,7 +141,17 @@ const Sidebar: React.FC = () => {
                 <div className="dropdown_list">
                   {dropDown && (
                     <ul className="list-disc text-[#fff]" style={{ marginLeft: "50px" }}>
-
+                      {/* <li className="">
+                        <MenuBtn
+                          link="/dashboard/addNewCar"
+                          text="All Managers"
+                          isActive={activeLink === "/dashboard/addNewCar"}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveLink("/dashboard/addNewCar");
+                          }}
+                        />
+                      </li> */}
                       <li className="">
                         <MenuBtn
                           link="/dashboard/addNewCar"

@@ -51,7 +51,6 @@ const DriverDetails = () => {
     fetchNotification();
   }, [id]);
 
-  // console.log('notification', notification)
 
   return (
     <ProtectedRoute>
@@ -150,65 +149,63 @@ const DriverDetails = () => {
             </div>
           </div>
 
-          {user && user?.role && user.role[0] === 'Driver' ?
-            <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
-              <h2>Assigned to </h2>
-              <div className="table-responsive text-nowrap">
-                <table className="table w-full mb-0 align-middle qd-table">
-                  <tbody>
-                    <tr className="w-full border-b border-dashed ">
-                      <td>
-                        <span className="text-[#9499A1]">Company</span>
-                      </td>
-                      <td>
-                        <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
-                      </td>
-                    </tr>
-                    <tr className="w-full border-b border-dashed " >
-                      <td>
-                        <span className="text-[#9499A1]"> License Plate</span>
-                      </td>
-                      <td>
-                        <div className="flex items-center justify-start">
-                          <strong className="text-heading me3">{user?.assignedTo ? user?.assignedTo?.trucks?.licensePlate : "N/A"}</strong>
-                        </div>
-                      </td>
-                    </tr>
+          <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
+            <h2>Assigned to </h2>
+            <div className="table-responsive text-nowrap">
+              <table className="table w-full mb-0 align-middle qd-table">
+                <tbody>
+                  <tr className="w-full border-b border-dashed ">
+                    <td>
+                      <span className="text-[#9499A1]">Company</span>
+                    </td>
+                    <td>
+                      <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
+                    </td>
+                  </tr>
+                  <tr className="w-full border-b border-dashed " >
+                    <td>
+                      <span className="text-[#9499A1]"> License Plate</span>
+                    </td>
+                    <td>
+                      <div className="flex items-center justify-start">
+                        <strong className="text-heading me3">{user?.assignedTo ? user?.assignedTo?.trucks?.licensePlate : "N/A"}</strong>
+                      </div>
+                    </td>
+                  </tr>
 
-                    <tr className="w-full border-b border-dashed ">
-                      <td>
-                        <span className="text-[#9499A1]">Model</span>
-                      </td>
-                      <td>
-                        <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
-                      </td>
-                    </tr>
-                    <tr className="w-full border-b border-dashed ">
-                      <td>
-                        <span className="text-[#9499A1]">VIN Number</span>
-                      </td>
-                      <td>
-                        <strong><a href="#" className="">{user?.assignedTo ? user?.assignedTo?.trucks?.vinNumber : "N/A"}</a></strong>
-                      </td>
-                    </tr>
+                  <tr className="w-full border-b border-dashed ">
+                    <td>
+                      <span className="text-[#9499A1]">Model</span>
+                    </td>
+                    <td>
+                      <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
+                    </td>
+                  </tr>
+                  <tr className="w-full border-b border-dashed ">
+                    <td>
+                      <span className="text-[#9499A1]">VIN Number</span>
+                    </td>
+                    <td>
+                      <strong><a href="#" className="">{user?.assignedTo ? user?.assignedTo?.trucks?.vinNumber : "N/A"}</a></strong>
+                    </td>
+                  </tr>
 
-                  </tbody>
-                </table>
-              </div>
-            </div> : <AuthorityDetails user={user} />
-          }
+                </tbody>
+              </table>
+            </div>
+          </div>
 
 
 
           {user?.assignedTo && <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
-            <h2>Notification </h2>
+            {/* <h2>Notification </h2> */}
             <div className="table-responsive text-nowrap">
               <table className="table w-full mb-0 align-middle qd-table">
                 <tbody>
                   <tr>
-                    <th>Notification status</th>
+                    <th className="p-0 text-left">Notification status</th>
 
-                    <th></th>
+                    <th className="text-left">Updated status time</th>
                   </tr>
 
                   {notification.map((noti: any) => (
@@ -217,7 +214,12 @@ const DriverDetails = () => {
                       <tr className="w-full border-b border-dashed ">
 
                         <td>
-                          <strong className="text-heading">{noti.eventName}</strong>
+                          <p className="ps-3">{noti.eventName}</p>
+                        </td>
+
+                        <td>
+                          {/* Display updatedAt date */}
+                          {new Date(noti.updatedAt).toISOString().split('T')[0]}
                         </td>
                       </tr>
                     </>
@@ -240,50 +242,3 @@ export default DriverDetails;
 
 
 
-
-const AuthorityDetails = ({ user }: any) => {
-
-  return (<>
-    <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
-      <h2> Details of the company </h2>
-      <div className="table-responsive text-nowrap">
-        <table className="table w-full mb-0 align-middle qd-table">
-          <tbody>
-            <tr className="w-full border-b border-dashed ">
-              <td>
-                <span className="text-[#9499A1]">Company</span>
-              </td>
-              <td>
-                <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
-              </td>
-            </tr>
-            <tr className="w-full border-b border-dashed " >
-              <td>
-                <span className="text-[#9499A1]"> Total cars</span>
-              </td>
-              <td>
-                <div className="flex items-center justify-start">
-                  <strong className="text-heading me3">{user?.assignedTo ? user?.assignedTo?.trucks?.licensePlate : "N/A"}</strong>
-                </div>
-              </td>
-            </tr>
-
-            <tr className="w-full border-b border-dashed ">
-              <td>
-                <span className="text-[#9499A1]">Total Drivers</span>
-              </td>
-              <td>
-                <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-
-  </>)
-
-
-}
