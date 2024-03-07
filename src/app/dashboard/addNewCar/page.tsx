@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import profile from "../../../../public/assets/selectImage.png";
 import instance from '@/hooks/instance';
@@ -10,12 +10,14 @@ const AddNewCars = () => {
 
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
 
-  const handleFormSubmit = async (e: any) => {
+  const [isLoading, setIsLoading] = useState(false);
 
+  const handleFormSubmit = async (e: any) => {
+    setIsLoading(true)
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-    
+
     const image = imageFileInputRef?.current?.files?.[0];
     const company = form.company.value;
     const brand = form.brand.value;
@@ -36,7 +38,7 @@ const AddNewCars = () => {
 
     try {
       const response = await instance.post('/api/truck/addNewTrucks', formData);
-      // console.log(response.data);
+      setIsLoading(false)
       toast.success('Truck added successfully')
       form.reset();
     } catch (error: any) {
@@ -154,7 +156,18 @@ const AddNewCars = () => {
               </div>
             </div>
             <div className="text-center mt-[15px]">
-              <button type='submit' className="common_button">Add a new Truck</button>
+              <button type='submit' className="common_button">
+                {isLoading ? (
+                  <>
+
+                    Loading...
+                  </>
+                ) : (
+                  <>
+                    Add a new Truck
+                  </>
+                )}
+              </button>
             </div>
           </form>
         </div>

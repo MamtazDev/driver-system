@@ -26,32 +26,9 @@ const ManagerProfile = () => {
     }
   }, [])
 
-  // console.log(user._id)
-
-  // const { _id } = user;  
-
-  // console.log(user)
-
-  // useEffect(() => {
-
-  //   const fetchUsers = async () => {
-
-  //     try {
-  //       const response = await instance.get(  `/api/user/getUserById/${user._id}`);
-  //       setUser(response.data.data)
-  //     } catch (error: any) {
-  //       console.error('Error fetching users:', error.message);
-  //     }
-  //   };    
-  //   fetchUsers();
-
-  // }, []);
 
   return (
-
     <ProtectedRoute>
-
-
       <div className="p-[50px]">
         <div className="driver_details_wrapper">
           <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-40 flex items-center justify-end mt-[50px]">
