@@ -12,11 +12,8 @@ import toast from "react-hot-toast";
 
 const AddDrivers = () => {
 
-
-
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
 
-  const [errorMessage, setErrorMessage] = useState('');
   const [data, setData] = useState<any>({})
 
   useEffect(() => {
@@ -34,8 +31,6 @@ const AddDrivers = () => {
   console.log(data)
 
   const uploadImageToBackend = async (image: any) => {
-    console.log(image, "ksdjfksfj")
-
     const formData = new FormData();
     formData.append('image', imageFiles);
 
@@ -81,7 +76,9 @@ const AddDrivers = () => {
     formData.append('dob', dob);
     formData.append('phoneNumber', phoneNumber);
     formData.append('drivingLicenseExpirationDate', drivingLicenseExpirationDate);
-    formData.append('about', about);
+    formData.append('about', about)
+    formData.append('ownerId', data._id);
+    
     try {
       const response = await instance.post('api/user/createNewDriver', formData);
       console.log(response.data);

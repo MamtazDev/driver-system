@@ -10,23 +10,40 @@ import toast from 'react-hot-toast';
 const AddNewCars = () => {
 
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, imageFiles }: any = useImageUpload();
+const [isLoading, setIsLoading] = useState(false);
+const [data, setData] = useState<any>({});
+const [managerData, setManagerData] = useState<any>([]);
 
-  const [isLoading, setIsLoading] = useState(false);
+useEffect(() => {
+  let userDataString;
+  if (typeof window !== undefined) {
+    userDataString = localStorage.getItem('user');
+  }
+  if (userDataString) {
+    const userData = JSON.parse(userDataString);
+    setData(userData?.user);
+  }
+}, []);
+
+useEffect(() => {
+  if (data._id) {
+    const fetchUsers = async () => {
+      try {
+        const response = await instance.get(`api/user/getRoleUsers?role=Manager&ownerId=${data._id}`);
+        setManagerData(response.data.data);
+        console.log(response.data.data, "data");
+      } catch (error: any) {
+        console.error('Error fetching users:', error.message);
+      }
+    };
+    fetchUsers();
+  }
+}, [data._id]);
+
+console.log("managerData", managerData);
 
 
-  const [data, setData] = useState<any>({})
-
-  useEffect(() => {
-
-    let userDataString;
-    if (typeof window !== undefined) {
-      userDataString = localStorage.getItem('user');
-    }
-    if (userDataString) {
-      const userData = JSON.parse(userDataString);
-      setData(userData?.user);
-    }
-  }, []);
+  console.log("managerData",managerData)
 
   const uploadImageToBackend = async (image: any) => {
     const formData = new FormData();
@@ -109,7 +126,6 @@ const AddNewCars = () => {
                   <div className="m-auto mb-[20px] left-[2%] top-[32%]" style={{ position: 'absolute', width: '100px', height: '100px' }}>
                     <Image
                       src={selectedImage || profile}
-
                       alt="Selected"
                       layout="fill"
                       objectFit="cover"
@@ -142,6 +158,18 @@ const AddNewCars = () => {
                   value={data.companyName}
                 />
               </div>
+              {/* <div className='col-span-6'>
+                <label htmlFor="">Manager</label>
+                <input
+                  required
+                  type="text"
+                  className=''
+                  placeholder='Enter company name'
+                  name='company'
+                  id='company'
+                  value={data.companyName}
+                />
+              </div> */}
               <div className='col-span-6'>
                 <label htmlFor="">Brand</label>
                 <input
@@ -198,6 +226,19 @@ const AddNewCars = () => {
                   id='vinNumber'
                 />
               </div>
+              <div className='col-span-6'>
+                <label htmlFor="">Select Driver </label>
+                <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                  {/* <option selected>Choose</option> */}
+                  {managerData.map((data: any) => (
+                    <option key={data._id} value={data?.fullName}>
+                      {data?.fullName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+
             </div>
             <div className="text-center mt-[15px]">
               <button type='submit' className="common_button">

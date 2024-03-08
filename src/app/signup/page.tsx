@@ -159,26 +159,24 @@ const SignUp = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="mb-[10px]">
-                <label htmlFor="name">
-                  Company Name
-                </label>
-                <input
-                  required
-                  type="text"
-                  name="companyName"
-                  value={userData.companyName}
-                  onChange={handleInputChange}
-                />
-              </div>
+            </div>
+            <div className="mb-[10px]">
+              <label htmlFor="name">
+                Company Name
+              </label>
+              <input
+                required
+                type="text"
+                name="companyName"
+                value={userData.companyName}
+                onChange={handleInputChange}
+              />
             </div>
             <div className="flex items-end justify-end gap-4 mb-[10px] ">
-
               Already have an account? <Link href="/" className='font-bold'>Login.</Link>
             </div>
             <PrimaryBtn> {isLoading ? (
               <>
-
                 Loading...
               </>
             ) : (
