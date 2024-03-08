@@ -12,7 +12,6 @@ const carList = () => {
 
     const [data, setData] = useState([])
 
-
     const [userDatas, setUserDatas] = useState<any>({})
 
     useEffect(() => {
@@ -56,10 +55,7 @@ const carList = () => {
                             ))}
 
                         </div>
-
-
                     </div>
-
                 </div>
             </>
         </ProtectedRoute>
