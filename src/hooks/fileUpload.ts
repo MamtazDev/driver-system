@@ -4,6 +4,7 @@ import { RefObject, useRef, ChangeEvent, useState } from "react";
 interface ImageHookResult {
   imageFileInputRef: RefObject<HTMLInputElement>;
   selectedImage: any;
+  imageFiles: any;
   selectedFiles: any;
   handleImageClick: () => void;
   handleImageFileChange: (event: ChangeEvent<HTMLInputElement>) => void;

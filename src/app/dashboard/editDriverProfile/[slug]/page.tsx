@@ -32,9 +32,7 @@ const EditDriverProfile = () => {
     });
 
     // State for profile image and driving license
-    const [image, setImage] = useState(null);
     const [drivingLicense, setDrivingLicense] = useState(null);
-
 
     const router = useParams();
 
@@ -123,7 +121,7 @@ const EditDriverProfile = () => {
                 about: "",
                 drivingLicenseExpirationDate: ""
             });
-            setImage(null);
+            // setImage(null);
             selectedFiles([]);
             selectedFiles2([]);
 
