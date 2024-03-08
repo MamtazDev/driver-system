@@ -13,6 +13,7 @@ const AddNewCars = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<any>({});
   const [managerData, setManagerData] = useState<any>([]);
+  const [selectedManagerId, setSelectedManagerId] = useState("");
 
   useEffect(() => {
     let userDataString;
@@ -31,7 +32,6 @@ const AddNewCars = () => {
         try {
           const response = await instance.get(`api/user/getRoleUsers?role=Manager&ownerId=${data._id}`);
           setManagerData(response.data.data);
-          console.log(response.data.data, "data");
         } catch (error: any) {
           console.error('Error fetching users:', error.message);
         }
@@ -84,9 +84,11 @@ const AddNewCars = () => {
       formData.append('vinNumber', form.vinNumber.value);
       formData.append('year', form.year.value);
       formData.append('ownerId', data._id);
+      formData.append('managerId', selectedManagerId);
       formData.append('image', imageUrl);
 
       const response = await instance.post('/api/truck/addNewTrucks', formData);
+      console.log(response)
 
       setIsLoading(false);
 
@@ -100,7 +102,9 @@ const AddNewCars = () => {
     }
   };
 
-
+  const handleManagerSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedManagerId(e.target.value); // Update selectedManagerId state
+  };
   return (
 
     <>
@@ -223,11 +227,11 @@ const AddNewCars = () => {
               </div>
               <div className='col-span-12'>
                 <label htmlFor="">Select Manager </label>
-                <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                  <option selected>Choose</option>
-                  {managerData.map((data: any) => (
-                    <option key={data._id} value={data?.fullName}>
-                      {data?.fullName}
+                <select id="manager" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" onChange={handleManagerSelect}>
+                  <option value="">Choose</option>
+                  {managerData.map((manager: any) => (
+                    <option key={manager._id} value={manager._id}>
+                      {manager.fullName}
                     </option>
                   ))}
                 </select>

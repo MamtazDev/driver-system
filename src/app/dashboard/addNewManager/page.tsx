@@ -11,6 +11,8 @@ import toast from "react-hot-toast";
 
 
 const AddNewManager = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
     const [data, setData] = useState<any>({})
     useEffect(() => {
 
@@ -54,6 +56,7 @@ const AddNewManager = () => {
     };
 
     const handleSubmit = async (e: any) => {
+        setIsLoading(true)
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         const fullName = form.fullName.value;
@@ -79,23 +82,24 @@ const AddNewManager = () => {
         formData.append('ownerId', data._id);
 
         try {
-            const response : any = await instance.post('api/user/createNewManager', formData);
+            const response: any = await instance.post('api/user/createNewManager', formData);
             console.log("response.status", response.status);
-
-            if(response.status === 200){
+            setIsLoading(false)
+            if (response.status === 200) {
                 toast.success('Truck added successfully')
                 console.log("add manager relaeted success!")
             }
-            else if(response.status === 403){
+            else if (response.status === 403) {
                 toast.success(response.message)
             }
-            else{
+            else {
                 console.log("add manager relaeted error!")
                 toast.error(response.message)
             }
-           
+
             form.reset();
         } catch (error: any) {
+            setIsLoading(false)
             console.log("error.status", error.response.data.message);
             toast.success('Error', error.response.data.message)
         }
@@ -243,7 +247,17 @@ const AddNewManager = () => {
                         </div>
 
                         <div className="text-center mt-[15px]">
-                            <button type="submit" className="common_button">Add New Driveru</button>
+                            <button type="submit" className="common_button">
+                                {isLoading ? (
+                                    <>
+                                        Loading...
+                                    </>
+                                ) : (
+                                    <>
+                                        Add New Manager
+                                    </>
+                                )}
+                            </button>
                         </div>
                     </form>
                 </div>
