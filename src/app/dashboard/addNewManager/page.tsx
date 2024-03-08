@@ -12,7 +12,8 @@ import toast from "react-hot-toast";
 
 const AddNewManager = () => {
 
-    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles } = useImageUpload();
+
+    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }:any = useImageUpload();
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -44,12 +45,8 @@ const AddNewManager = () => {
     };
 
     const handleSubmit = async (e: any) => {
-
         e.preventDefault();
-
         const form = e.target as HTMLFormElement;
-
-        // const drivingLicense = imageFileInputRef?.current?.files?.[0];
         const fullName = form.fullName.value;
         const email = form.email.value;
         const about = form.about.value;
@@ -72,17 +69,8 @@ const AddNewManager = () => {
         formData.append('phoneNumber', phoneNumber);
         formData.append('drivingLicenseExpirationDate', drivingLicenseExpirationDate);
         formData.append('about', about);
-        // try {
-        //   const response = await instance.post('/api/truck/addNewTrucks', formData);
-        //   // console.log(response.data);
-        //   toast.success('Truck added successfully')
-
-        //   form.reset();
-        // } catch (error: any) {
-        //   toast.error('Error', error?.message)
-        // }
         try {
-            const response = await instance.post('api/user/createNewDriver', formData);
+            const response = await instance.post('api/user/createNewManager', formData);
             console.log(response.data);
             toast.success('Truck added successfully')
             form.reset();
@@ -91,7 +79,7 @@ const AddNewManager = () => {
         }
     };
 
-
+    
     return (
 
         <ProtectedRoute>
@@ -101,7 +89,7 @@ const AddNewManager = () => {
 
 
                     <form onSubmit={handleSubmit} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
-                    <h2 className="font-bold text-center text-[40px] my-[20px]">Add a new Manager</h2>
+                        <h2 className="font-bold text-center text-[40px] my-[20px]">Add a new Manager</h2>
                         <div className="grid grid-cols-12 gap-4">
                             <div className="col-span-6 add_driver">
                                 <div className="mb-3">

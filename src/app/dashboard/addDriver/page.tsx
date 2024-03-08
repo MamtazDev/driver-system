@@ -6,24 +6,38 @@ const numCols: number = 10;
 import useImageUpload from "@/hooks/fileUpload";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 
 const AddDrivers = () => {
 
-  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles } = useImageUpload();
+
+
+  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [data, setData] = useState<any>({})
+
+  useEffect(() => {
+
+    let userDataString;
+    if (typeof window !== undefined) {
+      userDataString = localStorage.getItem('user');
+    }
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      setData(userData?.user);
+    }
+  }, []);
+
+  console.log(data)
 
   const uploadImageToBackend = async (image: any) => {
     console.log(image, "ksdjfksfj")
 
     const formData = new FormData();
     formData.append('image', imageFiles);
-
-    const imageHostKey = process.env.IMAGE_HOST_KEY
-    console.log(imageHostKey)
 
     try {
       const response = await fetch(`https://api.imgbb.com/1/upload?key=498c13144329f4ea75fda2875c5782b9`, {
@@ -44,12 +58,8 @@ const AddDrivers = () => {
   };
 
   const handleSubmit = async (e: any) => {
-
     e.preventDefault();
-
     const form = e.target as HTMLFormElement;
-
-    // const drivingLicense = imageFileInputRef?.current?.files?.[0];
     const fullName = form.fullName.value;
     const email = form.email.value;
     const about = form.about.value;
@@ -72,15 +82,6 @@ const AddDrivers = () => {
     formData.append('phoneNumber', phoneNumber);
     formData.append('drivingLicenseExpirationDate', drivingLicenseExpirationDate);
     formData.append('about', about);
-    // try {
-    //   const response = await instance.post('/api/truck/addNewTrucks', formData);
-    //   // console.log(response.data);
-    //   toast.success('Truck added successfully')
-
-    //   form.reset();
-    // } catch (error: any) {
-    //   toast.error('Error', error?.message)
-    // }
     try {
       const response = await instance.post('api/user/createNewDriver', formData);
       console.log(response.data);
@@ -90,6 +91,9 @@ const AddDrivers = () => {
       toast.error('Error', error?.message)
     }
   };
+
+
+
   return (
     <ProtectedRoute>
       <>

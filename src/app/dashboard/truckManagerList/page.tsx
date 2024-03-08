@@ -59,7 +59,7 @@ const truckManagerList = () => {
                         </div>
                     </div>
                 </div>
-            </div></>FG
+            </div></>
 
         </div>
     )

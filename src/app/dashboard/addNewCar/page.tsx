@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-// import profile from "../../../../public/assets/selectImage.png";
 import profile from "../../../../public/assets/selectImage.png";
 
 import instance from '@/hooks/instance';
@@ -10,7 +9,7 @@ import toast from 'react-hot-toast';
 
 const AddNewCars = () => {
 
-  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, imageFiles } = useImageUpload();
+  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, imageFiles }: any = useImageUpload();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,9 +27,6 @@ const AddNewCars = () => {
       setData(userData?.user);
     }
   }, []);
-
-
-  // 
 
   const uploadImageToBackend = async (image: any) => {
     const formData = new FormData();
@@ -143,6 +139,7 @@ const AddNewCars = () => {
                   placeholder='Enter company name'
                   name='company'
                   id='company'
+                  value={data.companyName}
                 />
               </div>
               <div className='col-span-6'>

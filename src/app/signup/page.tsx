@@ -18,11 +18,12 @@ const SignUp = () => {
 
   const [userData, setUserData] = useState({
     fullName: "",
-    role: "",
+    role: "Owner",
     email: "",
     password: "",
     address: "",
     phoneNumber: "",
+    companyName: "",
   });
 
   const handleInputChange = (e: any) => {
@@ -48,12 +49,17 @@ const SignUp = () => {
         password: "",
         address: "",
         phoneNumber: "",
+        companyName: "Owner"
       });
-      localStorage.setItem('user', JSON.stringify(response.data))
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+
+
       toast.success('Signup Successfull!')
+
       navigate.push('/dashboard')
 
     } catch (error: any) {
+      setIsLoading(false)
       toast.success("Registration failed: ", error.message)
     }
   };
@@ -87,18 +93,14 @@ const SignUp = () => {
                 <label htmlFor="name">
                   Role
                 </label> <br />
-                <select
-                  required
 
-                  name="role"
-                  id="role"
+                <input
+                  required
+                  type="text"
+                  name="companyName"
+                  id="companyName"
                   value={userData.role}
-                  onChange={handleInputChange}
-                >
-                  <option value="Owner">Owner</option>
-                  <option value="Manager">Manager</option>
-                  <option value="Driver">Driver</option>
-                </select>
+                  onChange={handleInputChange} />
               </div>
 
               <div className="mb-5">
@@ -107,7 +109,6 @@ const SignUp = () => {
                 </label>
                 <input
                   required
-
                   type="email"
                   name="email"
                   value={userData.email}
@@ -121,7 +122,6 @@ const SignUp = () => {
                 <div className="relative">
                   <input
                     required
-
                     type={passwordShow ? "text" : "password"}
                     name="password"
                     value={userData.password}
@@ -156,6 +156,18 @@ const SignUp = () => {
                   type="text"
                   name="phoneNumber"
                   value={userData.phoneNumber}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-[10px]">
+                <label htmlFor="name">
+                  Company Name
+                </label>
+                <input
+                  required
+                  type="text"
+                  name="companyName"
+                  value={userData.companyName}
                   onChange={handleInputChange}
                 />
               </div>
