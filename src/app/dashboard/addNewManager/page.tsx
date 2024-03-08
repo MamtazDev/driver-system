@@ -70,12 +70,25 @@ const AddNewManager = () => {
         formData.append('drivingLicenseExpirationDate', drivingLicenseExpirationDate);
         formData.append('about', about);
         try {
-            const response = await instance.post('api/user/createNewManager', formData);
-            console.log(response.data);
-            toast.success('Truck added successfully')
+            const response : any = await instance.post('api/user/createNewManager', formData);
+            console.log("response.status", response.status);
+
+            if(response.status === 200){
+                toast.success('Truck added successfully')
+                console.log("add manager relaeted success!")
+            }
+            else if(response.status === 403){
+                toast.success(response.message)
+            }
+            else{
+                console.log("add manager relaeted error!")
+                toast.error(response.message)
+            }
+           
             form.reset();
         } catch (error: any) {
-            toast.error('Error', error?.message)
+            console.log("error.status", error.response.data.message);
+            toast.success('Error', error.response.data.message)
         }
     };
 
@@ -225,7 +238,7 @@ const AddNewManager = () => {
                         </div>
 
                         <div className="text-center mt-[15px]">
-                            <button type="submit" className="common_button">Add New Driver</button>
+                            <button type="submit" className="common_button">Add New Driveru</button>
                         </div>
                     </form>
                 </div>
