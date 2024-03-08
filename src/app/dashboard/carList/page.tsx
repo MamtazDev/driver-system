@@ -81,10 +81,7 @@ function CarDetails({ details }: any) {
                 </div>
 
                 <Link href={`/dashboard/truckDetails/${details?._id}`}>
-                    <Image height={400} width={500} className="my-[40px]" src={
-                        details && details?.image
-                            ? `https://nicolos-backend.onrender.com/api/uploads/${details?.image}`
-                            : car
+                    <Image height={400} width={500} className="my-[40px]" src={details?.image
                     } alt="car" />
                 </Link>
 

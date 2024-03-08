@@ -10,12 +10,15 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body suppressHydrationWarning={true}>
-        <UserProvider>
-          {children}
-          <Toaster position="top-center"
-            reverseOrder={false} />
-        </UserProvider>
+      {children}
       </body>
     </html>
   )
 }
+
+
+{/* <UserProvider>
+
+<Toaster position="top-center"
+  reverseOrder={false} />
+</UserProvider> */}

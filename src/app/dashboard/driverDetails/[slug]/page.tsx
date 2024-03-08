@@ -70,11 +70,7 @@ const DriverDetails = () => {
           <div className="bg-[#fff] absolute me-[50px] z-40 w-[79%]">
             <div className="flex pb-5 border ">
               <Image width={180} height={100} className="w-[180px] mt-[-60px] rounded-[14px] ms-[35px]"
-                src={
-                  user && user?.image
-                    ? `https://nicolos-backend.onrender.com/api/uploads/${user?.image}`
-                    : profile
-                }
+                src={user?.image}
                 alt="" />
               <div className="px-5 py-5 fw-bold">
                 <p className=" text-[24px] font-bold ">{user?.fullName}</p>

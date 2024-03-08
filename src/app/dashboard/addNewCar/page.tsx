@@ -1,18 +1,20 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+// import profile from "../../../../public/assets/selectImage.png";
 import profile from "../../../../public/assets/selectImage.png";
+
 import instance from '@/hooks/instance';
 import useImageUpload from '@/hooks/fileUpload';
 import toast from 'react-hot-toast';
 
 const AddNewCars = () => {
 
-  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange } = useImageUpload();
+  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, imageFiles } = useImageUpload();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  
+
   const [data, setData] = useState<any>({})
 
   useEffect(() => {
@@ -27,43 +29,69 @@ const AddNewCars = () => {
     }
   }, []);
 
+
+  // 
+
+  const uploadImageToBackend = async (image: any) => {
+    const formData = new FormData();
+    formData.append('image', imageFiles);
+
+    const imageHostKey = process.env.IMAGE_HOST_KEY
+    console.log(imageHostKey)
+
+    try {
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=498c13144329f4ea75fda2875c5782b9`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const imageData = await response.json();
+
+      if (imageData.success) {
+        return imageData.data.url;
+      } else {
+        throw new Error('Image upload failed');
+      }
+    } catch (error) {
+      throw new Error('Image upload failed');
+    }
+  };
+
   const handleFormSubmit = async (e: any) => {
 
-    setIsLoading(true)
+    setIsLoading(true);
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
 
-    const image = imageFileInputRef?.current?.files?.[0];
-    const company = form.company.value;
-    const brand = form.brand.value;
-    const model = form.model.value;
-    const licensePlate = form.licensePlate.value;
-    const vinNumber = form.vinNumber.value;
-    const year = form.year.value;
-    const managerId = data._id;
-
-    const formData: any = new FormData();
-
-    formData.append('image', image);
-    formData.append('company', company);
-    formData.append('brand', brand);
-    formData.append('model', model);
-    formData.append('licensePlate', licensePlate);
-    formData.append('vinNumber', vinNumber);
-    formData.append('year', year);
-    formData.append('managerId', managerId);
-
-
     try {
+      const imageUrl = await uploadImageToBackend(imageFiles);
+
+      const formData = new FormData();
+
+      formData.append('company', form.company.value);
+      formData.append('brand', form.brand.value);
+      formData.append('model', form.model.value);
+      formData.append('licensePlate', form.licensePlate.value);
+      formData.append('vinNumber', form.vinNumber.value);
+      formData.append('year', form.year.value);
+      formData.append('ownerId', data._id);
+      formData.append('image', imageUrl);
+
       const response = await instance.post('/api/truck/addNewTrucks', formData);
-      setIsLoading(false)
-      toast.success('Truck added successfully')
+
+      setIsLoading(false);
+
+      toast.success('Truck added successfully');
+
       form.reset();
+
     } catch (error: any) {
-      toast.error('Error', error?.message)
+      setIsLoading(false);
+      toast.error('Error', error?.message);
     }
   };
+
 
   return (
 

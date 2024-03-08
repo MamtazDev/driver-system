@@ -14,9 +14,12 @@ import ProtectedRoute from "@/routes/ProtectedRoute";
 const EditDriverProfile = () => {
 
 
-    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles } = useImageUpload();
+
+    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles } = useImageUpload();
+    console.log(imageFiles)
+
     const { imageFileInputRef2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
-    console.log(selectedFiles)
+
 
     const [userData, setUserData] = useState<any>({
         fullName: "",
@@ -59,13 +62,43 @@ const EditDriverProfile = () => {
         }));
     };
 
+
+    const uploadImageToBackend = async (image: any) => {
+
+        console.log(image, "ksdjfksfj")
+
+        const formData = new FormData();
+        formData.append('image', imageFiles);
+
+        const imageHostKey = process.env.IMAGE_HOST_KEY
+        console.log(imageHostKey)
+
+        try {
+            const response = await fetch(`https://api.imgbb.com/1/upload?key=498c13144329f4ea75fda2875c5782b9`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const imageData = await response.json();
+
+            if (imageData.success) {
+                return imageData.data.url;
+            } else {
+                throw new Error('Image upload failed');
+            }
+        } catch (error) {
+            throw new Error('Image upload failed');
+        }
+    };
     const handleSubmit = async (e: any) => {
-
         e.preventDefault();
-
+        
         const formData: any = new FormData();
-
-        formData.append("image", image || selectedFiles ? selectedFiles[0] : null);
+        const imageUrl = await uploadImageToBackend(imageFiles);
+        
+        console.log(imageUrl,"imageUrl")
+        
+        formData.append('image', imageUrl);
         formData.append("drivingLicense", drivingLicense || selectedFiles2 ? selectedFiles2[0] : null);
         formData.append("fullName", userData.fullName);
         formData.append("email", userData.email);
@@ -91,9 +124,9 @@ const EditDriverProfile = () => {
                 about: "",
                 drivingLicenseExpirationDate: ""
             });
-            setImage(null);
-            selectedFiles([]);
-            selectedFiles2([]);
+            // setImage(null);
+            // selectedFiles([]);
+            // selectedFiles2([]);
 
         } catch (error: any) {
             toast.error("Failed to update profile", error?.message)

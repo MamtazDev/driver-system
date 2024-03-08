@@ -56,7 +56,7 @@ const Homepage = () => {
     };
 
     return (
-        <>
+        <div>
             <div className="w-full mt-[100px] mx-auto">
                 <div className="grid items-center w-full grid-cols-2 my-auto ">
                     <div className="">
@@ -132,7 +132,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -26,7 +26,7 @@ export default function DashboardLayout({
               <div className="w-full">
                 <TopBar />
               </div>
-              <div className="mt-[100px] bg-[]  ">{children}</div>
+              <div className="mt-[100px]">{children}</div>
             </div>
           </body>
         </DriverProvider>
