@@ -1,5 +1,5 @@
 "use client";
-import  { RefObject, useRef, ChangeEvent, useState } from "react";
+import { RefObject, useRef, ChangeEvent, useState } from "react";
 
 interface ImageHookResult {
   imageFileInputRef: RefObject<HTMLInputElement>;
@@ -13,6 +13,7 @@ const useImageUpload = (): ImageHookResult => {
   const imageFileInputRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [selectedFiles, setSelectedFiles] = useState<any>(null);
+  const [imageFiles, setImageFiles] = useState<any>(null);
 
   const handleImageClick = () => {
     imageFileInputRef.current?.click();
@@ -24,6 +25,7 @@ const useImageUpload = (): ImageHookResult => {
     if (files && files.length > 0) {
       setSelectedFiles(files);
       const selectedFile = files[0];
+      setImageFiles(selectedFile);
       const imageUrl = URL.createObjectURL(selectedFile);
       setSelectedImage(imageUrl);
     }
@@ -35,6 +37,7 @@ const useImageUpload = (): ImageHookResult => {
     handleImageClick,
     handleImageFileChange,
     selectedFiles,
+    imageFiles,
   };
 };
 

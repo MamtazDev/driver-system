@@ -12,9 +12,36 @@ import toast from "react-hot-toast";
 
 const AddDrivers = () => {
 
-  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles } = useImageUpload();
+  const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles } = useImageUpload();
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const uploadImageToBackend = async (image: any) => {
+    console.log(image, "ksdjfksfj")
+
+    const formData = new FormData();
+    formData.append('image', imageFiles);
+
+    const imageHostKey = process.env.IMAGE_HOST_KEY
+    console.log(imageHostKey)
+
+    try {
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=498c13144329f4ea75fda2875c5782b9`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const imageData = await response.json();
+
+      if (imageData.success) {
+        return imageData.data.url;
+      } else {
+        throw new Error('Image upload failed');
+      }
+    } catch (error) {
+      throw new Error('Image upload failed');
+    }
+  };
 
   const handleSubmit = async (e: any) => {
 
@@ -22,7 +49,7 @@ const AddDrivers = () => {
 
     const form = e.target as HTMLFormElement;
 
-    const drivingLicense = imageFileInputRef?.current?.files?.[0];
+    // const drivingLicense = imageFileInputRef?.current?.files?.[0];
     const fullName = form.fullName.value;
     const email = form.email.value;
     const about = form.about.value;
@@ -32,9 +59,11 @@ const AddDrivers = () => {
     const phoneNumber = form.phoneNumber.value;
     const drivingLicenseExpirationDate = form.drivingLicenseExpirationDate?.value || '';
 
+
+    const imageUrl = await uploadImageToBackend(imageFiles);
     const formData: any = new FormData();
 
-    formData.append('drivingLicense', drivingLicense);
+    formData.append('drivingLicense', imageUrl);
     formData.append('fullName', fullName);
     formData.append('email', email);
     formData.append('password', password);
@@ -61,15 +90,12 @@ const AddDrivers = () => {
       toast.error('Error', error?.message)
     }
   };
-
-
   return (
-
     <ProtectedRoute>
-
       <>
         <div className="w-full">
           <form onSubmit={handleSubmit} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
+            <h2 className="font-bold text-center text-[40px] my-[20px]">Add a new Driver</h2>
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-6 add_driver">
                 <div className="mb-3">
