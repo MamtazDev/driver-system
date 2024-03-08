@@ -6,16 +6,25 @@ const numCols: number = 10;
 import useImageUpload from "@/hooks/fileUpload";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 
 const AddNewManager = () => {
+    const [data, setData] = useState<any>({})
+    useEffect(() => {
 
+        let userDataString;
+        if (typeof window !== undefined) {
+            userDataString = localStorage.getItem('user');
+        }
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            setData(userData?.user);
+        }
+    }, []);
 
-    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }:any = useImageUpload();
-
-    const [errorMessage, setErrorMessage] = useState('');
+    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
 
     const uploadImageToBackend = async (image: any) => {
         console.log(image, "ksdjfksfj")
@@ -55,8 +64,6 @@ const AddNewManager = () => {
         const dob = form.dob.value || '';
         const phoneNumber = form.phoneNumber.value;
         const drivingLicenseExpirationDate = form.drivingLicenseExpirationDate?.value || '';
-
-
         const imageUrl = await uploadImageToBackend(imageFiles);
         const formData: any = new FormData();
 
@@ -69,6 +76,8 @@ const AddNewManager = () => {
         formData.append('phoneNumber', phoneNumber);
         formData.append('drivingLicenseExpirationDate', drivingLicenseExpirationDate);
         formData.append('about', about);
+        formData.append('ownerId', data._id);
+
         try {
             const response = await instance.post('api/user/createNewManager', formData);
             console.log(response.data);
@@ -79,15 +88,11 @@ const AddNewManager = () => {
         }
     };
 
-    
     return (
 
         <ProtectedRoute>
-
             <>
                 <div className="w-full">
-
-
                     <form onSubmit={handleSubmit} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
                         <h2 className="font-bold text-center text-[40px] my-[20px]">Add a new Manager</h2>
                         <div className="grid grid-cols-12 gap-4">

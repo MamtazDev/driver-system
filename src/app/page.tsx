@@ -51,18 +51,18 @@ const Homepage = () => {
             router.push('/dashboard')
 
         } catch (error) {
-            toast.error("Login failed: Invalid user or password");
+            setIsLoading(false)
+           alert("Login failed: Invalid user or password");
         }
     };
-
     return (
-        <div>
+        <div className='w-[100%]'>
             <div className="w-full mt-[100px] mx-auto">
                 <div className="grid items-center w-full grid-cols-2 my-auto ">
                     <div className="">
                         <Image src={login} alt="login" />
                     </div>
-                    <div className="auth_layout shadow-card pt-10 px-[30px] pb-5 lg:pb-28 lg:pt-p_153  mx-auto">
+                    <div className="auth_layout  shadow-card pt-10 px-[30px] pb-5 lg:pb-28 lg:pt-p_153  mx-auto ">
                         <AuthTitle className="text-center">Login</AuthTitle>
                         <form onSubmit={handleLogin} className=" mt-[24px] ">
                             <div className="mb-5">
@@ -124,7 +124,7 @@ const Homepage = () => {
                                     </>
                                 ) : (
                                     <>
-                                Login
+                                        Login
                                     </>
                                 )}
                             </button>
