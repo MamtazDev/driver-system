@@ -10,40 +10,35 @@ import toast from 'react-hot-toast';
 const AddNewCars = () => {
 
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, imageFiles }: any = useImageUpload();
-const [isLoading, setIsLoading] = useState(false);
-const [data, setData] = useState<any>({});
-const [managerData, setManagerData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<any>({});
+  const [managerData, setManagerData] = useState<any>([]);
 
-useEffect(() => {
-  let userDataString;
-  if (typeof window !== undefined) {
-    userDataString = localStorage.getItem('user');
-  }
-  if (userDataString) {
-    const userData = JSON.parse(userDataString);
-    setData(userData?.user);
-  }
-}, []);
+  useEffect(() => {
+    let userDataString;
+    if (typeof window !== undefined) {
+      userDataString = localStorage.getItem('user');
+    }
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      setData(userData?.user);
+    }
+  }, []);
 
-useEffect(() => {
-  if (data._id) {
-    const fetchUsers = async () => {
-      try {
-        const response = await instance.get(`api/user/getRoleUsers?role=Manager&ownerId=${data._id}`);
-        setManagerData(response.data.data);
-        console.log(response.data.data, "data");
-      } catch (error: any) {
-        console.error('Error fetching users:', error.message);
-      }
-    };
-    fetchUsers();
-  }
-}, [data._id]);
-
-console.log("managerData", managerData);
-
-
-  console.log("managerData",managerData)
+  useEffect(() => {
+    if (data._id) {
+      const fetchUsers = async () => {
+        try {
+          const response = await instance.get(`api/user/getRoleUsers?role=Manager&ownerId=${data._id}`);
+          setManagerData(response.data.data);
+          console.log(response.data.data, "data");
+        } catch (error: any) {
+          console.error('Error fetching users:', error.message);
+        }
+      };
+      fetchUsers();
+    }
+  }, [data._id]);
 
   const uploadImageToBackend = async (image: any) => {
     const formData = new FormData();
@@ -226,10 +221,10 @@ console.log("managerData", managerData);
                   id='vinNumber'
                 />
               </div>
-              <div className='col-span-6'>
-                <label htmlFor="">Select Driver </label>
+              <div className='col-span-12'>
+                <label htmlFor="">Select Manager </label>
                 <select id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                  {/* <option selected>Choose</option> */}
+                  <option selected>Choose</option>
                   {managerData.map((data: any) => (
                     <option key={data._id} value={data?.fullName}>
                       {data?.fullName}
@@ -237,14 +232,11 @@ console.log("managerData", managerData);
                   ))}
                 </select>
               </div>
-
-
             </div>
             <div className="text-center mt-[15px]">
               <button type='submit' className="common_button">
                 {isLoading ? (
                   <>
-
                     Loading...
                   </>
                 ) : (

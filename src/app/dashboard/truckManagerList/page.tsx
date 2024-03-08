@@ -31,18 +31,16 @@ const TruckManagerList = () => {
             } catch (error: any) {
                 console.error('Error fetching users:', error.message);
             }
-        };
-    
+        };    
         if (data._id) {
             fetchData();
         }
     }, [data._id]);
     
-    console.log(userData); // This will log the userData state containing manager data
+    console.log(userData);
     
 
     return (
-        <div>
             <> <div className="w-full driver_list_wrapper">
                 <div className="container mx-auto">
                     <h2 className="py-5 text-xl">Truck Manager list</h2>
@@ -61,7 +59,6 @@ const TruckManagerList = () => {
                                             Phone Number
                                         </th>
                                         <th>Address </th>
-                                        {/* <th>STATUS</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,9 +92,10 @@ const TruckManagerList = () => {
                         </div>
                     </div>
                 </div>
-            </div></>
+            </div>
+            </>
 
-        </div>
+       
     )
 }
 

@@ -15,7 +15,7 @@ const EditDriverProfile = () => {
 
 
 
-    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }:any = useImageUpload();
+    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
     console.log(imageFiles)
 
     const { imageFileInputRef2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
@@ -96,7 +96,7 @@ const EditDriverProfile = () => {
         console.log(imageUrl, "imageUrl")
 
         formData.append('image', imageUrl);
-        formData.append("drivingLicense", drivingLicense || selectedFiles2 ? selectedFiles2[0] : null);
+        // formData.append("drivingLicense", drivingLicense || selectedFiles2 ? selectedFiles2[0] : null);
         formData.append("fullName", userData.fullName);
         formData.append("email", userData.email);
         formData.append("address", userData.address);
@@ -149,8 +149,7 @@ const EditDriverProfile = () => {
                         <div className="m-auto mb-[20px]" style={{ position: 'relative', width: '150px', height: '150px' }}>
 
                             <Image
-                                src={
-                                    userData?.image ? userData?.image : profile}
+                                src={selectedImage ? selectedImage : (userData?.image ? userData?.image : profile)}
                                 alt="Selected"
                                 layout="fill"
                                 objectFit="cover"
@@ -264,50 +263,23 @@ const EditDriverProfile = () => {
                                 </div>
                             </div>
 
-                            <div className="add_driver">
-                                <div className="mb-3">
-                                    <label htmlFor="" className="">
-                                        License Expiration Date
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="border border-[] w-full "
-                                        id="drivingLicenseExpirationDate"
-                                        placeholder="Enter your city"
-                                        value={userData?.drivingLicenseExpirationDate ? userData.drivingLicenseExpirationDate : '10/20/5'}
-                                        name="drivingLicenseExpirationDate"
-                                    />
-                                </div>
-                            </div>
-                            <div className=" add_driver">
-                                <div className="mb-3">
-                                    <label htmlFor="" className="">
-                                        Driving License
-                                    </label>
-                                    <input
-                                        type="file"
-                                        ref={imageFileInputRef2}
-                                        style={{ display: 'none' }}
-                                        onChange={handleImageFileChange2}
-                                        name="drivingLicense"
-                                        id="drivingLicense"
-                                    />
-
-                                    <input
-                                        type="text"
-                                        className="cursor-pointer form-control ps-5"
-                                        id="drivingLicense"
-                                        name="drivingLicense"
-                                        placeholder="Select a PDF file"
-                                        onClick={handleImageClick2}
-                                        value={selectedFiles2 ? selectedFiles2[0]?.name : ''}
-                                    />
-                                </div>
-                            </div>
-
 
                         </div>
-
+                        <div className="w-full add_driver">
+                            <div className="mb-3">
+                                <label htmlFor="" className="">
+                                    License Expiration Date
+                                </label>
+                                <input
+                                    type="text"
+                                    className="border border-[] w-full "
+                                    id="drivingLicenseExpirationDate"
+                                    placeholder="Enter your city"
+                                    value={userData?.drivingLicenseExpirationDate ? userData.drivingLicenseExpirationDate : '10/20/5'}
+                                    name="drivingLicenseExpirationDate"
+                                />
+                            </div>
+                        </div>
                         <div className="w-[100%] add_driver mt-3">
                             <label htmlFor="" className="">
                                 About
