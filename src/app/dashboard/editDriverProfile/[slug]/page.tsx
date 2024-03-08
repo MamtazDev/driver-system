@@ -15,7 +15,7 @@ const EditDriverProfile = () => {
 
 
 
-    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles } = useImageUpload();
+    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }:any = useImageUpload();
     console.log(imageFiles)
 
     const { imageFileInputRef2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
@@ -92,12 +92,11 @@ const EditDriverProfile = () => {
     };
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        
         const formData: any = new FormData();
         const imageUrl = await uploadImageToBackend(imageFiles);
-        
-        console.log(imageUrl,"imageUrl")
-        
+
+        console.log(imageUrl, "imageUrl")
+
         formData.append('image', imageUrl);
         formData.append("drivingLicense", drivingLicense || selectedFiles2 ? selectedFiles2[0] : null);
         formData.append("fullName", userData.fullName);
@@ -124,9 +123,9 @@ const EditDriverProfile = () => {
                 about: "",
                 drivingLicenseExpirationDate: ""
             });
-            // setImage(null);
-            // selectedFiles([]);
-            // selectedFiles2([]);
+            setImage(null);
+            selectedFiles([]);
+            selectedFiles2([]);
 
         } catch (error: any) {
             toast.error("Failed to update profile", error?.message)
@@ -136,8 +135,6 @@ const EditDriverProfile = () => {
     return (
         <ProtectedRoute>
             <>
-
-
                 <div className="w-full">
 
                     <form onSubmit={handleSubmit} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
@@ -155,10 +152,7 @@ const EditDriverProfile = () => {
 
                             <Image
                                 src={
-                                    userData?.image
-                                        ? `https://nicolos-backend.onrender.com/api/uploads/public/images/${userData?.image}`
-                                        : selectedImage ? selectedImage : profile
-                                }
+                                    userData?.image ? userData?.image : profile}
                                 alt="Selected"
                                 layout="fill"
                                 objectFit="cover"
@@ -234,8 +228,6 @@ const EditDriverProfile = () => {
                                         name="password"
                                         placeholder="Enter your password"
                                         onChange={handleInputChange}
-
-
                                     />
                                 </div>
                             </div>
