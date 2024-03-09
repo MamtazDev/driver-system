@@ -23,6 +23,8 @@ const TruckDetails = () => {
         fetchTrucks();
     }, [id]);
 
+
+    console.log(trucks)
     return (
         <ProtectedRoute>
             <>
