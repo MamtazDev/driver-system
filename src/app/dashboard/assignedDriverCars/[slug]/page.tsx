@@ -25,7 +25,7 @@ const AssignedDriverCars = () => {
         const response = await instance.get(`/api/user/getUserById/${id}`);
         setTruckData(response?.data?.data?.assignedTo?.trucks)
 
-        // console.log(response?.data?.data?.assignedTo)
+        console.log("response", response?.data)
 
         // setTruckData(user?.assignedTo?.trucks)
 
