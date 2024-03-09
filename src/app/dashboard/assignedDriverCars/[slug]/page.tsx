@@ -8,6 +8,9 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
+import NoImage from "../../../../../public/assets/default-picture.png"
+
+
 const AssignedDriverCars = () => {
   const router = useParams();
   const id = router.slug
@@ -61,7 +64,7 @@ function CarDetails({ details }: any) {
     <>
       <div className="card border border-[red] rounded-[10px]">
         <Link href={`/dashboard/truckDetails/${details?._id}`}>
-          <Image height={400} width={500} className="my-[40px]" src={details?.image
+          <Image height={400} width={500} className="my-[40px]" src={details?.image ? details?.image : NoImage
           } alt="car" />
         </Link>
 
@@ -69,7 +72,7 @@ function CarDetails({ details }: any) {
           <p>{details?.brand}</p>
           <div className='flex items-center justify-between car_title'>
             <h5 className="">Model: {details?.model} </h5>
-            <p>VIN Number: <span>{details.vinNumber}</span></p>
+            <p>VIN Number: <span>{details?.vinNumber}</span></p>
           </div>
         </div>
       </div >

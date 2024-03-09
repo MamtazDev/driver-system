@@ -1,5 +1,5 @@
 'use client'
-import profile from "../../../../../public/assets/detailsprofile.jpg";
+import profile from "../../../../../public/assets/default-picture.png";
 import Image from "next/image";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
@@ -67,8 +67,8 @@ const DriverDetails = () => {
           <div className="bg-[#fff] absolute me-[50px] z-40 w-[79%]">
             <div className="flex pb-5 border ">
               <Image width={180} height={100} className="w-[180px] mt-[-60px] rounded-[14px] ms-[35px]"
-                src={user?.image}
-                alt="" />
+                src={user?.image ? user?.image : profile}
+                alt="No Profile" />
               <div className="px-5 py-5 fw-bold">
                 <p className=" text-[24px] font-bold ">{user?.fullName}</p>
                 <div className="flex gap-5">

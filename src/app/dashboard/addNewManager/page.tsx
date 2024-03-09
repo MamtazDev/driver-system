@@ -6,12 +6,15 @@ const numCols: number = 10;
 import useImageUpload from "@/hooks/fileUpload";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 
 const AddNewManager = () => {
     const [isLoading, setIsLoading] = useState(false);
+    
+  const navigate = useRouter();
 
     const [data, setData] = useState<any>({})
     useEffect(() => {
@@ -80,6 +83,8 @@ const AddNewManager = () => {
             setIsLoading(false)
             toast.success('Truck added successfully')
             form.reset();
+
+            navigate.push('/dashboard/truckManagerList')
 
         } catch (error: any) {
             setIsLoading(false)

@@ -224,7 +224,7 @@ const AddNewCars = () => {
               </div>
               <div className='col-span-12'>
                 <label htmlFor="">Select Manager </label>
-                <select id="manager" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" onChange={handleManagerSelect}>
+                <select required id="manager" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" onChange={handleManagerSelect}>
                   <option value="">Choose</option>
                   {managerData.map((manager: any) => (
                     <option key={manager._id} value={manager._id}>

@@ -7,14 +7,17 @@ import Link from "next/link";
 import instance from "@/hooks/instance";
 import NoDataFound from "@/components/NoDataFound/NoDataFound";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import Loader from "@/components/Loader/Loader";
 
 const carList = () => {
 
     const [data, setData] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const [userDatas, setUserDatas] = useState<any>({})
 
     useEffect(() => {
+
         let userDataString;
         if (typeof window !== undefined) {
             userDataString = localStorage.getItem('user');
@@ -26,6 +29,7 @@ const carList = () => {
     }, []);
 
     async function fetchData() {
+        setIsLoading(true)
         try {
             if (userDatas._id) {
                 const managerIds = userDatas._id;
@@ -34,8 +38,11 @@ const carList = () => {
             }
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false)
         }
     }
+
     useEffect(() => {
         fetchData();
     }, [userDatas]);
@@ -47,7 +54,7 @@ const carList = () => {
                 <div className="searchResults">
                     <div className="container mx-[50px] w-full">
                         <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
-                            {data.length == 0 ? <NoDataFound /> : data.map((details: any) => (
+                            {isLoading ? <Loader /> : data.length == 0 ? <NoDataFound /> : data.map((details: any) => (
                                 <CarDetails key={details._id} details={details} />
                             ))}
 
@@ -64,6 +71,19 @@ export default carList;
 
 
 function CarDetails({ details }: any) {
+
+    const [role, setRole] = useState<any>();
+    const [user, setUser] = useState<any>({});
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
+          console.log("userData", userData)
+          const role = userData?.user?.role[0]
+          setRole(role)
+          setUser(userData?.user)
+        }
+      }, [])
 
     return (
         <>
@@ -90,7 +110,14 @@ function CarDetails({ details }: any) {
                     </div>
 
                     {!details?.status ?
-                        <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link>
+                       <>
+                       {role === "Manager" && <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link> 
+                       
+                    //    <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Manage this Now</button></Link>
+                       }
+                       
+                       </>
+                       
                         :
                         <div className="flex justify-between items-center mt-[14px]">
                             <p className="text-black">Company: {details?.company}</p>

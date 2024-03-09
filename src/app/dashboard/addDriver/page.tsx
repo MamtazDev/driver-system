@@ -6,6 +6,9 @@ const numCols: number = 10;
 import useImageUpload from "@/hooks/fileUpload";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+
+import profile from "../../../../public/assets/selectImage.png";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -15,9 +18,9 @@ const AddDrivers = () => {
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
 
   const [data, setData] = useState<any>({})
-  
+
   const [isLoading, setIsLoading] = useState(false);
-  
+
   useEffect(() => {
 
     let userDataString;
@@ -45,6 +48,7 @@ const AddDrivers = () => {
       const imageData = await response.json();
 
       if (imageData.success) {
+        console.log("imageData.data.url:", imageData.data.url)
         return imageData.data.url;
       } else {
         throw new Error('Image upload failed');
@@ -81,11 +85,11 @@ const AddDrivers = () => {
     formData.append('drivingLicenseExpirationDate', drivingLicenseExpirationDate);
     formData.append('about', about)
     formData.append('ownerId', data._id);
-    
+
     try {
       const response = await instance.post('api/user/createNewDriver', formData);
       console.log(response.data);
-      
+
       toast.success('Truck added successfully')
       form.reset();
     } catch (error: any) {
@@ -101,8 +105,56 @@ const AddDrivers = () => {
         <div className="w-full">
           <form onSubmit={handleSubmit} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
             <h2 className="font-bold text-center text-[40px] my-[20px]">Add a new Driver</h2>
+
+
+            {/* <div className='absolute right-[35%] top-[45%] text-center my-auto ' >
+                    <div className='underline text-[#7155E1] cursor-pointer '
+                      onClick={handleImageClick}>
+                      <p className='text-[14px]'>Brows photo</p></div>
+                    <p>Supports: *.png, *.jpg and *.jpeg</p>
+                  </div> */}
+
             <div className="grid grid-cols-12 gap-4">
+
+
+
+
+
+              {/* <div className="col-span-6 add_driver">
+              </div> */}
+                {/* //image section */}
+                {/* <div className='border h-[150px] rounded-[5px] cursor-pointer' >
+                <div className="m-auto mb-[20px] " style={{  width: '100px', height: '100px' }} onClick={handleImageClick}>
+                    <Image
+                      src={selectedImage || profile}
+                      alt="Selected"
+                      objectFit="cover"
+                      onClick={handleImageClick}
+                    />
+                  </div>
+                  <div className='absolute left-[35%] top-[45%]  text-center my-auto ' >
+                    <div className='underline text-[#7155E1] cursor-pointer '
+                      onClick={handleImageClick}>
+                      <p className='text-[14px]'>Brows photo</p></div>
+                    <p>Supports: *.png, *.jpg and *.jpeg</p>
+                  </div>
+                  
+                  <input
+                    type="file"
+                    ref={imageFileInputRef}
+                    onChange={handleImageFileChange}
+                    name='image'
+                    id='image'
+                    style={{ display: 'none' }}
+                    accept="image/jpg, image/png, image/jpeg"
+
+                  />
+                </div> */}
+                {/* //image section */}
+             
               <div className="col-span-6 add_driver">
+
+
                 <div className="mb-3">
                   <label htmlFor="" className="">
                     FullName

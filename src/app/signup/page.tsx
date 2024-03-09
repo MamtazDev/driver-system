@@ -50,7 +50,7 @@ const SignUp = () => {
         phoneNumber: "",
         companyName: "Owner"
       });
-      localStorage.setItem('user', JSON.stringify(response.data.user))
+      localStorage.setItem('user', JSON.stringify(response.data))
 
       toast.success('Signup Successfull!')
 

@@ -19,7 +19,7 @@ const MenuBtn: React.FC<MenuBtnProps> = ({ icon, link, text, isActive, onClick }
         onClick={onClick}
       >
         {isActive && <div className="bar"></div>}
-        {icon && <Image src={icon} alt="Icon" />}
+        {icon && <Image src={icon} alt="Icon" style={{height:'30px', width:'30px'}} />}
         {text}
       </Link>
 

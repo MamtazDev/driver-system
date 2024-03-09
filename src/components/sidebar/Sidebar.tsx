@@ -49,6 +49,7 @@ const Sidebar: React.FC = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
+      console.log("userData", userData)
       const role = userData?.user?.role[0]
       setRole(role)
       setUser(userData?.user)
