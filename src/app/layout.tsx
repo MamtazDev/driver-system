@@ -1,5 +1,3 @@
-import { UserProvider } from "../hooks/contexts"
-import { Toaster } from 'react-hot-toast';
 
 export default function RootLayout({
   children,
@@ -10,15 +8,8 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body suppressHydrationWarning={true}>
-      {children}
+        {children}
       </body>
     </html>
   )
 }
-
-
-{/* <UserProvider>
-
-<Toaster position="top-center"
-  reverseOrder={false} />
-</UserProvider> */}

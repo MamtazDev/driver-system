@@ -62,8 +62,6 @@ const Sidebar: React.FC = () => {
     router.push('/')
   }
 
-  console.log("user details ", user)
-
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
       <label className="sidebar-toggle" htmlFor="check">
@@ -167,7 +165,7 @@ const Sidebar: React.FC = () => {
               </div>
             </>
             }
-         {(role !== "Driver") &&    <div className="drivers_dropdown" onClick={toggleDropDownCars}>
+            {(role !== "Driver") && <div className="drivers_dropdown" onClick={toggleDropDownCars}>
               <div className="relative ">
                 <MenuBtn
                   icon={Car}
@@ -201,7 +199,7 @@ const Sidebar: React.FC = () => {
                         }}
                       />
                     </li>
-                    <li >
+                    {(role !== "Owner") && <li >
                       <MenuBtn
                         link="/dashboard/addDriver"
                         text="Add Driver"
@@ -211,7 +209,7 @@ const Sidebar: React.FC = () => {
                           setActiveLink("/dashboard/addDriver");
                         }}
                       />
-                    </li>
+                    </li>}
                   </ul>
                 )}
               </div>
@@ -252,7 +250,7 @@ const Sidebar: React.FC = () => {
                         }}
                       />
                     </li>
-                    <li>
+                    {/* <li>
                       <MenuBtn
                         link="/dashboard/assignedDriver"
                         text="Assigned Drivers"
@@ -262,7 +260,7 @@ const Sidebar: React.FC = () => {
                           setActiveLink("/dashboard/assignedDriver");
                         }}
                       />
-                    </li>
+                    </li> */}
 
                   </ul>
                 )}
@@ -278,19 +276,19 @@ const Sidebar: React.FC = () => {
               />
             )}
 
-            <MenuBtn
+            {(role === "Driver") && <MenuBtn
               icon={Bell}
               link="/dashboard/notification"
               text="Notifications"
               isActive={activeLink === "/notifications"}
               onClick={() => setActiveLink("/notifications")}
-            />
+            />}
             {role === 'Driver' && <MenuBtn
               icon={Car}
-              link="/dashboard/notification"
+              link={`/dashboard/assignedDriverCars/${user?._id}`}
               text="Assigned Cars"
-              isActive={activeLink === "/notifications"}
-              onClick={() => setActiveLink("/notifications")}
+              isActive={activeLink === `/dashboard/assignedDriverCars/${user?._id}`}
+              onClick={() => setActiveLink(`/dashboard/assignedDriverCars/${user?._id}`)}
             />}
             <MenuBtn
               icon={Bell}

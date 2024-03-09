@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal';
 import { IoMdClose } from "react-icons/io";
 import instance from '@/hooks/instance';
@@ -32,13 +32,11 @@ const RequestedList = () => {
     const [selectedValue, setSelectedValue] = useState<any>("")
     const [practiceHour, setPracticeHour] = useState<any>("");
 
-
     useEffect(() => {
         if (selectedValue === 'In practice') {
             setIsOpen(true);
         }
     }, [selectedValue]);
-
 
     useEffect(() => {
         fetchData();
@@ -114,7 +112,6 @@ const RequestedList = () => {
                             : request
                     )
                 );
-                // Close the modal after saving
                 setIsOpen(false);
             }
         } catch (error) {
@@ -149,15 +146,14 @@ const RequestedList = () => {
                                             <th scope="col" className="px-6 py-[15px]">
                                                 Phone Number
                                             </th>
-                                            {/* <th>License</th> */}
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
                                             requestsLists.map((requests: any) => (
-                                                <>
-                                                    <tr key={requests?.trucks?._id} className="border-b border-dashed bg-grey-400">
+                                                <React.Fragment key={requests?.trucks?._id}>
+                                                    <tr className="border-b border-dashed bg-grey-400">
                                                         <td
                                                             scope="row"
                                                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -215,7 +211,7 @@ const RequestedList = () => {
                                                         </div>
                                                     </Modal>
 
-                                                </>
+                                                </React.Fragment>
 
                                             ))
                                         }

@@ -52,7 +52,6 @@ const SignUp = () => {
       });
       localStorage.setItem('user', JSON.stringify(response.data.user))
 
-
       toast.success('Signup Successfull!')
 
       navigate.push('/dashboard')

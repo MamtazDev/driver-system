@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 const TruckDetails = () => {
     const [trucks, setTrucks] = useState<any>()
@@ -17,12 +18,14 @@ const TruckDetails = () => {
                 const response = await instance.get(`/api/truck/getTruckById/${id}`);
                 setTrucks(response?.data?.data)
             } catch (error: any) {
-                console.error('Error fetching users:', error.message);
+                toast.error('Error fetching users:', error.message);
             }
         };
         fetchTrucks();
     }, [id]);
 
+
+    console.log(trucks)
     return (
         <ProtectedRoute>
             <>
@@ -31,8 +34,6 @@ const TruckDetails = () => {
                     <Link href={`/dashboard/truckDetails/${trucks?._id}`}>
                         <Image height={200} width={200} src={
                             trucks && trucks?.image
-                                ? `https://nicolos-backend.onrender.com/api/uploads/${trucks?.image}`
-                                : ""
                         } alt="car" />
                     </Link>
 
@@ -52,7 +53,6 @@ const TruckDetails = () => {
                                 </div>
 
                         }
-
                     </div>
                 </div>
 

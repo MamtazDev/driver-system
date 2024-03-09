@@ -15,7 +15,9 @@ const AddDrivers = () => {
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
 
   const [data, setData] = useState<any>({})
-
+  
+  const [isLoading, setIsLoading] = useState(false);
+  
   useEffect(() => {
 
     let userDataString;
@@ -53,6 +55,7 @@ const AddDrivers = () => {
   };
 
   const handleSubmit = async (e: any) => {
+    setIsLoading(true)
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const fullName = form.fullName.value;
@@ -82,6 +85,7 @@ const AddDrivers = () => {
     try {
       const response = await instance.post('api/user/createNewDriver', formData);
       console.log(response.data);
+      
       toast.success('Truck added successfully')
       form.reset();
     } catch (error: any) {
