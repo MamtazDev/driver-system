@@ -83,7 +83,7 @@ const AddNewManager = () => {
 
         } catch (error: any) {
             setIsLoading(false)
-            toast.success('Error', error.response.data.message)
+            toast.success('Error')
         }
     };
 
