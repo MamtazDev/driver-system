@@ -3,6 +3,7 @@
 
 import { createContext, useContext, useState, useEffect } from 'react';
 import { ColorRing } from 'react-loader-spinner'
+import Loader from '../components/Loader/Loader';
 
 const UserContext = createContext();
 
@@ -37,15 +38,7 @@ export const UserProvider = ({ children }) => {
 
     if (loading) {
         return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <ColorRing
-                visible={true}
-                height="80"
-                width="80"
-                ariaLabel="color-ring-loading"
-                wrapperStyle={{ margin: 'auto' }}
-                wrapperClass="color-ring-wrapper"
-                colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-            />
+            <Loader />
         </div>
             ;
     }

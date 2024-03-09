@@ -32,13 +32,11 @@ const RequestedList = () => {
     const [selectedValue, setSelectedValue] = useState<any>("")
     const [practiceHour, setPracticeHour] = useState<any>("");
 
-
     useEffect(() => {
         if (selectedValue === 'In practice') {
             setIsOpen(true);
         }
     }, [selectedValue]);
-
 
     useEffect(() => {
         fetchData();
@@ -114,7 +112,6 @@ const RequestedList = () => {
                             : request
                     )
                 );
-                // Close the modal after saving
                 setIsOpen(false);
             }
         } catch (error) {
@@ -149,7 +146,6 @@ const RequestedList = () => {
                                             <th scope="col" className="px-6 py-[15px]">
                                                 Phone Number
                                             </th>
-                                            {/* <th>License</th> */}
                                             <th>Actions</th>
                                         </tr>
                                     </thead>

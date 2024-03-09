@@ -199,7 +199,7 @@ const Sidebar: React.FC = () => {
                         }}
                       />
                     </li>
-                    <li >
+                    {(role !== "Owner") && <li >
                       <MenuBtn
                         link="/dashboard/addDriver"
                         text="Add Driver"
@@ -209,7 +209,7 @@ const Sidebar: React.FC = () => {
                           setActiveLink("/dashboard/addDriver");
                         }}
                       />
-                    </li>
+                    </li>}
                   </ul>
                 )}
               </div>
@@ -276,13 +276,13 @@ const Sidebar: React.FC = () => {
               />
             )}
 
-            <MenuBtn
+            {(role === "Driver") && <MenuBtn
               icon={Bell}
               link="/dashboard/notification"
               text="Notifications"
               isActive={activeLink === "/notifications"}
               onClick={() => setActiveLink("/notifications")}
-            />
+            />}
             {role === 'Driver' && <MenuBtn
               icon={Car}
               link={`/dashboard/assignedDriverCars/${user?._id}`}
