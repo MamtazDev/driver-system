@@ -76,7 +76,7 @@ const AuthorizationRequest = () => {
         <>
             <div className='container m-auto'>
                 <div className="shadow-card p-[30px]  w-[70%] m-auto">
-                
+
                     <h1 className='text-center mb-[20px]'>Request For Authorization</h1>
 
                     <form onSubmit={handleSubmit}>
@@ -132,7 +132,7 @@ const AuthorizationRequest = () => {
                                 </select>
                             </div>
 
-                            
+
                             <div className='col-span-6'>
                                 <label htmlFor="">Driver Email</label>
                                 <input
@@ -163,6 +163,7 @@ const AuthorizationRequest = () => {
                                             style={{ display: 'none' }}
                                             onChange={handleImageFileChange2}
                                             name="drivingLicense"
+                                            accept="image/*"
                                             id="drivingLicense"
                                         />
 
@@ -172,9 +173,10 @@ const AuthorizationRequest = () => {
                                             className="cursor-pointer form-control ps-5"
                                             id="drivingLicense"
                                             name="drivingLicense"
-                                            placeholder="Select a PDF file"
+                                            placeholder="add your driving license"
                                             onClick={handleImageClick2}
                                             value={selectedFiles2 ? selectedFiles2[0]?.name : ''}
+                                            accept="image/*"
                                         />
                                     </div>
                                 </div>
@@ -200,7 +202,7 @@ const AuthorizationRequest = () => {
                                 <input
                                     required
                                     type="date"
-                           
+
                                 />
                             </div>
                             <div className='col-span-6'>
@@ -237,20 +239,20 @@ export default AuthorizationRequest
 
 
 const useSecondImageUpload = () => {
-    const imageFileInputRef2 = useRef<HTMLInputElement>(null); 
-    const [selectedImage2, setSelectedImage2] = useState<string | null>(null); 
-    const [selectedFiles2, setSelectedFiles2] = useState<FileList | null>(null); 
+    const imageFileInputRef2 = useRef<HTMLInputElement>(null);
+    const [selectedImage2, setSelectedImage2] = useState<string | null>(null);
+    const [selectedFiles2, setSelectedFiles2] = useState<FileList | null>(null);
 
     const handleImageClick2 = () => {
         imageFileInputRef2.current?.click();
     };
 
-    const handleImageFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => { 
+    const handleImageFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files && files.length > 0) {
             setSelectedFiles2(files);
             const selectedFile = files[0];
-            const imageUrl: string = URL.createObjectURL(selectedFile); 
+            const imageUrl: string = URL.createObjectURL(selectedFile);
             setSelectedImage2(imageUrl);
         }
     };

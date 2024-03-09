@@ -26,7 +26,7 @@ const AddNewManager = () => {
         }
     }, []);
 
-    const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
+    const { imageFileInputRef, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
 
     const uploadImageToBackend = async (image: any) => {
         console.log(image, "ksdjfksfj")
@@ -83,24 +83,12 @@ const AddNewManager = () => {
 
         try {
             const response: any = await instance.post('api/user/createNewManager', formData);
-            console.log("response.status", response.status);
             setIsLoading(false)
-            if (response.status === 200) {
-                toast.success('Truck added successfully')
-                console.log("add manager relaeted success!")
-            }
-            else if (response.status === 403) {
-                toast.success(response.message)
-            }
-            else {
-                console.log("add manager relaeted error!")
-                toast.error(response.message)
-            }
-
+            toast.success('Truck added successfully')
             form.reset();
+
         } catch (error: any) {
             setIsLoading(false)
-            console.log("error.status", error.response.data.message);
             toast.success('Error', error.response.data.message)
         }
     };
@@ -120,6 +108,8 @@ const AddNewManager = () => {
                                     </label>
                                     <input
                                         type="text"
+                                        required
+
                                         className="w-full border "
                                         id="fullName"
                                         name="fullName"
@@ -134,6 +124,8 @@ const AddNewManager = () => {
                                     </label>
                                     <input
                                         type="text"
+                                        required
+
                                         className="w-full border "
                                         id="address"
                                         name="address"
@@ -148,6 +140,8 @@ const AddNewManager = () => {
                                     </label>
                                     <input
                                         type="email"
+                                        required
+
                                         className="w-full border "
                                         id="email"
                                         name="email"
@@ -163,6 +157,8 @@ const AddNewManager = () => {
                                     </label>
                                     <input
                                         type="password"
+                                        required
+
                                         className="w-full border "
                                         id="password"
                                         name="password"
@@ -178,6 +174,8 @@ const AddNewManager = () => {
 
                                     <input
                                         type="date"
+                                        required
+
                                         className="w-full border "
                                         id="dob"
                                         name="dob"
@@ -192,6 +190,8 @@ const AddNewManager = () => {
                                     </label>
                                     <input
                                         type="number"
+                                        required
+
                                         className="w-full border "
                                         id="phoneNumber"
                                         name="phoneNumber"
@@ -212,6 +212,7 @@ const AddNewManager = () => {
                                         onChange={handleImageFileChange}
                                         name="drivingLicense"
                                         id="drivingLicense"
+                                        accept="image/*"
                                     />
 
                                     <input
@@ -233,6 +234,8 @@ const AddNewManager = () => {
                                     </label>
                                     <input
                                         type="date"
+                                        required
+
                                         className="w-full border "
                                         id="drivingLicenseExpirationDate"
                                         name="drivingLicenseExpirationDate"
@@ -241,7 +244,9 @@ const AddNewManager = () => {
                                 </div>
                             </div>
                             <div className="w-full col-span-12 add_driver">
-                                <textarea className="w-full  border rounded-[5px] border-[#dee2e6]" name="about" id="about" placeholder="About...." cols={numCols} rows={numRows}
+                                <textarea
+                                    required
+                                    className="w-full  border rounded-[5px] border-[#dee2e6]" name="about" id="about" placeholder="About...." cols={numCols} rows={numRows}
                                 ></textarea>
                             </div>
                         </div>

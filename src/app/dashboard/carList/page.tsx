@@ -25,12 +25,13 @@ const carList = () => {
             setUserDatas(userData?.user);
         }
     }, []);
+    console.log(userDatas)
 
     async function fetchData() {
         try {
             if (userDatas._id) {
                 const managerIds = userDatas._id;
-                const response = await instance.get(`/api/truck/getAllTrucks?managerId=${managerIds}`);
+                const response = await instance.get(`/api/truck/getAllTrucks?ownerId=${managerIds}`);
                 setData(response.data.data);
                 console.log(response);
             }
