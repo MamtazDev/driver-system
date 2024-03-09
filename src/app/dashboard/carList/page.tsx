@@ -15,7 +15,6 @@ const carList = () => {
     const [userDatas, setUserDatas] = useState<any>({})
 
     useEffect(() => {
-
         let userDataString;
         if (typeof window !== undefined) {
             userDataString = localStorage.getItem('user');
@@ -25,7 +24,6 @@ const carList = () => {
             setUserDatas(userData?.user);
         }
     }, []);
-    console.log(userDatas)
 
     async function fetchData() {
         try {
@@ -33,13 +31,11 @@ const carList = () => {
                 const managerIds = userDatas._id;
                 const response = await instance.get(`/api/truck/getAllTrucks?ownerId=${managerIds}`);
                 setData(response.data.data);
-                console.log(response);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
-
     useEffect(() => {
         fetchData();
     }, [userDatas]);

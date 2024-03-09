@@ -33,7 +33,7 @@ const DriversInPractice = () => {
 
                 const driverUsers = allUsers.filter((user: any) => user.role.includes('Driver'));
                 setUsers(driverUsers);
-                console.log(driverUsers)
+                // console.log(driverUsers)
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
@@ -41,7 +41,7 @@ const DriversInPractice = () => {
         fetchUsers();
     }, []);
 
-    console.log("users", users);
+    // console.log("users", users);
 
     const downloadImage = (imageUrl: any) => {
         const link = document.createElement('a');
@@ -75,7 +75,7 @@ const DriversInPractice = () => {
         }
     }, [initialValue]);
     //   const router = useRouter()
-    console.log(inPracticeData)
+    // console.log(inPracticeData)
 
 
     return (

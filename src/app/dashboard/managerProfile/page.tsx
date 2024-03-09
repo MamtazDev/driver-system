@@ -16,12 +16,8 @@ const ManagerProfile = () => {
   useEffect(() => {
     let userData: any = null
     if (typeof window !== 'undefined') {
-
       userData = JSON.parse(localStorage.getItem('user') || 'null');
-
       setUser(userData?.user)
-
-      console.log('userdata', userData?.user)
     }
   }, [])
 

@@ -53,7 +53,7 @@ const Drivers = () => {
         throw new Error(`Failed to delete user: ${response.statusText}`);
       }
       const data = response.data;
-      console.log(data);
+
     } catch (error: any) {
       console.error(error.message);
     }
@@ -67,7 +67,7 @@ const Drivers = () => {
         throw new Error(`Failed to get user data: ${response.statusText}`);
       }
       const userData = response.data;
-      console.log(userData);
+      // console.log(userData);
 
     } catch (error: any) {
       console.error(error.message);
@@ -80,7 +80,7 @@ const Drivers = () => {
     getUserData()
   }, []);
 
-  console.log('users', users)
+  // console.log('users', users)
   return (
     <ProtectedRoute>
 

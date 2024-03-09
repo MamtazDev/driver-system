@@ -28,7 +28,7 @@ const AddDrivers = () => {
     }
   }, []);
 
-  console.log(data)
+  // console.log(data)
 
   const uploadImageToBackend = async (image: any) => {
     const formData = new FormData();

@@ -37,11 +37,10 @@ const SignUp = () => {
   const handleSubmit = async (e: any) => {
     setIsLoading(true)
     e.preventDefault();
-    console.log(userData);
     try {
       const response = await instance.post("/api/user/signup", userData);
       setIsLoading(false)
-      console.log(response.data);
+      
       setUserData({
         fullName: "",
         role: "",

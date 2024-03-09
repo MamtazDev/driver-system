@@ -16,9 +16,8 @@ const EditDriverProfile = () => {
 
 
     const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
-    console.log(imageFiles)
+    // console.log(imageFiles)
 
-    const { imageFileInputRef2, handleImageClick2, handleImageFileChange2, selectedFiles2 } = useSecondImageUpload();
 
 
     const [userData, setUserData] = useState<any>({
@@ -30,9 +29,6 @@ const EditDriverProfile = () => {
         about: "",
         drivingLicenseExpirationDate: ""
     });
-
-    // State for profile image and driving license
-    const [drivingLicense, setDrivingLicense] = useState(null);
 
     const router = useParams();
 
@@ -63,13 +59,8 @@ const EditDriverProfile = () => {
 
     const uploadImageToBackend = async (image: any) => {
 
-        console.log(image, "ksdjfksfj")
-
         const formData = new FormData();
         formData.append('image', imageFiles);
-
-        const imageHostKey = process.env.IMAGE_HOST_KEY
-        console.log(imageHostKey)
 
         try {
             const response = await fetch(`https://api.imgbb.com/1/upload?key=498c13144329f4ea75fda2875c5782b9`, {
@@ -96,7 +87,6 @@ const EditDriverProfile = () => {
         console.log(imageUrl, "imageUrl")
 
         formData.append('image', imageUrl);
-        // formData.append("drivingLicense", drivingLicense || selectedFiles2 ? selectedFiles2[0] : null);
         formData.append("fullName", userData.fullName);
         formData.append("email", userData.email);
         formData.append("address", userData.address);
@@ -104,12 +94,9 @@ const EditDriverProfile = () => {
         formData.append("dob", userData.dob);
         formData.append("about", userData.about);
         formData.append("drivingLicenseExpirationDate", userData.drivingLicenseExpirationDate);
-
         try {
             const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData);
-
-            console.log(response.data);
-
+            
             toast.success("Profile update successfully!")
 
             setUserData({
@@ -121,10 +108,8 @@ const EditDriverProfile = () => {
                 about: "",
                 drivingLicenseExpirationDate: ""
             });
-            // setImage(null);
             selectedFiles([]);
-            selectedFiles2([]);
-
+    
         } catch (error: any) {
             toast.error("Failed to update profile", error?.message)
         }

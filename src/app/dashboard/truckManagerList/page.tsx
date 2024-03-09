@@ -27,7 +27,7 @@ const TruckManagerList = () => {
             try {
                 const response = await instance.get(`api/user/getRoleUsers?role=Manager&ownerId=${data._id}`);
                 setUserData(response.data.data);
-                console.log(response.data.data, " data ");
+                // console.log(response.data.data, " data ");
             } catch (error: any) {
                 console.error('Error fetching users:', error.message);
         }
@@ -36,8 +36,6 @@ const TruckManagerList = () => {
             fetchData();
         }
     }, [data._id]);
-
-    console.log(userData);
 
 
     return (

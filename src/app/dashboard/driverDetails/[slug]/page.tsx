@@ -1,6 +1,4 @@
 'use client'
-
-// import "./DriverDetails.scss";
 import profile from "../../../../../public/assets/detailsprofile.jpg";
 import Image from "next/image";
 import { IoLocationOutline } from "react-icons/io5";
@@ -11,14 +9,12 @@ import instance from "@/hooks/instance";
 import { useParams } from "next/navigation";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 
-
 const DriverDetails = () => {
 
   const [user, setUser] = useState<any>([]);
   const [notification, setNotification] = useState<any>([]);
 
   const router = useParams();
-
   const id = router.slug
 
 
@@ -32,7 +28,6 @@ const DriverDetails = () => {
         console.error('Error fetching users:', error.message);
       }
     };
-
     fetchUsers();
   }, [id]);
 
@@ -47,10 +42,11 @@ const DriverDetails = () => {
         console.error('Error fetching users:', error.message);
       }
     };
-
     fetchNotification();
+
   }, [id]);
 
+  // console.log('user get', user)
 
   return (
     <ProtectedRoute>
@@ -130,6 +126,14 @@ const DriverDetails = () => {
                         <strong className="text-heading">{user?.address}</strong>
                       </td>
                     </tr>
+                    <tr className="w-full border-b border-dashed ">
+                      <td>
+                        <span className="text-[#9499A1]">Company</span>
+                      </td>
+                      <td>
+                        <strong className="text-heading">{user?.companyName ? user?.companyName : "N/A"}</strong>
+                      </td>
+                    </tr>
 
                   </tbody>
                 </table>
@@ -145,7 +149,7 @@ const DriverDetails = () => {
             </div>
           </div>
 
-          <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
+          {user && user?.role && user.role[0] !== 'Owner' && <div className="assigned-to mt-[20px] shadow-card p-[2rem]">
             <h2>Assigned to </h2>
             <div className="table-responsive text-nowrap">
               <table className="table w-full mb-0 align-middle qd-table">
@@ -189,7 +193,7 @@ const DriverDetails = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div>}
 
 
 

@@ -58,6 +58,8 @@ export default AssignedCars
 
 function CarDetails({ details }: any) {
 
+  console.log('details of a car', details)
+
   return (
     <>
       <div className="card border border-[red] rounded-[10px]">
@@ -65,7 +67,7 @@ function CarDetails({ details }: any) {
         <div className='flex items-center justify-end gap-2 card_header'>
           {details?.status && <button className="bg-black border rounded-[8px] text-white p-[10px]">
 
-            {details?.status?.authorizationState[0]}
+            {details?.status.authorizationState && details?.status?.authorizationState[0]}
 
           </button>}
         </div>

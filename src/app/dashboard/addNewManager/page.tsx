@@ -29,14 +29,8 @@ const AddNewManager = () => {
     const { imageFileInputRef, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
 
     const uploadImageToBackend = async (image: any) => {
-        console.log(image, "ksdjfksfj")
-
         const formData = new FormData();
         formData.append('image', imageFiles);
-
-        const imageHostKey = process.env.IMAGE_HOST_KEY
-        console.log(imageHostKey)
-
         try {
             const response = await fetch(`https://api.imgbb.com/1/upload?key=498c13144329f4ea75fda2875c5782b9`, {
                 method: 'POST',

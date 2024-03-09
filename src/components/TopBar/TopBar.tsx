@@ -4,7 +4,7 @@ import './Topbar.scss'
 import Link from 'next/link'
 
 const TopBar = () => {
-  // get logged in user from  localstorage
+
   const [data, setData] = useState<any>({})
 
   useEffect(() => {
@@ -13,10 +13,8 @@ const TopBar = () => {
     if (typeof window !== undefined) {
       userDataString = localStorage.getItem('user');
     }
-    // const userDataString : any = {};
     if (userDataString) {
       const userData = JSON.parse(userDataString);
-      // console.log('userData',userData)
       setData(userData?.user);
     }
   }, []);
@@ -28,7 +26,7 @@ const TopBar = () => {
         Dashboard
       </h2>
       <div className='flex items-center gap-4'>
-        {/* <Image className='h-[40px] rounded-[5px] w-[40px]' src={profile} alt="profile" /> */}
+        {/* <Image height={40} width={40} className='rounded-[5px]' src={data.image} alt="profile" /> */}
         <Link href={`/dashboard/driverDetails/${data?._id}`}> <p>{data?.fullName}</p></Link>
       </div>
 

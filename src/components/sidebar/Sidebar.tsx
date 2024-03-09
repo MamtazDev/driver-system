@@ -167,7 +167,7 @@ const Sidebar: React.FC = () => {
               </div>
             </>
             }
-            <div className="drivers_dropdown" onClick={toggleDropDownCars}>
+         {(role !== "Driver") &&    <div className="drivers_dropdown" onClick={toggleDropDownCars}>
               <div className="relative ">
                 <MenuBtn
                   icon={Car}
@@ -215,7 +215,7 @@ const Sidebar: React.FC = () => {
                   </ul>
                 )}
               </div>
-            </div>
+            </div>}
 
             {(role === "Manager") && <div className="drivers_dropdown" onClick={toggleDropDownManager}>
               <div className="relative ">
@@ -241,17 +241,6 @@ const Sidebar: React.FC = () => {
               <div className="dropdown_list">
                 {dropDownManager && (
                   <ul className="list-disc text-[#fff]" style={{ marginLeft: "50px" }}>
-                    <li>
-                      <MenuBtn
-                        link="/dashboard/managerProfile"
-                        text="Manager Profile"
-                        isActive={activeLink === "/dashboard/managerProfile"}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActiveLink("/dashboard/managerProfile");
-                        }}
-                      />
-                    </li>
                     <li>
                       <MenuBtn
                         link={`/dashboard/assignedCars/${user._id}`}
@@ -303,13 +292,13 @@ const Sidebar: React.FC = () => {
               isActive={activeLink === "/notifications"}
               onClick={() => setActiveLink("/notifications")}
             />}
-            {role !== 'Manager' && <MenuBtn
+            <MenuBtn
               icon={Bell}
               link={`/dashboard/driverDetails/${user?._id}`}
               text="My Profile"
               isActive={activeLink === `/dashboard/driverDetails/${user?._id}`}
               onClick={() => setActiveLink(`/dashboard/driverDetails/${user?._id}`)}
-            />}
+            />
           </div>
         </div>
       </div>
