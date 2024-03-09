@@ -62,8 +62,6 @@ const Sidebar: React.FC = () => {
     router.push('/')
   }
 
-  console.log("user details ", user)
-
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
       <label className="sidebar-toggle" htmlFor="check">
@@ -167,7 +165,7 @@ const Sidebar: React.FC = () => {
               </div>
             </>
             }
-         {(role !== "Driver") &&    <div className="drivers_dropdown" onClick={toggleDropDownCars}>
+            {(role !== "Driver") && <div className="drivers_dropdown" onClick={toggleDropDownCars}>
               <div className="relative ">
                 <MenuBtn
                   icon={Car}
@@ -287,10 +285,10 @@ const Sidebar: React.FC = () => {
             />
             {role === 'Driver' && <MenuBtn
               icon={Car}
-              link="/dashboard/notification"
+              link={`/dashboard/assignedDriverCars/${user?._id}`}
               text="Assigned Cars"
-              isActive={activeLink === "/notifications"}
-              onClick={() => setActiveLink("/notifications")}
+              isActive={activeLink === `/dashboard/assignedDriverCars/${user?._id}`}
+              onClick={() => setActiveLink(`/dashboard/assignedDriverCars/${user?._id}`)}
             />}
             <MenuBtn
               icon={Bell}

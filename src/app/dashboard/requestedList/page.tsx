@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal';
 import { IoMdClose } from "react-icons/io";
 import instance from '@/hooks/instance';
@@ -156,8 +156,8 @@ const RequestedList = () => {
                                     <tbody>
                                         {
                                             requestsLists.map((requests: any) => (
-                                                <>
-                                                    <tr key={requests?.trucks?._id} className="border-b border-dashed bg-grey-400">
+                                                <React.Fragment key={requests?.trucks?._id}>
+                                                    <tr className="border-b border-dashed bg-grey-400">
                                                         <td
                                                             scope="row"
                                                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -215,7 +215,7 @@ const RequestedList = () => {
                                                         </div>
                                                     </Modal>
 
-                                                </>
+                                                </React.Fragment>
 
                                             ))
                                         }

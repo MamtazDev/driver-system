@@ -31,8 +31,6 @@ const TruckDetails = () => {
                     <Link href={`/dashboard/truckDetails/${trucks?._id}`}>
                         <Image height={200} width={200} src={
                             trucks && trucks?.image
-                                ? `https://nicolos-backend.onrender.com/api/uploads/${trucks?.image}`
-                                : ""
                         } alt="car" />
                     </Link>
 
