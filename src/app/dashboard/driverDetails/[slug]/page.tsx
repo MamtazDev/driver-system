@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import instance from "@/hooks/instance";
 import { useParams } from "next/navigation";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import toast from "react-hot-toast";
 
 const DriverDetails = () => {
 
@@ -25,7 +26,7 @@ const DriverDetails = () => {
         setUser(response?.data?.data)
 
       } catch (error: any) {
-        console.error('Error fetching users:', error.message);
+        toast.error('Error fetching users:', error.message);
       }
     };
     fetchUsers();

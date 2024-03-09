@@ -250,7 +250,7 @@ const Sidebar: React.FC = () => {
                         }}
                       />
                     </li>
-                    <li>
+                    {/* <li>
                       <MenuBtn
                         link="/dashboard/assignedDriver"
                         text="Assigned Drivers"
@@ -260,7 +260,7 @@ const Sidebar: React.FC = () => {
                           setActiveLink("/dashboard/assignedDriver");
                         }}
                       />
-                    </li>
+                    </li> */}
 
                   </ul>
                 )}

@@ -2,7 +2,10 @@ import React from 'react'
 
 const notification = () => {
   return (
-    <div>notification page coming soon</div>
+    <div>
+
+      
+    </div>
   )
 }
 

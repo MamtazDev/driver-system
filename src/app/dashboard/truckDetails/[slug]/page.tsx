@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 const TruckDetails = () => {
     const [trucks, setTrucks] = useState<any>()
@@ -17,7 +18,7 @@ const TruckDetails = () => {
                 const response = await instance.get(`/api/truck/getTruckById/${id}`);
                 setTrucks(response?.data?.data)
             } catch (error: any) {
-                console.error('Error fetching users:', error.message);
+                toast.error('Error fetching users:', error.message);
             }
         };
         fetchTrucks();
@@ -52,7 +53,6 @@ const TruckDetails = () => {
                                 </div>
 
                         }
-
                     </div>
                 </div>
 
