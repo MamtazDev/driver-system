@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useDriverContext } from "@/hooks/driverContext";
 import instance from "@/hooks/instance";
 import { useParams } from "next/navigation";
@@ -6,264 +6,198 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 const AuthorizationRequest = () => {
+  const {
+    imageFileInputRef2,
+    handleImageClick2,
+    handleImageFileChange2,
+    selectedFiles2,
+  }: any = useSecondImageUpload();
 
-    const { imageFileInputRef2, handleImageClick2, handleImageFileChange2, selectedFiles2 }: any = useSecondImageUpload();
+  const driverContext = useDriverContext();
 
-    const driverContext = useDriverContext();
+  const [driverDataList, setDriverDataList] = useState([]);
+  const [selectedDriver, setSelectedDriver] = useState<any>(null);
+  const [authorizationState, setAuthorizationState] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [driverDataList, setDriverDataList] = useState([]);
-    const [selectedDriver, setSelectedDriver] = useState<any>(null);
-    const [authorizationState, setAuthorizationState] = useState("")
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        if (driverContext && driverContext.data) {
-            const driverData = driverContext.data.filter((data: any) => data.role.includes("Driver"));
-            setDriverDataList(driverData);
-        }
-    }, [driverContext]);
-
-    const handleDriverSelect = (selectedValue: string) => {
-        const selectedDriverData = driverDataList.find((data: any) => data.fullName === selectedValue);
-        setSelectedDriver(selectedDriverData);
-    };
-    const router = useParams();
-
-    const id = router.slug;
-    const selectedDriverId = selectedDriver?._id
-    //  authorization state
-    const data = {
-        user: selectedDriverId,
-        trucks: id,
-        authorizationState: authorizationState
+  useEffect(() => {
+    if (driverContext && driverContext.data) {
+      const driverData = driverContext.data.filter((data: any) =>
+        data.role.includes("Driver")
+      );
+      setDriverDataList(driverData);
     }
+  }, [driverContext]);
 
-    const [truck, setTruck] = useState<any>([])
+  const handleDriverSelect = (selectedValue: string) => {
+    const selectedDriverData = driverDataList.find(
+      (data: any) => data.fullName === selectedValue
+    );
+    setSelectedDriver(selectedDriverData);
+  };
+  const router = useParams();
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await instance.get(`/api/truck/getTruckById/${id}`);
-                setTruck(response.data.data)
+  const id = router.slug;
+  const selectedDriverId = selectedDriver?._id;
+  //  authorization state
+  const data = {
+    user: selectedDriverId,
+    trucks: id,
+    authorizationState: authorizationState,
+  };
 
-            } catch (error: any) {
-                console.error('Error fetching users:', error.message);
-            }
-        };
-        fetchUsers();
-    }, [id]);
+  const [truck, setTruck] = useState<any>([]);
 
-    const handleSubmit = async (e: any) => {
-        setIsLoading(true)
-        e.preventDefault();
-        try {
-            const response = await instance.post("/api/authorization/addNewRequest", data);
-
-            if (response.data.success) {
-                toast.success('Request added successfully');
-                setIsLoading(false)
-            } else {
-                toast.error('Failed to add a new request');
-            }
-        } catch (error: any) {
-            toast.error(`Request failed: ${error.response.data.message}`);
-
-        }
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await instance.get(`/api/truck/getTruckById/${id}`);
+        setTruck(response.data.data);
+      } catch (error: any) {
+        console.error("Error fetching users:", error.message);
+      }
     };
+    fetchUsers();
+  }, [id]);
 
+  const handleSubmit = async (e: any) => {
+    setIsLoading(true);
+    e.preventDefault();
+    try {
+      // const response = await instance.post(
+      //   "/api/authorization/addNewRequest",
+      //   data
+      // );
+      const response = await instance.post("/api/new-auth", data);
 
-    return (
-        <>
-            <div className='container m-auto'>
-                <div className="shadow-card p-[30px]  w-[70%] m-auto">
+      if (response.data.success) {
+        toast.success("Request added successfully");
+        setIsLoading(false);
+      } else {
+        toast.error("Failed to add a new request");
+      }
+    } catch (error: any) {
+      toast.error(`Request failed: ${error.response.data.message}`);
+    }
+  };
 
-                    <h1 className='text-center mb-[20px]'>Request For Authorization</h1>
+  return (
+    <>
+      <div className="container m-auto">
+        <div className="shadow-card p-[30px]  w-[70%] m-auto">
+          <h1 className="text-center mb-[20px]">Request For Authorization</h1>
 
-                    <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-12 gap-5 add_driver">
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-12 gap-5 add_driver">
+              <div className="col-span-6">
+                <label htmlFor="">Truck</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Enter company name"
+                  value={truck?.company}
+                />
+              </div>
 
-                            <div className='col-span-6'>
-                                <label htmlFor="">Truck</label>
-                                <input
-                                    type="text"
-                                    required
-                                    placeholder='Enter company name'
-                                    value={truck?.company}
-                                />
-                            </div>
+              <div className="col-span-6">
+                <label htmlFor="">Model</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Enter Truck model"
+                  value={truck?.model}
+                />
+              </div>
 
-                            <div className='col-span-6'>
-                                <label htmlFor="">Model</label>
-                                <input
-                                    type="text"
-                                    required
-                                    placeholder='Enter Truck model'
-                                    value={truck?.model}
-                                />
-                            </div>
+              <div className="col-span-6">
+                <label htmlFor="">License Plate </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Enter license plate number"
+                  value={truck?.licensePlate}
+                />
+              </div>
 
-                            <div className='col-span-6'>
-                                <label htmlFor="">License Plate </label>
-                                <input
-                                    type="text"
-                                    required
-                                    placeholder='Enter license plate number'
-                                    value={truck?.licensePlate} />
-                            </div>
+              <div className="col-span-6">
+                <label htmlFor="">VIN Number </label>
+                <input
+                  type="number"
+                  required
+                  placeholder="Enter VIN Number"
+                  value={truck?.vinNumber}
+                />
+              </div>
+              <div className="col-span-6">
+                <label htmlFor="">Select Driver </label>
+                <select
+                  onChange={(e) => handleDriverSelect(e.target.value)}
+                  id="countries"
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                >
+                  <option selected>Choose</option>
+                  {driverDataList.map((data: any) => (
+                    <option key={data._id} value={data?.fullName}>
+                      {data?.fullName} - {data?.email}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                            <div className='col-span-6'>
-                                <label htmlFor="">VIN Number </label>
-                                <input
-                                    type="number"
-                                    required
-                                    placeholder='Enter VIN Number'
-                                    value={truck?.vinNumber}
-                                />
-                            </div>
-                            <div className='col-span-6'>
-                                <label htmlFor="">Select Driver </label>
-                                <select onChange={(e) => handleDriverSelect(e.target.value)} id="countries" className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                                    <option selected>Choose</option>
-                                    {driverDataList.map((data: any) => (
-                                        <option key={data._id} value={data?.fullName}>
-                                            {data?.fullName}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+              <div className="col-span-6">
+                <label htmlFor="">Authorization State</label>
 
-
-                            <div className='col-span-6'>
-                                <label htmlFor="">Driver Email</label>
-                                <input
-                                    type="email"
-                                    required
-                                    value={selectedDriver ? selectedDriver.email : ""}
-
-                                />
-                            </div>
-                            <div className='col-span-6'>
-                                <label htmlFor="">Phone Number</label>
-                                <input
-                                    type="number"
-                                    required
-                                    value="018254564456456"
-                                />
-                            </div>
-                            <div className='col-span-6'>
-                                <div className=" add_driver">
-                                    <div className="mb-3">
-                                        <label htmlFor="" className="">
-                                            Driving License
-                                        </label>
-                                        <input
-                                            type="file"
-                                            required
-                                            ref={imageFileInputRef2}
-                                            style={{ display: 'none' }}
-                                            onChange={handleImageFileChange2}
-                                            name="drivingLicense"
-                                            accept="image/*"
-                                            id="drivingLicense"
-                                        />
-
-                                        <input
-                                            type="text"
-                                            required
-                                            className="cursor-pointer form-control ps-5"
-                                            id="drivingLicense"
-                                            name="drivingLicense"
-                                            placeholder="add your driving license"
-                                            onClick={handleImageClick2}
-                                            value={selectedFiles2 ? selectedFiles2[0]?.name : ''}
-                                            accept="image/*"
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className='col-span-6'>
-                                <label htmlFor="">Date of Birth</label>
-                                <input
-                                    required
-                                    type="date"
-                                />
-                            </div>
-                            <div className='col-span-6'>
-                                <label htmlFor="">Address</label>
-                                <input
-                                    required
-                                    type="text"
-                                    value={selectedDriver ? selectedDriver?.address : ""}
-                                />
-                            </div>
-                            <div className='col-span-6'>
-                                <label htmlFor="">License Expiration Date</label>
-                                <input
-                                    required
-                                    type="date"
-
-                                />
-                            </div>
-                            <div className='col-span-6'>
-                                <label htmlFor="">Authorization State</label>
-
-                                <select id="countries" onChange={(e) => setAuthorizationState(e.target.value)} className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                                    <option selected>Choose</option>
-                                    <option value="Request">Request</option>
-                                    <option value="Practice">Practice</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="text-center mt-[15px]">
-                            <button type='submit' className="common_button">
-                                {isLoading ? (
-                                    <>
-                                        Loading...
-                                    </>
-                                ) : (
-                                    <>
-                                        Send Request
-                                    </>
-                                )}
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                <select
+                  id="countries"
+                  onChange={(e) => setAuthorizationState(e.target.value)}
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                >
+                  <option selected>Choose</option>
+                  <option value="Requested">Requested</option>
+                  {/* <option value="Practice">Practice</option> */}
+                </select>
+              </div>
             </div>
-        </>
-    )
-}
-
-export default AuthorizationRequest
-
-
-const useSecondImageUpload = () => {
-    const imageFileInputRef2 = useRef<HTMLInputElement>(null);
-    const [selectedImage2, setSelectedImage2] = useState<string | null>(null);
-    const [selectedFiles2, setSelectedFiles2] = useState<FileList | null>(null);
-
-    const handleImageClick2 = () => {
-        imageFileInputRef2.current?.click();
-    };
-
-    const handleImageFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
-        if (files && files.length > 0) {
-            setSelectedFiles2(files);
-            const selectedFile = files[0];
-            const imageUrl: string = URL.createObjectURL(selectedFile);
-            setSelectedImage2(imageUrl);
-        }
-    };
-
-    return {
-        imageFileInputRef2,
-        selectedImage2,
-        handleImageClick2,
-        handleImageFileChange2,
-        selectedFiles2
-    };
+            <div className="text-center mt-[15px]">
+              <button type="submit" className="common_button">
+                {isLoading ? <>Loading...</> : <>Send Request</>}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
 };
 
+export default AuthorizationRequest;
 
+const useSecondImageUpload = () => {
+  const imageFileInputRef2 = useRef<HTMLInputElement>(null);
+  const [selectedImage2, setSelectedImage2] = useState<string | null>(null);
+  const [selectedFiles2, setSelectedFiles2] = useState<FileList | null>(null);
+
+  const handleImageClick2 = () => {
+    imageFileInputRef2.current?.click();
+  };
+
+  const handleImageFileChange2 = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      setSelectedFiles2(files);
+      const selectedFile = files[0];
+      const imageUrl: string = URL.createObjectURL(selectedFile);
+      setSelectedImage2(imageUrl);
+    }
+  };
+
+  return {
+    imageFileInputRef2,
+    selectedImage2,
+    handleImageClick2,
+    handleImageFileChange2,
+    selectedFiles2,
+  };
+};

@@ -1,18 +1,17 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Bell from "../../../public/assets/Bell.svg";
 import Car from "../../../public/assets/Car.svg";
 import Dashboard from "../../../public/assets/Dashboard.svg";
 import Logout from "../../../public/assets/Logout.svg";
 import MenuBtn from "../menuBtn/MenuBtn";
 import "./sidebar.scss";
-import { useRouter } from 'next/navigation'
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const Sidebar: React.FC = () => {
-
-  const router = useRouter()
+  const router = useRouter();
 
   const [activeLink, setActiveLink] = useState("/");
   const [isOpen, setIsOpen] = useState(false);
@@ -26,42 +25,41 @@ const Sidebar: React.FC = () => {
 
   const toggleDropDown = () => {
     setDropDown(!dropDown);
-    setDropDownCars(false)
-    setDropDownManager(false)
+    setDropDownCars(false);
+    setDropDownManager(false);
   };
 
   const toggleDropDownCars = () => {
     setDropDown(false);
-    setDropDownCars(!dropDownCars)
-    setDropDownManager(false)
+    setDropDownCars(!dropDownCars);
+    setDropDownManager(false);
   };
 
   const toggleDropDownManager = () => {
-    setDropDownManager(!dropDownManager)
-    setDropDownCars(false)
+    setDropDownManager(!dropDownManager);
+    setDropDownCars(false);
     setDropDown(false);
   };
 
-  // get the user 
+  // get the user
   const [role, setRole] = useState<any>();
   const [user, setUser] = useState<any>({});
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
-      console.log("userData", userData)
-      const role = userData?.user?.role[0]
-      setRole(role)
-      setUser(userData?.user)
+    if (typeof window !== "undefined") {
+      const userData: any = JSON.parse(localStorage.getItem("user") || "null");
+      // console.log("userData", userData);
+      const role = userData?.user?.role[0];
+      setRole(role);
+      setUser(userData?.user);
     }
-  }, [])
-
+  }, []);
 
   const handleLoggedOut = (e: any) => {
-    e.preventDefault()
-    localStorage.removeItem('user')
-    router.push('/')
-  }
+    e.preventDefault();
+    localStorage.removeItem("user");
+    router.push("/");
+  };
 
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
@@ -85,173 +83,184 @@ const Sidebar: React.FC = () => {
               onClick={() => setActiveLink("/")}
             />
 
-            {(role === "Owner") && <>
-              <div className="drivers_dropdown" onClick={toggleDropDown}>
+            {role === "Owner" && (
+              <>
+                <div className="drivers_dropdown" onClick={toggleDropDown}>
+                  <div className="relative ">
+                    <MenuBtn
+                      icon={Car}
+                      text="Owners"
+                      isActive={activeLink === "/Owners"}
+                      onClick={() => setActiveLink("/Owners")}
+                    />
 
-                <div className="relative ">
-
-                  <MenuBtn
-                    icon={Car}
-                    text="Owners"
-                    isActive={activeLink === "/Owners"}
-                    onClick={() => setActiveLink("/Owners")}
-                  />
-
-                  {
-                    dropDown ?
+                    {dropDown ? (
                       <div className="absolute top-[18px] right-[18px]  text-white">
                         <IoIosArrowUp />
-                      </div> :
-
+                      </div>
+                    ) : (
                       <div className="absolute top-[18px] right-[18px]  text-white">
                         <IoIosArrowDown />
-
                       </div>
-                  }
+                    )}
+                  </div>
+
+                  <div className="dropdown_list">
+                    {dropDown && (
+                      <ul
+                        className="list-disc text-[#fff]"
+                        style={{ marginLeft: "50px" }}
+                      >
+                        <li>
+                          <MenuBtn
+                            link="/dashboard/addNewCar"
+                            text="Add New Truck"
+                            isActive={activeLink === "/dashboard/addNewCar"}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveLink("/dashboard/addNewCar");
+                            }}
+                          />
+                        </li>
+                        <li>
+                          <MenuBtn
+                            link="/dashboard/addNewManager"
+                            text="Add New Manger"
+                            isActive={activeLink === "/dashboard/addNewManager"}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveLink("/dashboard/addNewManager");
+                            }}
+                          />
+                        </li>
+
+                        <li>
+                          <MenuBtn
+                            link="/dashboard/requestedList"
+                            text="Requested Lists"
+                            isActive={activeLink === "/dashboard/requestedList"}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveLink("/dashboard/requestedList");
+                            }}
+                          />
+                        </li>
+                        <li>
+                          <MenuBtn
+                            link="/dashboard/truckManagerList"
+                            text="Truck Manager List"
+                            isActive={
+                              activeLink === "/dashboard/truckManagerList"
+                            }
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveLink("/dashboard/truckManagerList");
+                            }}
+                          />
+                        </li>
+                      </ul>
+                    )}
+                  </div>
                 </div>
-
+              </>
+            )}
+            {role !== "Driver" && (
+              <div className="drivers_dropdown" onClick={toggleDropDownCars}>
+                <div className="relative ">
+                  <MenuBtn
+                    icon={Car}
+                    text="Drivers"
+                    isActive={activeLink === "/driver"}
+                    onClick={() => setActiveLink("/driver")}
+                  />
+                  {dropDownCars ? (
+                    <div className="absolute top-[18px] right-[18px]  text-white">
+                      <IoIosArrowUp />
+                    </div>
+                  ) : (
+                    <div className="absolute top-[18px] right-[18px]  text-white">
+                      <IoIosArrowDown />
+                    </div>
+                  )}
+                </div>
                 <div className="dropdown_list">
-                  {dropDown && (
-                    <ul className="list-disc text-[#fff]" style={{ marginLeft: "50px" }}>
-
-                      <li >
-                        <MenuBtn
-                          link="/dashboard/addNewCar"
-                          text="Add New Truck"
-                          isActive={activeLink === "/dashboard/addNewCar"}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveLink("/dashboard/addNewCar");
-                          }}
-                        />
-                      </li>
+                  {dropDownCars && (
+                    <ul
+                      className="list-disc text-[#fff]"
+                      style={{ marginLeft: "50px" }}
+                    >
                       <li>
                         <MenuBtn
-                          link="/dashboard/addNewManager"
-                          text="Add New Manger"
-                          isActive={activeLink === "/dashboard/addNewManager"}
+                          link="/dashboard/drivers"
+                          text="Drivers"
+                          isActive={activeLink === "/dashboard/drivers"}
                           onClick={(e) => {
                             e.stopPropagation();
-                            setActiveLink("/dashboard/addNewManager");
+                            setActiveLink("/dashboard/drivers");
                           }}
                         />
                       </li>
-
-                      <li >
-                        <MenuBtn
-                          link="/dashboard/requestedList"
-                          text="Requested Lists"
-                          isActive={activeLink === "/dashboard/requestedList"}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveLink("/dashboard/requestedList");
-                          }}
-                        />
-                      </li>
-                      <li >
-                        <MenuBtn
-                          link="/dashboard/truckManagerList"
-                          text="Truck Manager List"
-                          isActive={activeLink === "/dashboard/truckManagerList"}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveLink("/dashboard/truckManagerList");
-                          }}
-                        />
-                      </li>
-
+                      {role !== "Owner" && (
+                        <li>
+                          <MenuBtn
+                            link="/dashboard/addDriver"
+                            text="Add Driver"
+                            isActive={activeLink === "/dashboard/addDriver"}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveLink("/dashboard/addDriver");
+                            }}
+                          />
+                        </li>
+                      )}
                     </ul>
                   )}
                 </div>
               </div>
-            </>
-            }
-            {(role !== "Driver") && <div className="drivers_dropdown" onClick={toggleDropDownCars}>
-              <div className="relative ">
-                <MenuBtn
-                  icon={Car}
-                  text="Drivers"
-                  isActive={activeLink === "/driver"}
-                  onClick={() => setActiveLink("/driver")}
-                />
-                {
-                  dropDownCars ?
+            )}
+
+            {role === "Manager" && (
+              <div className="drivers_dropdown" onClick={toggleDropDownManager}>
+                <div className="relative ">
+                  <MenuBtn
+                    icon={Car}
+                    text="Manager"
+                    isActive={activeLink === "/manager"}
+                    onClick={() => setActiveLink("/manager")}
+                  />
+
+                  {dropDownManager ? (
                     <div className="absolute top-[18px] right-[18px]  text-white">
                       <IoIosArrowUp />
-                    </div> :
-
+                    </div>
+                  ) : (
                     <div className="absolute top-[18px] right-[18px]  text-white">
                       <IoIosArrowDown />
-
                     </div>
-                }
-              </div>
-              <div className="dropdown_list">
-                {dropDownCars && (
-                  <ul className="list-disc text-[#fff]" style={{ marginLeft: "50px" }}>
-                    <li >
-                      <MenuBtn
-                        link="/dashboard/drivers"
-                        text="Drivers"
-                        isActive={activeLink === "/dashboard/drivers"}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActiveLink("/dashboard/drivers");
-                        }}
-                      />
-                    </li>
-                    {(role !== "Owner") && <li >
-                      <MenuBtn
-                        link="/dashboard/addDriver"
-                        text="Add Driver"
-                        isActive={activeLink === "/dashboard/addDriver"}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActiveLink("/dashboard/addDriver");
-                        }}
-                      />
-                    </li>}
-                  </ul>
-                )}
-              </div>
-            </div>}
-
-            {(role === "Manager") && <div className="drivers_dropdown" onClick={toggleDropDownManager}>
-              <div className="relative ">
-                <MenuBtn
-                  icon={Car}
-                  text="Manager"
-                  isActive={activeLink === "/manager"}
-                  onClick={() => setActiveLink("/manager")}
-                />
-
-                {
-                  dropDownManager ?
-                    <div className="absolute top-[18px] right-[18px]  text-white">
-                      <IoIosArrowUp />
-                    </div> :
-
-                    <div className="absolute top-[18px] right-[18px]  text-white">
-                      <IoIosArrowDown />
-
-                    </div>
-                }
-              </div>
-              <div className="dropdown_list">
-                {dropDownManager && (
-                  <ul className="list-disc text-[#fff]" style={{ marginLeft: "50px" }}>
-                    <li>
-                      <MenuBtn
-                        link={`/dashboard/assignedCars/${user._id}`}
-                        text="Assigned Cars"
-                        isActive={activeLink === `/dashboard/assignedCars/${user._id}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActiveLink(`/dashboard/assignedCars/${user._id}`);
-                        }}
-                      />
-                    </li>
-                    {/* <li>
+                  )}
+                </div>
+                <div className="dropdown_list">
+                  {dropDownManager && (
+                    <ul
+                      className="list-disc text-[#fff]"
+                      style={{ marginLeft: "50px" }}
+                    >
+                      <li>
+                        <MenuBtn
+                          link={`/dashboard/assignedCars/${user._id}`}
+                          text="Assigned Cars"
+                          isActive={
+                            activeLink === `/dashboard/assignedCars/${user._id}`
+                          }
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveLink(
+                              `/dashboard/assignedCars/${user._id}`
+                            );
+                          }}
+                        />
+                      </li>
+                      {/* <li>
                       <MenuBtn
                         link="/dashboard/assignedDriver"
                         text="Assigned Drivers"
@@ -262,14 +271,15 @@ const Sidebar: React.FC = () => {
                         }}
                       />
                     </li> */}
-
-                  </ul>
-                )}
+                    </ul>
+                  )}
+                </div>
               </div>
-            </div>}
+            )}
 
-            {(role === "Owner") && (
-              <MenuBtn icon={Car}
+            {role === "Owner" && (
+              <MenuBtn
+                icon={Car}
                 link="/dashboard/carList"
                 text="Truck Lists"
                 isActive={activeLink === "/dashboard/carList"}
@@ -277,26 +287,36 @@ const Sidebar: React.FC = () => {
               />
             )}
 
-            {(role === "Driver") && <MenuBtn
-              icon={Bell}
-              link="/dashboard/notification"
-              text="Notifications"
-              isActive={activeLink === "/notifications"}
-              onClick={() => setActiveLink("/notifications")}
-            />}
-            {role === 'Driver' && <MenuBtn
-              icon={Car}
-              link={`/dashboard/assignedDriverCars/${user?._id}`}
-              text="Assigned Cars"
-              isActive={activeLink === `/dashboard/assignedDriverCars/${user?._id}`}
-              onClick={() => setActiveLink(`/dashboard/assignedDriverCars/${user?._id}`)}
-            />}
+            {role === "Driver" && (
+              <MenuBtn
+                icon={Bell}
+                link="/dashboard/notification"
+                text="Notifications"
+                isActive={activeLink === "/notifications"}
+                onClick={() => setActiveLink("/notifications")}
+              />
+            )}
+            {role === "Driver" && (
+              <MenuBtn
+                icon={Car}
+                link={`/dashboard/assignedDriverCars/${user?._id}`}
+                text="Assigned Cars"
+                isActive={
+                  activeLink === `/dashboard/assignedDriverCars/${user?._id}`
+                }
+                onClick={() =>
+                  setActiveLink(`/dashboard/assignedDriverCars/${user?._id}`)
+                }
+              />
+            )}
             <MenuBtn
               icon={Bell}
               link={`/dashboard/driverDetails/${user?._id}`}
               text="My Profile"
               isActive={activeLink === `/dashboard/driverDetails/${user?._id}`}
-              onClick={() => setActiveLink(`/dashboard/driverDetails/${user?._id}`)}
+              onClick={() =>
+                setActiveLink(`/dashboard/driverDetails/${user?._id}`)
+              }
             />
           </div>
         </div>
