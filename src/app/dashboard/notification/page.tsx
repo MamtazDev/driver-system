@@ -66,7 +66,7 @@ import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
-function notification() {
+function Notification() {
   const [user, setUser] = useState<any>([]);
   const [notification, setNotification] = useState<any>([]);
 
@@ -157,4 +157,4 @@ function notification() {
   )
 }
 
-export default notification
+export default Notification
