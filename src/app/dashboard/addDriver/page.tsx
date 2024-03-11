@@ -11,6 +11,7 @@ import profile from "../../../../public/assets/selectImage.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 
 const AddDrivers = () => {
@@ -90,10 +91,23 @@ const AddDrivers = () => {
       const response = await instance.post('api/user/createNewDriver', formData);
       console.log(response.data);
 
-      toast.success('Truck added successfully')
+      // toast.success('Truck added successfully')
+
+      Swal.fire({
+        text: "Driver added successfully!",
+        icon: "success"
+      });
+
+
       form.reset();
     } catch (error: any) {
-      toast.error('Error', error?.message)
+
+      Swal.fire({
+        title: "Error",
+        text: `Failed to add new driver ! ${error.message}`,
+        icon: "error"
+      });
+      // toast.error('Error', error?.message)
     }
   };
 
@@ -116,14 +130,10 @@ const AddDrivers = () => {
 
             <div className="grid grid-cols-12 gap-4">
 
-
-
-
-
               {/* <div className="col-span-6 add_driver">
               </div> */}
-                {/* //image section */}
-                {/* <div className='border h-[150px] rounded-[5px] cursor-pointer' >
+              {/* //image section */}
+              {/* <div className='border h-[150px] rounded-[5px] cursor-pointer' >
                 <div className="m-auto mb-[20px] " style={{  width: '100px', height: '100px' }} onClick={handleImageClick}>
                     <Image
                       src={selectedImage || profile}
@@ -150,8 +160,8 @@ const AddDrivers = () => {
 
                   />
                 </div> */}
-                {/* //image section */}
-             
+              {/* //image section */}
+
               <div className="col-span-6 add_driver">
 
 

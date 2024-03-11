@@ -6,6 +6,7 @@ import profile from "../../../../public/assets/selectImage.png";
 import instance from '@/hooks/instance';
 import useImageUpload from '@/hooks/fileUpload';
 import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 const AddNewCars = () => {
 
@@ -89,7 +90,10 @@ const AddNewCars = () => {
 
       setIsLoading(false);
 
-      toast.success('Truck added successfully');
+      Swal.fire({
+        text: "Truck added successfully",
+        icon: "success"
+      });
 
       form.reset();
 

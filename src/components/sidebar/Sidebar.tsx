@@ -9,6 +9,7 @@ import Dashboard from "../../../public/assets/Dashboard.svg";
 import Logout from "../../../public/assets/Logout.svg";
 import MenuBtn from "../menuBtn/MenuBtn";
 import "./sidebar.scss";
+import Swal from "sweetalert2";
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -58,6 +59,11 @@ const Sidebar: React.FC = () => {
   const handleLoggedOut = (e: any) => {
     e.preventDefault();
     localStorage.removeItem("user");
+    Swal.fire({
+      text: "successfully Logged out ! ",
+      icon: "success"
+    });
+
     router.push("/");
   };
 

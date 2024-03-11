@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import instance from "@/hooks/instance";
 import toast from "react-hot-toast";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import Swal from "sweetalert2";
 
 const EditDriverProfile = () => {
 
@@ -97,8 +98,10 @@ const EditDriverProfile = () => {
         try {
             const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData);
             
-            toast.success("Profile update successfully!")
-
+            Swal.fire({
+                text: "Profile update successfully!",
+                icon: "error"
+            });
             setUserData({
                 fullName: "",
                 email: "",
@@ -109,9 +112,15 @@ const EditDriverProfile = () => {
                 drivingLicenseExpirationDate: ""
             });
             selectedFiles([]);
-    
+
         } catch (error: any) {
-            toast.error("Failed to update profile", error?.message)
+
+            Swal.fire({
+                title: "Error",
+                text: `Profile update failed! ${error.message}`,
+                icon: "error"
+            });
+
         }
     };
 

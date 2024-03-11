@@ -8,9 +8,8 @@ import "../app/globals.scss";
 
 import instance from "@/hooks/instance";
 import login from "../../public/assets/login.jpg";
-
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 interface loginType {
   email: string;
@@ -44,7 +43,13 @@ const Homepage = () => {
       const response = await instance.post("/api/user/login", formData);
       setIsLoading(false);
       localStorage.setItem("user", JSON.stringify(response.data));
-      toast.success("Login Successfull!");
+
+      Swal.fire({
+        // title: "Good job!",
+        text: "Successfully Login",
+        icon: "success"
+      });
+
       router.push("/dashboard");
     } catch (error) {
       setIsLoading(false);

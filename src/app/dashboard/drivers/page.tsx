@@ -8,20 +8,30 @@ import { MdDelete } from "react-icons/md";
 import { useEffect, useState } from "react";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import Loader from "@/components/Loader/Loader";
 
 const Drivers = () => {
 
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchUsers = async () => {
+    setIsLoading(true)
     try {
       const response = await instance.get('/api/user/getAllUser');
       const allUsers = response.data.data;
-
+      if (allUsers) {
+        setIsLoading(false)
+      }
       const driverUsers = allUsers.filter((user: any) => user.role.includes('Driver'));
       setUsers(driverUsers);
+
     } catch (error) {
+
+      setIsLoading(false)
+
       console.error('Error fetching users:', error);
+
     }
   };
 
@@ -84,7 +94,7 @@ const Drivers = () => {
   return (
     <ProtectedRoute>
 
-      
+
       <>
         <div className="w-full driver_list_wrapper">
           <div className="container mx-auto">
@@ -111,60 +121,69 @@ const Drivers = () => {
                   </thead>
                   <tbody>
                     {
-                      users.map((user: any) =>
-                      (
-                        <tr key={user._id} className="border-b border-dashed bg-grey-400 dark:border-gray-700">
-                          <td
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                          >
-                            <div className="flex items-center gap-[8px]">
-                              <Image
-                                className="w-[40px] h-[40px]  rounded-full"
-                                src={
-                                  user?.image
-                                }
-                                width={50}
-                                height={50}
-                                alt="driver1"
-                              />
-                              <Link href={`/dashboard/driverDetails/${user._id}`} >  <p className="fw-bold ">
-                                {user?.fullName}</p></Link>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4"></td>
-                          <td className="px-6 py-4">{user?.email}</td>
-                          <td className="px-6 py-4">{user?.phoneNumber}</td>
-                          <td>
-                            <div className="p-2 border rounded-lg w-fit ">
-                              <button className="flex items-center gap-2" onClick={() => downloadImage(`${user?.drivingLicense}`)}>
+                      isLoading ?
+                      <div className="flex items-center justify-center">
+                        <Loader />
+                        
+                      </div>
+                      
+                      
+                      : users.length !== 0 &&
+
+                        users.map((user: any) =>
+                        (
+                          <tr key={user._id} className="border-b border-dashed bg-grey-400 dark:border-gray-700">
+                            <td
+                              scope="row"
+                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                              <div className="flex items-center gap-[8px]">
                                 <Image
-                                  className="w-[40px] h-[40px] rounded-full"
-                                  src={user?.drivingLicense}
-                                  // src={user?.drivingLicense ? `https://nicolos-backend.onrender.com/api/uploads/public/images/${user?.drivingLicense}` : driver1}
+                                  className="w-[40px] h-[40px]  rounded-full"
+                                  src={
+                                    user?.image
+                                  }
                                   width={50}
                                   height={50}
                                   alt="driver1"
                                 />
-                              </button>
-                            </div>
-                          </td>
-                          <td className="py-4 "><Link href={`/dashboard/truckDetails/${user?.assignedTo?.trucks?._id}`}>
-                            {user.assignedTo ? user?.assignedTo?.trucks?.brand : "N/A"}</Link></td>
-                          <td className="">
-                            <div className="flex items-center gap-2">
-                              <Link href={`/dashboard/editDriverProfile/${user?._id}`}><button>
-                                <CiEdit className="text-[24px]" />
-                              </button></Link>
+                                <Link href={`/dashboard/driverDetails/${user._id}`} >  <p className="fw-bold ">
+                                  {user?.fullName}</p></Link>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4"></td>
+                            <td className="px-6 py-4">{user?.email}</td>
+                            <td className="px-6 py-4">{user?.phoneNumber}</td>
+                            <td>
+                              <div className="p-2 border rounded-lg w-fit ">
+                                <button className="flex items-center gap-2" onClick={() => downloadImage(`${user?.drivingLicense}`)}>
+                                  <Image
+                                    className="w-[40px] h-[40px] rounded-full"
+                                    src={user?.drivingLicense}
+                                    // src={user?.drivingLicense ? `https://nicolos-backend.onrender.com/api/uploads/public/images/${user?.drivingLicense}` : driver1}
+                                    width={50}
+                                    height={50}
+                                    alt="driver1"
+                                  />
+                                </button>
+                              </div>
+                            </td>
+                            <td className="py-4 "><Link href={`/dashboard/truckDetails/${user?.assignedTo?.trucks?._id}`}>
+                              {user.assignedTo ? user?.assignedTo?.trucks?.brand : "N/A"}</Link></td>
+                            <td className="">
+                              <div className="flex items-center gap-2">
+                                <Link href={`/dashboard/editDriverProfile/${user?._id}`}><button>
+                                  <CiEdit className="text-[24px]" />
+                                </button></Link>
 
-                              <button onClick={() => handleDelete(user?._id)}>
-                                <MdDelete className="text-[24px]" />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
+                                <button onClick={() => handleDelete(user?._id)}>
+                                  <MdDelete className="text-[24px]" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
 
-                      ))
+                        ))
                     }
 
                   </tbody>

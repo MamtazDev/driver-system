@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import Modal from "react-modal";
+import Swal from "sweetalert2";
 
 const customStyles = {
   content: {
@@ -85,7 +86,13 @@ const RequestedList = () => {
           examDate: null,
         });
 
-        toast.success("Driver status update successfull");
+        // toast.success("Driver status update successfull");
+        Swal.fire({
+          // title: "Good job!",
+          text: "Driver status update successfull",
+          icon: "success"
+        });
+
 
         if (response.data.success) {
           const notificationData = {
@@ -150,10 +157,10 @@ const RequestedList = () => {
           prevRequests.map((request: any) =>
             request._id === requestId
               ? {
-                  ...request,
-                  authorizationState: ["In practice"],
-                  practiceHour,
-                }
+                ...request,
+                authorizationState: ["In practice"],
+                practiceHour,
+              }
               : request
           )
         );

@@ -8,14 +8,15 @@ import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const AddNewManager = () => {
+  
   const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useRouter();
 
   const [data, setData] = useState<any>({});
+  
   useEffect(() => {
     let userDataString;
     if (typeof window !== undefined) {
@@ -58,10 +59,13 @@ const AddNewManager = () => {
       throw new Error("Image upload failed");
     }
   };
-
+  
   const handleSubmit = async (e: any) => {
+    
     setIsLoading(true);
+    
     e.preventDefault();
+    
     const form = e.target as HTMLFormElement;
     const fullName = form.fullName.value;
     const email = form.email.value;
@@ -95,13 +99,24 @@ const AddNewManager = () => {
         formData
       );
       setIsLoading(false);
-      toast.success("Truck added successfully");
-      form.reset();
 
+      Swal.fire({
+        text: "Successfully add a new manager",
+        icon: "success"
+      });
+
+      form.reset();
+      
       navigate.push("/dashboard/truckManagerList");
+
     } catch (error: any) {
+      
       setIsLoading(false);
-      toast.success("Error");
+
+      Swal.fire({
+        title: 'Error!',
+        text: error.message,
+      })
     }
   };
 

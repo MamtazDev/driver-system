@@ -1,12 +1,4 @@
-// import React from 'react'
 
-// const DriversInPractice = () => {
-//   return (
-//     <div>DriversInPractice</div>
-//   )
-// }
-
-// export default DriversInPractice
 "use client";
 import driver1 from "../../../../public/assets/driver.jpg";
 import Image from "next/image";
@@ -33,7 +25,6 @@ const DriversInPractice = () => {
 
                 const driverUsers = allUsers.filter((user: any) => user.role.includes('Driver'));
                 setUsers(driverUsers);
-                // console.log(driverUsers)
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
@@ -41,7 +32,6 @@ const DriversInPractice = () => {
         fetchUsers();
     }, []);
 
-    // console.log("users", users);
 
     const downloadImage = (imageUrl: any) => {
         const link = document.createElement('a');
@@ -74,9 +64,6 @@ const DriversInPractice = () => {
             setInPracticeData(filteredData);
         }
     }, [initialValue]);
-    //   const router = useRouter()
-    // console.log(inPracticeData)
-
 
     return (
         <ProtectedRoute>
@@ -162,7 +149,6 @@ const DriversInPractice = () => {
 
                                             ))
                                         }
-
                                     </tbody>
                                 </table>
                             </div>

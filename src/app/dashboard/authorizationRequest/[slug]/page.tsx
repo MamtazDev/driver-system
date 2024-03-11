@@ -4,14 +4,9 @@ import instance from "@/hooks/instance";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const AuthorizationRequest = () => {
-  const {
-    imageFileInputRef2,
-    handleImageClick2,
-    handleImageFileChange2,
-    selectedFiles2,
-  }: any = useSecondImageUpload();
 
   const driverContext = useDriverContext();
 
@@ -71,7 +66,14 @@ const AuthorizationRequest = () => {
       const response = await instance.post("/api/new-auth", data);
 
       if (response.data.success) {
-        toast.success("Request added successfully");
+
+        
+        Swal.fire({
+          text: "Request added successfully",
+          icon: "success"
+        });
+
+
         setIsLoading(false);
       } else {
         toast.error("Failed to add a new request");

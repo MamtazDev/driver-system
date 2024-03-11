@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import instance from "@/hooks/instance";
 import toast from "react-hot-toast";
+import Swal from 'sweetalert2'
+
 
 const SignUp = () => {
   const navigate = useRouter();
@@ -35,12 +37,12 @@ const SignUp = () => {
   };
 
   const handleSubmit = async (e: any) => {
-    setIsLoading(true)
+    setIsLoading(true);
     e.preventDefault();
     try {
       const response = await instance.post("/api/user/signup", userData);
-      setIsLoading(false)
-      
+      setIsLoading(false);
+
       setUserData({
         fullName: "",
         role: "",
@@ -50,17 +52,23 @@ const SignUp = () => {
         phoneNumber: "",
         companyName: "Owner"
       });
-      localStorage.setItem('user', JSON.stringify(response.data))
 
-      toast.success('Signup Successfull!')
+      localStorage.setItem('user', JSON.stringify(response.data));
 
-      navigate.push('/dashboard')
+      Swal.fire({
+        // title: "Good job!",
+        text: "Successfully Signup",
+        icon: "success"
+      });
 
+      navigate.push('/dashboard');
     } catch (error: any) {
-      setIsLoading(false)
-      toast.success("Registration failed: ", error.message)
+      setIsLoading(false);
+      const errorMessage = error.response?.data?.message || "Registration failed.";
+      toast.error(errorMessage);
     }
   };
+
 
 
   return (
