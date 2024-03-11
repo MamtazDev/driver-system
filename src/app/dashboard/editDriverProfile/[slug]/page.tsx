@@ -98,7 +98,7 @@ const EditDriverProfile = () => {
 
             Swal.fire({
                 text: "Profile update successfully!",
-                icon: "error"
+                icon: "success"
             });
             navigate.push(`/dashboard/driverDetails/${id}`)
 
@@ -111,7 +111,7 @@ const EditDriverProfile = () => {
                 about: "",
                 drivingLicenseExpirationDate: ""
             });
-            selectedFiles([]);
+            // setSelectedFiles([]);  
 
         } catch (error: any) {
 
@@ -217,7 +217,6 @@ const EditDriverProfile = () => {
                                         Password
                                     </label>
                                     <input
-                                        required
                                         type="password"
                                         className="w-full border "
                                         name="password"
@@ -251,7 +250,6 @@ const EditDriverProfile = () => {
                                         Date of Birth
                                     </label>
                                     <input
-                                        required
                                         type="date"
                                         className="w-full border "
                                         id="dob"
