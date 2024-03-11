@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 
 const EditDriverProfile = () => {
-
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useRouter();
     const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
     // console.log(imageFiles)
@@ -78,12 +78,13 @@ const EditDriverProfile = () => {
             throw new Error('Image upload failed');
         }
     };
+
     const handleSubmit = async (e: any) => {
+        setIsLoading(true)
         e.preventDefault();
         const formData: any = new FormData();
         const imageUrl = await uploadImageToBackend(imageFiles);
 
-        console.log(imageUrl, "imageUrl")
 
         formData.append('image', imageUrl);
         formData.append("fullName", userData.fullName);
@@ -93,9 +94,11 @@ const EditDriverProfile = () => {
         formData.append("dob", userData.dob);
         formData.append("about", userData.about);
         formData.append("drivingLicenseExpirationDate", userData.drivingLicenseExpirationDate);
+
+
         try {
             const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData);
-
+            setIsLoading(false)
             Swal.fire({
                 text: "Profile update successfully!",
                 icon: "success"
@@ -111,16 +114,14 @@ const EditDriverProfile = () => {
                 about: "",
                 drivingLicenseExpirationDate: ""
             });
-            // setSelectedFiles([]);  
 
         } catch (error: any) {
-
+            setIsLoading(false)
             Swal.fire({
                 title: "Error",
                 text: `Profile update failed! ${error.message}`,
                 icon: "error"
             });
-
         }
     };
 
