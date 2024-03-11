@@ -133,7 +133,7 @@ const RequestedList = () => {
       //       truckId,
       //     }
       //   );
-      console.log("selectedValue", selectedValue);
+      // console.log("selectedValue", selectedValue);
 
       const newData: any = {
         authorizationState: selectedValue,

@@ -97,7 +97,7 @@ const EditDriverProfile = () => {
         formData.append("drivingLicenseExpirationDate", userData.drivingLicenseExpirationDate);
         try {
             const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData);
-            
+
             Swal.fire({
                 text: "Profile update successfully!",
                 icon: "error"
@@ -132,6 +132,7 @@ const EditDriverProfile = () => {
                     <form onSubmit={handleSubmit} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
 
                         <input
+                            required
                             type="file"
                             ref={imageFileInputRef}
                             style={{ display: 'none' }}
@@ -163,6 +164,7 @@ const EditDriverProfile = () => {
                                         Full Name
                                     </label>
                                     <input
+                                        required
                                         type="text"
                                         className="w-full border "
                                         id="fullName"
@@ -180,9 +182,9 @@ const EditDriverProfile = () => {
                                         Address
                                     </label>
                                     <input
+                                        required
                                         type="text"
-                                        className="border border-[] w-full "
-
+                                        className="w-full border "
                                         placeholder="Enter your address"
                                         value={userData?.address}
                                         name="address"
@@ -197,6 +199,7 @@ const EditDriverProfile = () => {
                                         Email
                                     </label>
                                     <input
+                                        required
                                         type="email"
                                         className="w-full border "
                                         placeholder="Enter your email"
@@ -214,8 +217,9 @@ const EditDriverProfile = () => {
                                         Password
                                     </label>
                                     <input
+                                        required
                                         type="password"
-                                        className="border border-[] w-full "
+                                        className="w-full border "
                                         name="password"
                                         placeholder="Enter your password"
                                         onChange={handleInputChange}
@@ -229,8 +233,9 @@ const EditDriverProfile = () => {
                                         Phone Number
                                     </label>
                                     <input
+                                        required
                                         type="number"
-                                        className="border border-[] w-full "
+                                        className="w-full border "
                                         id="phoneNumber"
                                         placeholder="Enter your phone number"
                                         value={userData?.phoneNumber}
@@ -246,8 +251,9 @@ const EditDriverProfile = () => {
                                         Date of Birth
                                     </label>
                                     <input
+                                        required
                                         type="date"
-                                        className="border border-[] w-full "
+                                        className="w-full border "
                                         id="dob"
                                         placeholder="Enter your phone number"
                                         name="dob"
@@ -265,8 +271,9 @@ const EditDriverProfile = () => {
                                     License Expiration Date
                                 </label>
                                 <input
+                                    required
                                     type="text"
-                                    className="border border-[] w-full "
+                                    className="w-full border "
                                     id="drivingLicenseExpirationDate"
                                     placeholder="Enter your city"
                                     value={userData?.drivingLicenseExpirationDate ? userData.drivingLicenseExpirationDate : '10/20/5'}

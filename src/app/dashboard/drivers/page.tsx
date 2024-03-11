@@ -77,8 +77,6 @@ const Drivers = () => {
         throw new Error(`Failed to get user data: ${response.statusText}`);
       }
       const userData = response.data;
-      // console.log(userData);
-
     } catch (error: any) {
       console.error(error.message);
     }
@@ -89,12 +87,9 @@ const Drivers = () => {
     fetchUsers();
     getUserData()
   }, []);
-
-  // console.log('users', users)
   return (
+    
     <ProtectedRoute>
-
-
       <>
         <div className="w-full driver_list_wrapper">
           <div className="container mx-auto">
@@ -122,13 +117,13 @@ const Drivers = () => {
                   <tbody>
                     {
                       isLoading ?
-                      <div className="flex items-center justify-center">
-                        <Loader />
-                        
-                      </div>
-                      
-                      
-                      : users.length !== 0 &&
+                        <div className="flex items-center justify-center">
+                          <Loader />
+
+                        </div>
+
+
+                        : users.length !== 0 &&
 
                         users.map((user: any) =>
                         (

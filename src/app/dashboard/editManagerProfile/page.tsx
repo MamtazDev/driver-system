@@ -33,6 +33,7 @@ const EditManagerProfile = () => {
 
                     <div className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
                         <input
+                            required
                             type="file"
                             ref={fileInputRef}
                             style={{ display: 'none' }}
@@ -60,6 +61,7 @@ const EditManagerProfile = () => {
                                         Full Name
                                     </label>
                                     <input
+                                        required
                                         type="email"
                                         className="border border-[] w-full "
                                         id=""
@@ -74,6 +76,7 @@ const EditManagerProfile = () => {
                                         Email
                                     </label>
                                     <input
+                                        required
                                         type="email"
                                         className="border border-[] w-full "
                                         id=""
@@ -87,6 +90,7 @@ const EditManagerProfile = () => {
                                     Password
                                 </label>
                                 <input
+                                required
                                     type="password"
                                     className="border border-[] w-full "
                                     id=""
@@ -100,6 +104,7 @@ const EditManagerProfile = () => {
                                         Address
                                     </label>
                                     <input
+                                        required
                                         type="text"
                                         className="border border-[] w-full "
                                         id=""
@@ -113,6 +118,7 @@ const EditManagerProfile = () => {
                                         Phone Number
                                     </label>
                                     <input
+                                        required
                                         type="number"
                                         className="border border-[] w-full "
                                         id=""

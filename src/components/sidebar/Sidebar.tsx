@@ -12,6 +12,7 @@ import "./sidebar.scss";
 import Swal from "sweetalert2";
 
 const Sidebar: React.FC = () => {
+  
   const router = useRouter();
 
   const [activeLink, setActiveLink] = useState("/");

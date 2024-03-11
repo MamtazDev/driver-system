@@ -18,7 +18,6 @@ const DriverDetails = () => {
   const router = useParams();
   const id = router.slug
 
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -46,8 +45,6 @@ const DriverDetails = () => {
     fetchNotification();
 
   }, [id]);
-
-  // console.log('user get', user)
 
   return (
     <ProtectedRoute>

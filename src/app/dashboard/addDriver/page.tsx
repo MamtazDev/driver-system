@@ -3,14 +3,11 @@
 const numRows: number = 5;
 const numCols: number = 10;
 
+import Loader from "@/components/Loader/Loader";
 import useImageUpload from "@/hooks/fileUpload";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
-
-import profile from "../../../../public/assets/selectImage.png";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 
@@ -33,8 +30,6 @@ const AddDrivers = () => {
       setData(userData?.user);
     }
   }, []);
-
-  // console.log(data)
 
   const uploadImageToBackend = async (image: any) => {
     const formData = new FormData();
@@ -60,8 +55,11 @@ const AddDrivers = () => {
   };
 
   const handleSubmit = async (e: any) => {
+
     setIsLoading(true)
+
     e.preventDefault();
+
     const form = e.target as HTMLFormElement;
     const fullName = form.fullName.value;
     const email = form.email.value;
@@ -89,9 +87,8 @@ const AddDrivers = () => {
 
     try {
       const response = await instance.post('api/user/createNewDriver', formData);
-      console.log(response.data);
 
-      // toast.success('Truck added successfully')
+      setIsLoading(false)
 
       Swal.fire({
         text: "Driver added successfully!",
@@ -100,14 +97,14 @@ const AddDrivers = () => {
 
 
       form.reset();
-    } catch (error: any) {
 
+    } catch (error: any) {
+      setIsLoading(false)
       Swal.fire({
         title: "Error",
         text: `Failed to add new driver ! ${error.message}`,
         icon: "error"
       });
-      // toast.error('Error', error?.message)
     }
   };
 
@@ -150,6 +147,7 @@ const AddDrivers = () => {
                   </div>
                   
                   <input
+                  required
                     type="file"
                     ref={imageFileInputRef}
                     onChange={handleImageFileChange}
@@ -170,6 +168,7 @@ const AddDrivers = () => {
                     FullName
                   </label>
                   <input
+                    required
                     type="text"
                     className="w-full border "
                     id="fullName"
@@ -184,6 +183,7 @@ const AddDrivers = () => {
                     Address
                   </label>
                   <input
+                    required
                     type="text"
                     className="w-full border "
                     id="address"
@@ -198,6 +198,7 @@ const AddDrivers = () => {
                     Email
                   </label>
                   <input
+                    required
                     type="email"
                     className="w-full border "
                     id="email"
@@ -213,6 +214,7 @@ const AddDrivers = () => {
                     Password
                   </label>
                   <input
+                    required
                     type="password"
                     className="w-full border "
                     id="password"
@@ -228,6 +230,7 @@ const AddDrivers = () => {
                   </label>
 
                   <input
+                    required
                     type="date"
                     className="w-full border "
                     id="dob"
@@ -242,6 +245,7 @@ const AddDrivers = () => {
                     Phone Number
                   </label>
                   <input
+                    required
                     type="number"
                     className="w-full border "
                     id="phoneNumber"
@@ -257,6 +261,7 @@ const AddDrivers = () => {
                     Driving License
                   </label>
                   <input
+                    required
                     type="file"
                     ref={imageFileInputRef}
                     style={{ display: 'none' }}
@@ -266,6 +271,7 @@ const AddDrivers = () => {
                   />
 
                   <input
+                    required
                     type="text"
                     className="cursor-pointer form-control ps-5"
                     id="drivingLicense"
@@ -276,13 +282,13 @@ const AddDrivers = () => {
                   />
                 </div>
               </div>
-
               <div className="col-span-6 add_driver">
                 <div className="mb-3">
                   <label htmlFor="" className="">
                     License Expiration Date
                   </label>
                   <input
+                    required
                     type="date"
                     className="w-full border "
                     id="drivingLicenseExpirationDate"
@@ -298,7 +304,16 @@ const AddDrivers = () => {
             </div>
 
             <div className="text-center mt-[15px]">
-              <button type="submit" className="common_button">Add New Driver</button>
+              <button type="submit" className="common_button">
+                {
+                  isLoading ?
+                    <Loader /> :
+                    <>
+                      Add New Driver
+                    </>
+                }
+
+              </button>
             </div>
           </form>
         </div>
