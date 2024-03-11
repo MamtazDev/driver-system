@@ -7,8 +7,10 @@ import instance from '@/hooks/instance';
 import useImageUpload from '@/hooks/fileUpload';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
 
 const AddNewCars = () => {
+  const navigate = useRouter();
 
   const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, imageFiles }: any = useImageUpload();
   const [isLoading, setIsLoading] = useState(false);
@@ -94,7 +96,7 @@ const AddNewCars = () => {
         text: "Truck added successfully",
         icon: "success"
       });
-
+      navigate.push('/dashboard/carList');
       form.reset();
 
     } catch (error: any) {

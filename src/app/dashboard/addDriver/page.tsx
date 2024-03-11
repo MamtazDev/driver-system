@@ -7,6 +7,7 @@ import Loader from "@/components/Loader/Loader";
 import useImageUpload from "@/hooks/fileUpload";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -18,6 +19,7 @@ const AddDrivers = () => {
   const [data, setData] = useState<any>({})
 
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useRouter();
 
   useEffect(() => {
 
@@ -94,7 +96,7 @@ const AddDrivers = () => {
         text: "Driver added successfully!",
         icon: "success"
       });
-
+      navigate.push('/dashboard/drivers');
 
       form.reset();
 

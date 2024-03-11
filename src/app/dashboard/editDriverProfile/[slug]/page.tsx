@@ -8,14 +8,13 @@ import useImageUpload from "@/hooks/fileUpload";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import instance from "@/hooks/instance";
-import toast from "react-hot-toast";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const EditDriverProfile = () => {
 
-
-
+    const navigate = useRouter();
     const { imageFileInputRef, selectedImage, handleImageClick, handleImageFileChange, selectedFiles, imageFiles }: any = useImageUpload();
     // console.log(imageFiles)
 
@@ -34,7 +33,7 @@ const EditDriverProfile = () => {
     const router = useParams();
 
     const id = router.slug;
-
+    console.log(id)
 
     const getUserById = async (userId: any) => {
         try {
@@ -56,7 +55,6 @@ const EditDriverProfile = () => {
             [name]: value,
         }));
     };
-
 
     const uploadImageToBackend = async (image: any) => {
 
@@ -102,6 +100,8 @@ const EditDriverProfile = () => {
                 text: "Profile update successfully!",
                 icon: "error"
             });
+            navigate.push(`/dashboard/driverDetails/${id}`)
+
             setUserData({
                 fullName: "",
                 email: "",

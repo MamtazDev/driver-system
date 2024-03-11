@@ -2,11 +2,13 @@
 import { useDriverContext } from "@/hooks/driverContext";
 import instance from "@/hooks/instance";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 const AuthorizationRequest = () => {
+  const navigate = useRouter();
 
   const driverContext = useDriverContext();
 
@@ -67,14 +69,14 @@ const AuthorizationRequest = () => {
 
       if (response.data.success) {
 
-        
+
         Swal.fire({
           text: "Request added successfully",
           icon: "success"
         });
-
-
         setIsLoading(false);
+        navigate.push('/dashboard/requestedList')
+
       } else {
         toast.error("Failed to add a new request");
       }
