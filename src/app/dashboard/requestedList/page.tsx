@@ -210,7 +210,7 @@ const RequestedList = () => {
                           </td>
                         </tr>
 
-                        : requestsLists.length !== 0 ?
+                        : requestsLists.length == 0 ?
                           <tr className="text-center ">
                             <td colSpan={6} >
                               <NoDataFound />

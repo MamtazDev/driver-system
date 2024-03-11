@@ -309,7 +309,9 @@ const AddDrivers = () => {
               <button type="submit" className="common_button">
                 {
                   isLoading ?
-                    <Loader /> :
+                    <>
+                      Loading...
+                    </> :
                     <>
                       Add New Driver
                     </>

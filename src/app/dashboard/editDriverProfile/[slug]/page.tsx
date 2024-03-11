@@ -94,8 +94,6 @@ const EditDriverProfile = () => {
         formData.append("dob", userData.dob);
         formData.append("about", userData.about);
         formData.append("drivingLicenseExpirationDate", userData.drivingLicenseExpirationDate);
-
-
         try {
             const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData);
             setIsLoading(false)
