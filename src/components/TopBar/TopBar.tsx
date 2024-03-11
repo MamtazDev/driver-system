@@ -24,7 +24,7 @@ const TopBar = () => {
       <h2>
         Dashboard
       </h2>
-      <div  className='profile-name flex items-center gap-4 border px-[10px] py-[10px] rounded-[8px]'>
+      <div className='profile-name flex items-center gap-4 border px-[10px] py-[10px] rounded-[8px] shadow-md'>
         <Link href={`/dashboard/driverDetails/${data?._id}`}> <p>{data?.fullName}</p></Link>
       </div>
 
