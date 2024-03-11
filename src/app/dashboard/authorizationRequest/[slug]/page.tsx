@@ -68,20 +68,27 @@ const AuthorizationRequest = () => {
       const response = await instance.post("/api/new-auth", data);
 
       if (response.data.success) {
-
-
         Swal.fire({
           text: "Request added successfully",
           icon: "success"
         });
         setIsLoading(false);
-        navigate.push('/dashboard/requestedList')
 
       } else {
         toast.error("Failed to add a new request");
+        Swal.fire({
+          title: "error",
+          text: "Failed to add a new request",
+          icon: "error"
+        });
       }
     } catch (error: any) {
-      toast.error(`Request failed: ${error.response.data.message}`);
+      setIsLoading(false)
+      Swal.fire({
+        title: "error",
+        text: `Failed to add a new request: Driver already assigned`,
+        icon: "error"
+      });
     }
   };
 

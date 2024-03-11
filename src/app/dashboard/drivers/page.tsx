@@ -88,8 +88,8 @@ const Drivers = () => {
     fetchUsers();
     getUserData()
   }, []);
-  
-  
+
+
   return (
 
     <ProtectedRoute>
@@ -117,9 +117,9 @@ const Drivers = () => {
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  
+
                   <tbody>
-                    
+
                     {
                       isLoading ?
                         <tr>
@@ -127,7 +127,7 @@ const Drivers = () => {
                             <Loader />
                           </td>
                         </tr>
-                        : users.length !== 0 ?
+                        : users.length === 0 ?
                           <tr className="text-center ">
                             <td colSpan={6} >
                               <NoDataFound />

@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import NoImage from "../../../../../public/assets/default-picture.png";
+import Swal from "sweetalert2";
 
 const AssignedDriverCars = () => {
   const router = useParams();
@@ -18,9 +19,6 @@ const AssignedDriverCars = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // const response = await instance.get(`/api/user/getUserById/${id}`);
-        // setTruckData(response?.data?.data?.assignedTo?.trucks);
-
         const response = await instance.get(`/api/new-auth?user=${id}`);
 
         setTruckData(
@@ -36,17 +34,15 @@ const AssignedDriverCars = () => {
   return (
     <>
       <ProtectedRoute>
-        <>
-          <div className="searchResults">
-            <div className="container mx-[50px] w-full">
-              <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
-                {truckData && (
-                  <CarDetails key={truckData._id} details={truckData} />
-                )}
-              </div>
+        <div className="searchResults">
+          <div className="container mx-[50px] w-full">
+            <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
+              {truckData && (
+                <CarDetails key={truckData._id} details={truckData} />
+              )}
             </div>
           </div>
-        </>
+        </div>
       </ProtectedRoute>
     </>
   );
@@ -55,17 +51,76 @@ const AssignedDriverCars = () => {
 export default AssignedDriverCars;
 
 function CarDetails({ details }: any) {
-  console.log(details);
 
-  const { trucks, authorizationState, user } = details;
+  console.log(details)
+
+
+  const { trucks, authorizationState } = details;
+  const [timeLeft, setTimeLeft] = useState({ hours: details?.practiceHour, minutes: 0 });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(prevTime => {
+        if (prevTime.hours === 0 && prevTime.minutes === 0) {
+          clearInterval(interval);
+          return prevTime;
+        }
+        let newMinutes = prevTime.minutes - 1;
+        let newHours = prevTime.hours;
+        if (newMinutes < 0) {
+          newHours--;
+          newMinutes = 59;
+        }
+        return { hours: newHours, minutes: newMinutes };
+      });
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, [details.practiceHour]);
+
+  const { hours, minutes } = timeLeft;
 
   const state =
     authorizationState === "In practice"
-      ? `In practice: ${details?.practiceHour}H`
+      ? `In practice: ${hours}H ${minutes}M`
       : authorizationState === "Exam requested"
-      ? `Exam requested: ${details.examDate}`
-      : authorizationState;
+        ? `Exam requested: ${details.examDate}`
+        : authorizationState;
 
+  const handleSubmit = async (e: any) => {
+    // setIsLoading(true);
+    e.preventDefault();
+    try {
+      // const response = await instance.post(
+      //   "/api/authorization/addNewRequest",
+      //   data
+      // );
+      const response = await instance.post("/api/new-auth", details);
+
+      if (response.data.success) {
+        Swal.fire({
+          text: "Request added successfully",
+          icon: "success"
+        });
+        // setIsLoading(false);
+
+      } else {
+        // toast.error("Failed to add a new request");
+        Swal.fire({
+          title: "error",
+          text: "Failed to add a new request",
+          icon: "error"
+        });
+      }
+    } catch (error: any) {
+      // setIsLoading(false)
+      Swal.fire({
+        title: "error",
+        text: `Failed to add a new request: Driver already assigned`,
+        icon: "error"
+      });
+    }
+  };
   return (
     <>
       <div className="card border border-[red] rounded-[10px] relative">
@@ -83,6 +138,8 @@ function CarDetails({ details }: any) {
         </div>
         <div className="card_body">
           <p>{trucks?.brand}</p>
+          {/* {authorizationState === "In practice" && <><button onClick={handleSubmit}>Request for an exam</button></>} */}
+
           <div className="flex items-center justify-between car_title">
             <h5 className="">Model: {trucks?.model} </h5>
             <p>
@@ -90,7 +147,7 @@ function CarDetails({ details }: any) {
             </p>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 }
