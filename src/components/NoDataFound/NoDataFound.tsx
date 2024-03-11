@@ -1,7 +1,9 @@
 
 const NoDataFound = () => {
     return (
-        <h1 className="mx-auto text-center">No Data Found</h1>
+        <div className="flex items-center justify-center w-full mx-auto text-center my-[30px]">
+            <h1 >No Data Found</h1>
+        </div>
     )
 }
 

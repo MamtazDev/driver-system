@@ -12,7 +12,7 @@ import "./sidebar.scss";
 import Swal from "sweetalert2";
 
 const Sidebar: React.FC = () => {
-  
+
   const router = useRouter();
 
   const [activeLink, setActiveLink] = useState("/");
@@ -50,7 +50,6 @@ const Sidebar: React.FC = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const userData: any = JSON.parse(localStorage.getItem("user") || "null");
-      // console.log("userData", userData);
       const role = userData?.user?.role[0];
       setRole(role);
       setUser(userData?.user);
@@ -328,6 +327,8 @@ const Sidebar: React.FC = () => {
           </div>
         </div>
       </div>
+
+      
       <div className="logout">
         <button onClick={handleLoggedOut}>
           <Image className="logout-icon" src={Logout} alt="Logo" />

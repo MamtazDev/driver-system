@@ -1,16 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
 import profile from "../../../../public/assets/dashHeader.jpg";
-// import profile from "../../../public/assets/dashHeader.jpg";
 import Image from "next/image";
 import Link from "next/link";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import NoDataFound from "@/components/NoDataFound/NoDataFound";
+import Loader from "@/components/Loader/Loader";
 
 const TruckManagerList = () => {
 
     const [data, setData] = useState<any>({});
     const [userData, setUserData] = useState<any>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         let userDataString;
@@ -25,11 +27,17 @@ const TruckManagerList = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true)
+
             try {
                 const response = await instance.get(`api/user/getRoleUsers?role=Manager&ownerId=${data._id}`);
+                setIsLoading(false)
+
                 setUserData(response.data.data);
-                // console.log(response.data.data, " data ");
+
+
             } catch (error: any) {
+                setIsLoading(false)
                 console.error('Error fetching users:', error.message);
             }
         };
@@ -62,31 +70,50 @@ const TruckManagerList = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {userData?.map((data: any) => (
-                                        <>
-                                            <tr className="border-b border-dashed bg-grey-400 dark:border-gray-700">
-                                                <td
-                                                    scope="row"
-                                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                                >
-                                                    <div className="flex items-center gap-[8px]">
-                                                        <Image
-                                                            className="w-[40px] h-[40px]  rounded-full "
-                                                            src={profile}
-                                                            alt="driver1"
-                                                        />
-                                                        <Link href={`/dashboard/assignedCars/${data._id}`} >  <p className="fw-bold ">
-                                                            {data.fullName}</p></Link>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4">{data.email}</td>
-                                                <td className="px-6 py-4">{data.phoneNumber}</td>
-                                                <td>
-                                                    {data.address}
+
+                                    {
+                                        isLoading ?
+                                            <tr>
+                                                <td colSpan={6}>
+                                                    <Loader />
                                                 </td>
                                             </tr>
-                                        </>
-                                    ))}
+                                            : !userData.length ?
+                                                <tr className="text-center ">
+                                                    <td colSpan={6} >
+                                                        <NoDataFound />
+                                                    </td>
+                                                </tr> :
+                                                <>
+                                                    {userData?.map((data: any) => (
+                                                        <>
+                                                            <tr className="border-b border-dashed bg-grey-400 dark:border-gray-700">
+                                                                <td
+                                                                    scope="row"
+                                                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                                                >
+                                                                    <div className="flex items-center gap-[8px]">
+                                                                        <Image
+                                                                            className="w-[40px] h-[40px]  rounded-full "
+                                                                            src={profile}
+                                                                            alt="driver1"
+                                                                        />
+                                                                        <Link href={`/dashboard/assignedCars/${data._id}`} >  <p className="fw-bold ">
+                                                                            {data.fullName}</p></Link>
+                                                                    </div>
+                                                                </td>
+                                                                <td className="px-6 py-4">{data.email}</td>
+                                                                <td className="px-6 py-4">{data.phoneNumber}</td>
+                                                                <td>
+                                                                    {data.address}
+                                                                </td>
+                                                            </tr>
+                                                        </>
+                                                    ))}
+                                                </>
+
+                                    }
+
                                 </tbody>
                             </table>
                         </div>

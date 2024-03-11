@@ -48,18 +48,26 @@ const carList = () => {
         fetchData();
     }, [userDatas]);
 
+
     return (
 
         <ProtectedRoute>
             <>
                 <div className="searchResults">
                     <div className="container mx-[50px] w-full">
-                        <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
-                            {isLoading ? <Loader /> : data.length == 0 ? <NoDataFound /> : data.map((details: any) => (
-                                <CarDetails key={details._id} details={details} />
-                            ))}
+                        {
+                            isLoading ? <Loader /> :
+                                <div className="grid grid-cols-12 gap-4 lg:grid-cols-4">
+                                    {data.length == 0 ? <NoDataFound /> : data.map((details: any) => (
+                                        <CarDetails key={details._id} details={details} />
+                                    ))}
 
-                        </div>
+                                </div>
+                        }
+
+
+
+
                     </div>
                 </div>
             </>
@@ -69,22 +77,19 @@ const carList = () => {
 
 export default carList;
 
-
-
 function CarDetails({ details }: any) {
-
     const [role, setRole] = useState<any>();
     const [user, setUser] = useState<any>({});
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-          const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
-          console.log("userData", userData)
-          const role = userData?.user?.role[0]
-          setRole(role)
-          setUser(userData?.user)
+            const userData: any = JSON.parse(localStorage.getItem('user') || 'null');
+            console.log("userData", userData)
+            const role = userData?.user?.role[0]
+            setRole(role)
+            setUser(userData?.user)
         }
-      }, [])
+    }, [])
 
     return (
         <>
@@ -111,14 +116,13 @@ function CarDetails({ details }: any) {
                     </div>
 
                     {!details?.status ?
-                       <>
-                       {role === "Manager" && <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link> 
-                       
-                    //    <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Manage this Now</button></Link>
-                       }
-                       
-                       </>
-                       
+                        <>
+                            {role === "Manager" && <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link>
+
+                            }
+
+                        </>
+
                         :
                         <div className="flex justify-between items-center mt-[14px]">
                             <p className="text-black">Company: {details?.company}</p>

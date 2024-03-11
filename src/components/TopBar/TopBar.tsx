@@ -19,14 +19,12 @@ const TopBar = () => {
     }
   }, []);
 
-
   return (
     <div className='main-header z-[80] p-[20px] flex justify-between items-center'>
-      <h2 className=''>
+      <h2>
         Dashboard
       </h2>
-      <div className='flex items-center gap-4'>
-        {/* <Image height={40} width={40} className='rounded-[5px]' src={data.image} alt="profile" /> */}
+      <div  className='profile-name flex items-center gap-4 border px-[10px] py-[10px] rounded-[8px]'>
         <Link href={`/dashboard/driverDetails/${data?._id}`}> <p>{data?.fullName}</p></Link>
       </div>
 

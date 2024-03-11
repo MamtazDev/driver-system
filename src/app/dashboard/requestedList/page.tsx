@@ -1,4 +1,6 @@
 "use client";
+import Loader from "@/components/Loader/Loader";
+import NoDataFound from "@/components/NoDataFound/NoDataFound";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import { NotificationsCreate } from "@/utils/interects";
@@ -24,6 +26,8 @@ const RequestedList = () => {
   const [requestsLists, setRequestsLists] = useState<any>([]);
   const [error, setError] = useState(null);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   function closeModal() {
     setIsOpen(false);
@@ -44,14 +48,13 @@ const RequestedList = () => {
   }, []);
 
   const fetchData = async () => {
+    setIsLoading(true)
     try {
-      // const response = await instance.get('/api/authorization/allRequest');
-      // setRequestsLists(response.data.data);
       const response = await instance.get("/api/new-auth?unauthorized=true");
-      console.log(response);
-
+      setIsLoading(false)
       setRequestsLists(response.data.data);
     } catch (error: any) {
+      setIsLoading(false)
       setError(error?.response?.data?.error_message || "An error occurred");
     }
   };
@@ -85,10 +88,7 @@ const RequestedList = () => {
           practiceHour: null,
           examDate: null,
         });
-
-        // toast.success("Driver status update successfull");
         Swal.fire({
-          // title: "Good job!",
           text: "Driver status update successfull",
           icon: "success"
         });
@@ -201,119 +201,139 @@ const RequestedList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {requestsLists.map((requests: any) => (
-                      <React.Fragment key={requests?.trucks?._id}>
-                        <tr className="border-b border-dashed bg-grey-400">
-                          <td
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                          >
-                            <div className="flex items-center gap-[8px]">
-                              <p>{requests?.trucks?.model}</p>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            {requests?.trucks?.company}
-                          </td>
-                          <td className="px-6 py-4">
-                            {requests?.user?.fullName}
-                          </td>
-                          <td className="px-6 py-4">{requests?.user?.email}</td>
-                          <td className="px-6 py-4">
-                            {requests?.user?.phoneNumber}
-                          </td>
+                    {
 
-                          <td className="w-[130px]">
-                            <select
-                              className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                              onChange={(e) =>
-                                handleSelectChange(
-                                  e,
-                                  requests._id,
-                                  requests.user._id,
-                                  requests?.trucks?._id
-                                )
-                              }
-                              value={requests.authorizationState}
-                            >
-                              <option value="choose">Choose</option>
-                              <option value="Requested" disabled>
-                                Requested
-                              </option>
-                              <option value="Request approved">
-                                Request approved
-                              </option>
-                              <option value="In practice">In practice</option>
-                              <option value="Exam requested">
-                                Exam requested
-                              </option>
-                              {/* <option value="Authorized">Authorized</option> */}
-                            </select>
+                      isLoading ?
+                        <tr>
+                          <td colSpan={6}>
+                            <Loader />
                           </td>
                         </tr>
-                        <Modal
-                          isOpen={modalIsOpen}
-                          onRequestClose={closeModal}
-                          style={customStyles}
-                          contentLabel="Example Modal"
-                        >
-                          <div className="text-right mb-[10px]">
-                            <button onClick={closeModal}>
-                              <IoMdClose />
-                            </button>
-                          </div>
-                          {selectedValue === "In practice" && (
-                            <div className="flex flex-col">
-                              <label htmlFor="" className="mb-[8px] fw-[900]">
-                                Hours Of Practice
-                              </label>
-                              {/* <input className='rounded-[8px] bg-[#F8FAFC] mt-[10px]' type="number" placeholder='Hours of Practice' /> */}
-                              <input
-                                className="rounded-[8px] bg-[#F8FAFC] mt-[10px]"
-                                type="number"
-                                placeholder="Hours of Practice"
-                                value={practiceHour}
-                                onChange={(e) =>
-                                  setPracticeHour(e.target.value)
-                                }
-                              />
-                            </div>
-                          )}
 
-                          {selectedValue === "Exam requested" && (
-                            <div className="flex flex-col">
-                              <label htmlFor="" className="mb-[8px] fw-[900]">
-                                Exam Date
-                              </label>
-                              <input
-                                type="date"
-                                className="w-full border rounded-[8px]"
-                                id="drivingLicenseExpirationDate"
-                                name="drivingLicenseExpirationDate"
-                                placeholder="Enter your license expiration date"
-                                onChange={(e) => setExamDate(e.target.value)}
-                              />
-                            </div>
-                          )}
+                        : requestsLists.length !== 0 ?
+                          <tr className="text-center ">
+                            <td colSpan={6} >
+                              <NoDataFound />
+                            </td>
+                          </tr> :
+                          <>
+                            {
+                              requestsLists.map((requests: any) => (
+                                <React.Fragment key={requests?.trucks?._id}>
+                                  <tr className="border-b border-dashed bg-grey-400">
+                                    <td
+                                      scope="row"
+                                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                    >
+                                      <div className="flex items-center gap-[8px]">
+                                        <p>{requests?.trucks?.model}</p>
+                                      </div>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                      {requests?.trucks?.company}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                      {requests?.user?.fullName}
+                                    </td>
+                                    <td className="px-6 py-4">{requests?.user?.email}</td>
+                                    <td className="px-6 py-4">
+                                      {requests?.user?.phoneNumber}
+                                    </td>
 
-                          <div className="text-center">
-                            {/* <button className='common_button'>Save</button> */}
-                            <button
-                              className="common_button"
-                              onClick={() =>
-                                handleSave(
-                                  requests._id,
-                                  requests.user._id,
-                                  requests?.trucks?._id
-                                )
-                              }
-                            >
-                              Save
-                            </button>
-                          </div>
-                        </Modal>
-                      </React.Fragment>
-                    ))}
+                                    <td className="w-[130px]">
+                                      <select
+                                        className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                                        onChange={(e) =>
+                                          handleSelectChange(
+                                            e,
+                                            requests._id,
+                                            requests.user._id,
+                                            requests?.trucks?._id
+                                          )
+                                        }
+                                        value={requests.authorizationState}
+                                      >
+                                        <option value="choose">Choose</option>
+                                        <option value="Requested" disabled>
+                                          Requested
+                                        </option>
+                                        <option value="Request approved">
+                                          Request approved
+                                        </option>
+                                        <option value="In practice">In practice</option>
+                                        <option value="Exam requested">
+                                          Exam requested
+                                        </option>
+                                      </select>
+                                    </td>
+                                  </tr>
+                                  <Modal
+                                    isOpen={modalIsOpen}
+                                    onRequestClose={closeModal}
+                                    style={customStyles}
+                                    contentLabel="Example Modal"
+                                  >
+                                    <div className="text-right mb-[10px]">
+                                      <button onClick={closeModal}>
+                                        <IoMdClose />
+                                      </button>
+                                    </div>
+                                    {selectedValue === "In practice" && (
+                                      <div className="flex flex-col">
+                                        <label htmlFor="" className="mb-[8px] fw-[900]">
+                                          Hours Of Practice
+                                        </label>
+                                        {/* <input className='rounded-[8px] bg-[#F8FAFC] mt-[10px]' type="number" placeholder='Hours of Practice' /> */}
+                                        <input
+                                          className="rounded-[8px] bg-[#F8FAFC] mt-[10px]"
+                                          type="number"
+                                          placeholder="Hours of Practice"
+                                          value={practiceHour}
+                                          onChange={(e) =>
+                                            setPracticeHour(e.target.value)
+                                          }
+                                        />
+                                      </div>
+                                    )}
+
+                                    {selectedValue === "Exam requested" && (
+                                      <div className="flex flex-col">
+                                        <label htmlFor="" className="mb-[8px] fw-[900]">
+                                          Exam Date
+                                        </label>
+                                        <input
+                                          type="date"
+                                          className="w-full border rounded-[8px]"
+                                          id="drivingLicenseExpirationDate"
+                                          name="drivingLicenseExpirationDate"
+                                          placeholder="Enter your license expiration date"
+                                          onChange={(e) => setExamDate(e.target.value)}
+                                        />
+                                      </div>
+                                    )}
+
+                                    <div className="text-center">
+                                      {/* <button className='common_button'>Save</button> */}
+                                      <button
+                                        className="common_button"
+                                        onClick={() =>
+                                          handleSave(
+                                            requests._id,
+                                            requests.user._id,
+                                            requests?.trucks?._id
+                                          )
+                                        }
+                                      >
+                                        Save
+                                      </button>
+                                    </div>
+                                  </Modal>
+                                </React.Fragment>
+                              ))
+
+                            }
+                          </>
+                    }
                   </tbody>
                 </table>
               </div>
@@ -321,7 +341,7 @@ const RequestedList = () => {
           </div>
         </div>
       </>
-    </ProtectedRoute>
+    </ProtectedRoute >
   );
 };
 
