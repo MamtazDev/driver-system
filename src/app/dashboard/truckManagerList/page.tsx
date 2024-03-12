@@ -32,10 +32,7 @@ const TruckManagerList = () => {
             try {
                 const response = await instance.get(`api/user/getRoleUsers?role=Manager&ownerId=${data._id}`);
                 setIsLoading(false)
-
                 setUserData(response.data.data);
-
-
             } catch (error: any) {
                 setIsLoading(false)
                 console.error('Error fetching users:', error.message);

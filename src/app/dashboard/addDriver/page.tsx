@@ -57,9 +57,7 @@ const AddDrivers = () => {
   };
 
   const handleSubmit = async (e: any) => {
-
     setIsLoading(true)
-
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
@@ -71,8 +69,6 @@ const AddDrivers = () => {
     const dob = form.dob.value || '';
     const phoneNumber = form.phoneNumber.value;
     const drivingLicenseExpirationDate = form.drivingLicenseExpirationDate?.value || '';
-
-
     const imageUrl = await uploadImageToBackend(imageFiles);
     const formData: any = new FormData();
 
@@ -96,7 +92,7 @@ const AddDrivers = () => {
         text: "Driver added successfully!",
         icon: "success"
       });
-      navigate.push('/dashboard/drivers');
+      navigate.push('/dashboard/myDrivers');
 
       form.reset();
 
@@ -110,61 +106,14 @@ const AddDrivers = () => {
     }
   };
 
-
-
   return (
     <ProtectedRoute>
       <>
         <div className="w-full">
           <form onSubmit={handleSubmit} className="container mx-auto my-[50px]  round-[16px] p-[50px]  shadow-[0 0 20px rgba(89, 102, 122, .05)] ">
             <h2 className="font-bold text-center text-[40px] my-[20px]">Add a new Driver</h2>
-
-
-            {/* <div className='absolute right-[35%] top-[45%] text-center my-auto ' >
-                    <div className='underline text-[#7155E1] cursor-pointer '
-                      onClick={handleImageClick}>
-                      <p className='text-[14px]'>Brows photo</p></div>
-                    <p>Supports: *.png, *.jpg and *.jpeg</p>
-                  </div> */}
-
             <div className="grid grid-cols-12 gap-4">
-
-              {/* <div className="col-span-6 add_driver">
-              </div> */}
-              {/* //image section */}
-              {/* <div className='border h-[150px] rounded-[5px] cursor-pointer' >
-                <div className="m-auto mb-[20px] " style={{  width: '100px', height: '100px' }} onClick={handleImageClick}>
-                    <Image
-                      src={selectedImage || profile}
-                      alt="Selected"
-                      objectFit="cover"
-                      onClick={handleImageClick}
-                    />
-                  </div>
-                  <div className='absolute left-[35%] top-[45%]  text-center my-auto ' >
-                    <div className='underline text-[#7155E1] cursor-pointer '
-                      onClick={handleImageClick}>
-                      <p className='text-[14px]'>Brows photo</p></div>
-                    <p>Supports: *.png, *.jpg and *.jpeg</p>
-                  </div>
-                  
-                  <input
-                  required
-                    type="file"
-                    ref={imageFileInputRef}
-                    onChange={handleImageFileChange}
-                    name='image'
-                    id='image'
-                    style={{ display: 'none' }}
-                    accept="image/jpg, image/png, image/jpeg"
-
-                  />
-                </div> */}
-              {/* //image section */}
-
               <div className="col-span-6 add_driver">
-
-
                 <div className="mb-3">
                   <label htmlFor="" className="">
                     FullName

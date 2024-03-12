@@ -4,9 +4,12 @@ import NoDataFound from "@/components/NoDataFound/NoDataFound";
 import instance from "@/hooks/instance";
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import { NotificationsCreate } from "@/utils/interects";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { CiEdit } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
 
@@ -171,6 +174,49 @@ const RequestedList = () => {
     }
   };
 
+  const handleDelete = async (userId: any) => {
+    try {
+      const confirmDelete = await Swal.fire({
+        title: 'Confirm Deletion',
+        text: 'Are you sure you want to delete this user?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+      });
+
+      if (!confirmDelete.isConfirmed) {
+        return;
+      }
+
+      const response = await instance.delete(`/api/new-auth/${userId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status !== 200) {
+        throw new Error(`Failed to delete the request: ${response.statusText}`);
+      }
+
+      const data = response.data;
+      Swal.fire({
+        title: 'Deleted!',
+        text: 'Request has been deleted.',
+        icon: 'success',
+      });
+
+    } catch (error: any) {
+      console.error(error.message);
+      Swal.fire({
+        title: 'Error',
+        text: `Failed to delete the request: ${error.message}`,
+        icon: 'error',
+      });
+    }
+  };
+
   return (
     <ProtectedRoute>
       <>
@@ -266,6 +312,15 @@ const RequestedList = () => {
                                         </option>
                                       </select>
                                     </td>
+                                    <td className="">
+                                      <div className="flex items-center gap-2">
+
+                                        <button onClick={() => handleDelete(requests?._id)}>
+                                          <MdDelete className="text-[24px]" />
+                                        </button>
+                                      </div>
+                                    </td>
+
                                   </tr>
                                   <Modal
                                     isOpen={modalIsOpen}
@@ -313,7 +368,6 @@ const RequestedList = () => {
                                     )}
 
                                     <div className="text-center">
-                                      {/* <button className='common_button'>Save</button> */}
                                       <button
                                         className="common_button"
                                         onClick={() =>
@@ -328,6 +382,9 @@ const RequestedList = () => {
                                       </button>
                                     </div>
                                   </Modal>
+
+
+
                                 </React.Fragment>
                               ))
 

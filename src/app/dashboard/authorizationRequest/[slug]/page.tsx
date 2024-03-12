@@ -61,10 +61,6 @@ const AuthorizationRequest = () => {
     setIsLoading(true);
     e.preventDefault();
     try {
-      // const response = await instance.post(
-      //   "/api/authorization/addNewRequest",
-      //   data
-      // );
       const response = await instance.post("/api/new-auth", data);
 
       if (response.data.success) {

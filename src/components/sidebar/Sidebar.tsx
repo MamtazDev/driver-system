@@ -198,7 +198,7 @@ const Sidebar: React.FC = () => {
                       <li>
                         <MenuBtn
                           link="/dashboard/drivers"
-                          text="Drivers"
+                          text="All Drivers"
                           isActive={activeLink === "/dashboard/drivers"}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -206,6 +206,21 @@ const Sidebar: React.FC = () => {
                           }}
                         />
                       </li>
+
+                      {(role === "Manager") &&
+                        <li>
+                          <MenuBtn
+                            link="/dashboard/myDrivers"
+                            text="My Drivers"
+                            isActive={activeLink === "/dashboard/myDrivers"}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveLink("/dashboard/myDrivers");
+                            }}
+                          />
+                        </li>
+                        
+                      }
                       {role !== "Owner" && (
                         <li>
                           <MenuBtn
@@ -328,7 +343,7 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
 
-      
+
       <div className="logout">
         <button onClick={handleLoggedOut}>
           <Image className="logout-icon" src={Logout} alt="Logo" />

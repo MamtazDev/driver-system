@@ -1,23 +1,43 @@
-"use client";
-import driver1 from "../../../../public/assets/driver.jpg";
-import Image from "next/image";
 
-import Link from "next/link";
-import { CiEdit } from "react-icons/ci";
-import { MdDelete } from "react-icons/md";
-import { useEffect, useState } from "react";
-import instance from "@/hooks/instance";
-import ProtectedRoute from "@/routes/ProtectedRoute";
-import Loader from "@/components/Loader/Loader";
-import NoDataFound from "@/components/NoDataFound/NoDataFound";
-import Swal from "sweetalert2";
+'use client'
 
-const Drivers = () => {
+import Loader from '@/components/Loader/Loader'
+import NoDataFound from '@/components/NoDataFound/NoDataFound'
+import instance from '@/hooks/instance'
+import ProtectedRoute from '@/routes/ProtectedRoute'
+import Image from 'next/image'
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import { CiEdit } from 'react-icons/ci'
+import { MdDelete } from 'react-icons/md'
+import Swal from 'sweetalert2'
 
-  const [users, setUsers] = useState([]);
+const MyDrivers = () => {
+
+  const [userData, setUserData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchUsers = async () => {
+  const [data, setData] = useState<any>({})
+
+  useEffect(() => {
+
+    let userDataString;
+    if (typeof window !== undefined) {
+      userDataString = localStorage.getItem('user');
+    }
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      setData(userData?.user);
+    }
+  }, []);
+
+
+
+  const fetchUsers = async (data: any) => {
+    let mangerId = data?._id
+    console.log(data, "datadsjfl")
+
+
     setIsLoading(true)
     try {
       const response = await instance.get('/api/user/getAllUser');
@@ -25,8 +45,8 @@ const Drivers = () => {
       if (allUsers) {
         setIsLoading(false)
       }
-      const driverUsers = allUsers.filter((user: any) => user.role.includes('Driver'));
-      setUsers(driverUsers);
+      const drivers = allUsers.filter((i: any) => i.ownerId === mangerId && i.role.includes('Driver'))
+      setUserData(drivers);
 
     } catch (error) {
 
@@ -36,6 +56,12 @@ const Drivers = () => {
 
     }
   };
+
+  console.log(userData, "userData")
+
+  useEffect(() => {
+    fetchUsers(data)
+  }, [data])
 
   const downloadImage = (imageUrl: any) => {
     const link = document.createElement('a');
@@ -72,7 +98,7 @@ const Drivers = () => {
       }
 
       // Remove the deleted user from the users array
-      setUsers(prevUsers => prevUsers.filter((user: any) => user?._id !== userId));
+      setUserData((prevUsers: any) => prevUsers.filter((user: any) => user._id !== userId));
 
       Swal.fire({
         title: 'Deleted!',
@@ -89,11 +115,6 @@ const Drivers = () => {
       });
     }
   };
-
-  useEffect(() => {
-
-    fetchUsers();
-  }, []);
 
   return (
 
@@ -133,7 +154,7 @@ const Drivers = () => {
                             <Loader />
                           </td>
                         </tr>
-                        : users.length === 0 ?
+                        : userData.length === 0 ?
                           <tr className="text-center ">
                             <td colSpan={6} >
                               <NoDataFound />
@@ -143,7 +164,7 @@ const Drivers = () => {
                           <>
                             {
 
-                              users.map((user: any) =>
+                              userData.map((user: any) =>
                               (
                                 <tr key={user._id} className="border-b border-dashed bg-grey-400 dark:border-gray-700">
                                   <td
@@ -211,7 +232,7 @@ const Drivers = () => {
         </div>
       </>
     </ProtectedRoute>
-  );
-};
+  )
+}
 
-export default Drivers;
+export default MyDrivers
