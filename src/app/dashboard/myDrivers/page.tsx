@@ -122,7 +122,7 @@ const MyDrivers = () => {
       <>
         <div className="w-full driver_list_wrapper">
           <div className="container mx-auto">
-            <h2 className="py-5 text-xl" >All driver list</h2>
+            <h2 className="py-5 text-xl" >My driver list</h2>
             <div className="shadow-card">
               <div className="relative overflow-x-auto">
                 <table className="w-full text-sm text-left text-gray-500 rtl:text-right ">
