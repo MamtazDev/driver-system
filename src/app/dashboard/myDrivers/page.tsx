@@ -163,7 +163,6 @@ const MyDrivers = () => {
                           :
                           <>
                             {
-
                               userData.map((user: any) =>
                               (
                                 <tr key={user._id} className="border-b border-dashed bg-grey-400 dark:border-gray-700">
@@ -174,9 +173,7 @@ const MyDrivers = () => {
                                     <div className="flex items-center gap-[8px]">
                                       <Image
                                         className="w-[40px] h-[40px]  rounded-full"
-                                        src={
-                                          user?.image
-                                        }
+                                        src={user?.image}
                                         width={50}
                                         height={50}
                                         alt="driver1"
