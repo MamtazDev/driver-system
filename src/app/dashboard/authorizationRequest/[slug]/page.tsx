@@ -82,7 +82,7 @@ const AuthorizationRequest = () => {
       setIsLoading(false)
       Swal.fire({
         title: "error",
-        text: `Failed to add a new request: Driver already assigned`,
+        text: `Driver already assigned for this truck`,
         icon: "error"
       });
     }

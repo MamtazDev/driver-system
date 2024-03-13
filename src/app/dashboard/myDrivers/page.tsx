@@ -35,8 +35,6 @@ const MyDrivers = () => {
 
   const fetchUsers = async (data: any) => {
     let mangerId = data?._id
-    console.log(data, "datadsjfl")
-
 
     setIsLoading(true)
     try {

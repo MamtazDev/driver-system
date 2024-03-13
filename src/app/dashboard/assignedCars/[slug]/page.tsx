@@ -96,32 +96,26 @@ function CarDetails({ details }: any) {
             </p>
           </div>
 
-          {!details?.assignedDriver ? (
-            <Link href={`/dashboard/authorizationRequest/${details._id}`}>
-              <button>Authorized Now</button>
-            </Link>
-          ) : (
-            <div>
-              <div className="flex justify-between items-center mt-[14px]">
-                <p className="text-black">Company: {details?.company}</p>
-                {/* <Link
-                href={`/dashboard/driverDetails/${details?.status?.user?._id}`}
-              > */}
-                <p className="font-bold text-black">
-                  Driver name: {details?.assignedDriver?.user?.fullName}
-                </p>
+          {/* {!details?.assignedDriver ? ( */}
+          <Link href={`/dashboard/authorizationRequest/${details._id}`}>
+            <button>Authorized Now</button>
+          </Link>
+          {/* // <div>
+            //   <div className="flex justify-between items-center mt-[14px]">
+            //     <p className="text-black">Company: {details?.company}</p>
+                
+            //     <p className="font-bold text-black">
+            //       Driver name: {details?.assignedDriver?.user?.fullName}
+            //     </p>
+            //   </div>
+            //   <div className="p-1 border rounded bg-green-500 mt-[14px]">
+            //     <p className="font-bold !text-white text-center ">
+            //       Driver status: {details?.assignedDriver?.authorizationState}
+            //     </p>
 
-                {/* </Link> */}
-              </div>
-              <div className="p-1 border rounded bg-green-500 mt-[14px]">
-                <p className="font-bold !text-white text-center ">
-                  Driver status: {details?.assignedDriver?.authorizationState}
-                </p>
-
-                {/* </Link> */}
-              </div>
-            </div>
-          )}
+   
+            //   </div>
+            // </div> */}
         </div>
       </div>
     </>

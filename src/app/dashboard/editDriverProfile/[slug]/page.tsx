@@ -94,6 +94,8 @@ const EditDriverProfile = () => {
         formData.append("dob", userData.dob);
         formData.append("about", userData.about);
         formData.append("drivingLicenseExpirationDate", userData.drivingLicenseExpirationDate);
+
+
         try {
             const response = await instance.put(`/api/user/updateUserProfile/${id}`, formData);
             setIsLoading(false)
@@ -269,11 +271,11 @@ const EditDriverProfile = () => {
                                 </label>
                                 <input
                                     required
-                                    type="text"
+                                    type={`${userData?.drivingLicenseExpirationDate ? "text" : "date"}`}
                                     className="w-full border "
                                     id="drivingLicenseExpirationDate"
                                     placeholder="Enter your city"
-                                    value={userData?.drivingLicenseExpirationDate ? userData.drivingLicenseExpirationDate : '10/20/5'}
+                                    defaultValue={userData?.drivingLicenseExpirationDate ? userData.drivingLicenseExpirationDate : '10/20/5'}
                                     name="drivingLicenseExpirationDate"
                                 />
                             </div>
