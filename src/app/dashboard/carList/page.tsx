@@ -34,7 +34,7 @@ const carList = () => {
         try {
             if (userDatas._id) {
                 const managerIds = userDatas._id;
-                const response = await instance.get(`/api/truck/getAllTrucks?ownerId=${managerIds}`);
+                const response = await instance.get(`/api/truck/getAllTrucks`);
                 setData(response.data.data);
             }
         } catch (error) {
@@ -103,10 +103,10 @@ function CarDetails({ details }: any) {
                     </button>}
                 </div>
 
-                <Link href={`/dashboard/truckDetails/${details?._id}`}>
+                {/* <Link href={`/dashboard/truckDetails/${details?._id}`}> */}
                     <Image height={400} width={500} className="my-[40px]" src={details?.image
                     } alt="car" />
-                </Link>
+                {/* </Link> */}
 
                 <div className="card_body">
                     <p>{details?.brand}</p>

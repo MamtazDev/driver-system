@@ -298,7 +298,7 @@ const RequestedList = () => {
                                             requests?.trucks?._id
                                           )
                                         }
-                                        value={requests.authorizationState}
+                                        value={requests?.authorizationState}
                                       >
                                         <option value="choose">Choose</option>
                                         <option value="Requested" disabled>
