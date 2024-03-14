@@ -123,8 +123,6 @@ const RequestedList = () => {
 
   const handleSave = async (
     requestId: string,
-    userId: string,
-    truckId: string
   ) => {
     try {
       //   const response = await instance.put(
@@ -167,7 +165,6 @@ const RequestedList = () => {
               : request
           )
         );
-        
         setIsOpen(false);
       }
     } catch (error) {
@@ -249,7 +246,6 @@ const RequestedList = () => {
                   </thead>
                   <tbody>
                     {
-
                       isLoading ?
                         <tr>
                           <td colSpan={6}>
@@ -287,7 +283,7 @@ const RequestedList = () => {
                                       {requests?.user?.phoneNumber}
                                     </td>
 
-                                    <td className="w-[130px]">
+                                    <td className="w-fit">
                                       <select
                                         className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                                         onChange={(e) =>

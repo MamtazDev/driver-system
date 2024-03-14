@@ -103,11 +103,8 @@ function CarDetails({ details }: any) {
                     </button>}
                 </div>
 
-                {/* <Link href={`/dashboard/truckDetails/${details?._id}`}> */}
-                    <Image height={400} width={500} className="my-[40px]" src={details?.image
-                    } alt="car" />
-                {/* </Link> */}
-
+                <Image height={400} width={500} className="my-[40px]" src={details?.image
+                } alt="car" />
                 <div className="card_body">
                     <p>{details?.brand}</p>
                     <div className='flex items-center justify-between car_title'>
@@ -118,11 +115,8 @@ function CarDetails({ details }: any) {
                     {!details?.status ?
                         <>
                             {role === "Manager" && <Link href={`/dashboard/authorizationRequest/${details._id}`}><button>Authorized Now</button></Link>
-
                             }
-
                         </>
-
                         :
                         <div className="flex justify-between items-center mt-[14px]">
                             <p className="text-black">Company: {details?.company}</p>

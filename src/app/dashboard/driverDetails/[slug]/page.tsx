@@ -29,9 +29,6 @@ const DriverDetails = () => {
         const userData = findUsersData.find((data: any) => data.user && data.user._id === id);
 
         setData(userData);
-
-        console.log(userData, "datas get from the request")
-
         setUser(userData.user)
 
       } catch (error: any) {
@@ -61,9 +58,6 @@ const DriverDetails = () => {
           <div>
             <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-40 flex items-center justify-end mt-[50px]">
               <div>
-
-                {/* {user && user?.role && user.role[0] === 'Driver' && <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">{data?.authorizationState ? data?.authorizationState : "Not Assigned"}  </button>} */}
-
                 <Link href={`/dashboard/editDriverProfile/${user?._id}`}>
                   <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">Edit Profile </button>
                 </Link>
@@ -169,14 +163,6 @@ const DriverDetails = () => {
             <div className="table-responsive text-nowrap">
               <table className="table w-full mb-0 align-middle qd-table">
                 <tbody>
-                  <tr className="w-full border-b border-dashed ">
-                    <td>
-                      <span className="text-[#9499A1]">Company</span>
-                    </td>
-                    <td>
-                      <strong className="text-heading">{data?.trucks?.company ? data?.trucks?.company : "N/A"}</strong>
-                    </td>
-                  </tr>
                   <tr className="w-full border-b border-dashed ">
                     <td>
                       <span className="text-[#9499A1]">Company</span>
