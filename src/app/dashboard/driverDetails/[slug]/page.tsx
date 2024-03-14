@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 const DriverDetails = () => {
 
   const [user, setUser] = useState<any>([]);
+  const [data, setData] = useState<any>([]);
   const [notification, setNotification] = useState<any>([]);
 
   const router = useParams();
@@ -21,8 +22,17 @@ const DriverDetails = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await instance.get(`/api/user/getUserById/${id}`);
-        setUser(response?.data?.data)
+        const response = await instance.get(`api/new-auth`);
+
+        const findUsersData = response?.data?.data
+
+        const userData = findUsersData.find((data: any) => data.user && data.user._id === id);
+
+        setData(userData);
+
+        console.log(userData, "datas get from the request")
+
+        setUser(userData.user)
 
       } catch (error: any) {
         toast.error('Error fetching users:', error.message);
@@ -31,13 +41,24 @@ const DriverDetails = () => {
     fetchUsers();
   }, [id]);
 
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await instance.get(`/api/user/getUserById/${id}`);
+  //       setUser(response?.data?.data)
+
+  //     } catch (error: any) {
+  //       toast.error('Error fetching users:', error.message);
+  //     }
+  //   };
+  //   fetchUsers();
+  // }, [id]);
+
   useEffect(() => {
     const fetchNotification = async () => {
       try {
         const response = await instance.get(`/api/notifications/getByUser/${id}`);
         setNotification(response?.data)
-        console.log(response.data)
-
       } catch (error: any) {
         console.error('Error fetching users:', error.message);
       }
@@ -53,10 +74,10 @@ const DriverDetails = () => {
           <div>
             <div className="bg-[#7155E1] h-[100px] rounded-[8px] relative z-40 flex items-center justify-end mt-[50px]">
               <div>
-                {user && user?.role && user.role[0] === 'Driver' && <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">{user?.assignedTo ? "Already Assigned" : "Not Assigned"}  </button>}
+                {user && user?.role && user.role[0] === 'Driver' && <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">{data?.authorizationState ? "Already Assigned" : "Not Assigned"}  </button>}
                 <Link href={`/dashboard/editDriverProfile/${user?._id}`}>
                   <button className=" p-[8px] text-white rounded-[8px] border border-[white]  m-[15px]">Edit Profile </button>
-                </Link>
+                </Link> 
               </div>
             </div>
           </div>
@@ -129,7 +150,7 @@ const DriverDetails = () => {
                         <span className="text-[#9499A1]">Company</span>
                       </td>
                       <td>
-                        <strong className="text-heading">{user?.companyName ? user?.companyName : "N/A"}</strong>
+                        <strong className="text-heading">{data?.trucks?.company ? data?.trucks?.company : "N/A"}</strong>
                       </td>
                     </tr>
 
@@ -157,7 +178,7 @@ const DriverDetails = () => {
                       <span className="text-[#9499A1]">Company</span>
                     </td>
                     <td>
-                      <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
+                      <strong className="text-heading">{data?.trucks?.company ? data?.trucks?.company : "N/A"}</strong>
                     </td>
                   </tr>
                   <tr className="w-full border-b border-dashed " >
@@ -166,7 +187,7 @@ const DriverDetails = () => {
                     </td>
                     <td>
                       <div className="flex items-center justify-start">
-                        <strong className="text-heading me3">{user?.assignedTo ? user?.assignedTo?.trucks?.licensePlate : "N/A"}</strong>
+                        <strong className="text-heading me3">{data?.trucks?.licensePlate ? data?.trucks?.licensePlate : "N/A"}</strong>
                       </div>
                     </td>
                   </tr>
@@ -176,7 +197,7 @@ const DriverDetails = () => {
                       <span className="text-[#9499A1]">Model</span>
                     </td>
                     <td>
-                      <strong className="text-heading">{user?.assignedTo ? user?.assignedTo?.trucks?.model : "N/A"}</strong>
+                      <strong className="text-heading">{data?.trucks?.model ? data?.trucks?.model : "N/A"}</strong>
                     </td>
                   </tr>
                   <tr className="w-full border-b border-dashed ">
@@ -184,7 +205,7 @@ const DriverDetails = () => {
                       <span className="text-[#9499A1]">VIN Number</span>
                     </td>
                     <td>
-                      <strong><a href="#" className="">{user?.assignedTo ? user?.assignedTo?.trucks?.vinNumber : "N/A"}</a></strong>
+                      <strong><a href="#" className="">{data?.trucks?.vinNumber ? data?.trucks?.vinNumber : "N/A"}</a></strong>
                     </td>
                   </tr>
 

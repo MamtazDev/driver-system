@@ -167,6 +167,7 @@ const RequestedList = () => {
               : request
           )
         );
+        
         setIsOpen(false);
       }
     } catch (error) {
